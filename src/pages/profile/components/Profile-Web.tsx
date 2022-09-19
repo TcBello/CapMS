@@ -45,7 +45,9 @@ class ProfileWeb extends Component{
                                     </IonItem>
                                 </IonList>
                                 <div className="content-right">
+                                    {/* PROFILE IMAGE */}
                                     <div className="profile-image"></div>
+                                    {/* EDIT BUTTON */}
                                     <IonButton className="edit-button">Edit Profile</IonButton>
                                 </div>
                             </div>
