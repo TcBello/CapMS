@@ -1,0 +1,7 @@
+{
+  "name": "capms",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
