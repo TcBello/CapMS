@@ -3,13 +3,13 @@ import { call, mail, person, school } from "ionicons/icons";
 import { Component } from "react";
 import MediaQuery from 'react-responsive';
 import ContentHeader from "../../../core/components/ContentHeader";
-import { webHeight } from "../../../core/Utils";
+import { webWidth } from "../../../core/Utils";
 import "../Profile.css";
 
 class ProfileWeb extends Component{
     render(){
         return (
-            <MediaQuery minWidth={webHeight}>
+            <MediaQuery minWidth={webWidth}>
                 <IonPage>
                     <ContentHeader title="User Profile"/>
                     <IonContent className="content">
