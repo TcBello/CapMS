@@ -1,9 +1,14 @@
+import { IonHeader, IonMenuButton, IonPage } from "@ionic/react";
 import { Component } from "react";
 
 class ProfileMobile extends Component{
     render(){
         return (
-            <div></div>
+            <IonPage>
+                <IonHeader>
+                    <IonMenuButton></IonMenuButton>
+                </IonHeader>
+            </IonPage>
         );
     }
 }

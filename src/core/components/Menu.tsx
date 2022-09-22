@@ -11,13 +11,13 @@ import {
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { archiveOutline, archiveSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { archiveOutline, archiveSharp, bookmarkOutline, document, heartOutline, heartSharp, logOut, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, person, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 import './Menu.css';
+import '../../core/components/Spacer.css';
 
 interface AppPage {
   url: string;
-  iosIcon: string;
-  mdIcon: string;
+  icon: string;
   title: string;
 }
 
@@ -25,14 +25,12 @@ const appPages: AppPage[] = [
   {
     title: 'Profile',
     url: '/home/profile',
-    iosIcon: mailOutline,
-    mdIcon: mailSharp
+    icon: person,
   },
   {
     title: 'Advisers',
     url: '/home/advisers',
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp
+    icon: '/assets/icon/adviser-logo.svg'
   },
   // {
   //   title: 'Favorites',
@@ -43,20 +41,17 @@ const appPages: AppPage[] = [
   {
     title: 'Workbench',
     url: '/home/workbench',
-    iosIcon: archiveOutline,
-    mdIcon: archiveSharp
+    icon: document
   },
   {
     title: 'Projects',
     url: '/home/projects',
-    iosIcon: trashOutline,
-    mdIcon: trashSharp
+    icon: '/assets/icon/project-icon.svg'
   },
   {
     title: 'Logout',
     url: '/home/logout',
-    iosIcon: warningOutline,
-    mdIcon: warningSharp
+    icon: logOut
   }
 ];
 
@@ -66,16 +61,21 @@ const Menu: React.FC = () => {
   const location = useLocation();
 
   return (
-    <IonMenu contentId="main" type="overlay">
+    <IonMenu contentId="main" type="push">
       <IonContent>
         <IonList id="inbox-list" lines='none'>
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
+          <div className='center'>
+            {/* PROFILE IMAGE */}
+            <div className='profile-image' />
+            {/* NAME */}
+            <div className='name'>Sum Ting Wong</div>
+          </div>
+          <div className='spacer-h-m'/>
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
                 <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                  <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
+                  <IonIcon slot='start' src={appPage.icon}/>
                   <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>
               </IonMenuToggle>
