@@ -2,7 +2,7 @@ import { IonButton, IonCard, IonIcon, IonInput, IonItem, IonLabel } from "@ionic
 import { lockClosed, mail } from "ionicons/icons";
 import { Component } from "react";
 import MediaQuery from "react-responsive";
-import { webHeight } from "../../../core/Utils";
+import { webWidth } from "../../../core/Utils";
 import BackgroundLogin from "./BackgroundLogin";
 
 class LoginWeb extends Component{
@@ -13,7 +13,7 @@ class LoginWeb extends Component{
     render(){
         return (
             <div>
-                <MediaQuery minWidth={webHeight}>
+                <MediaQuery minWidth={webWidth}>
                     {/* BACKGROUND IMAGE */}
                     <BackgroundLogin />
                     <div className="content-center">

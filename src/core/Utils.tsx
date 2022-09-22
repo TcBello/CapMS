@@ -1,3 +1,3 @@
-const webHeight: number = 992; //760
+const webWidth: number = 992; //760
 
-export {webHeight};
+export {webWidth};
