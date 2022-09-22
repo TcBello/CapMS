@@ -4,13 +4,14 @@ import { Component } from "react";
 import { Route, Redirect } from "react-router";
 import Menu from "../../core/components/Menu";
 import Home from "../home/Home";
+import './Split-View.css';
 
 class SplitView extends Component{
     render(){
         return (
             <div>
                 <IonReactRouter>
-                    <IonSplitPane contentId="main">
+                    <IonSplitPane contentId="main" className="split-view">
                         <Menu />
                         <IonRouterOutlet id="main">
                             <Route path="/split-view" exact={true}>

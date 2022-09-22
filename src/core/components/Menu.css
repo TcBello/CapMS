@@ -1,5 +1,6 @@
 ion-menu ion-content {
-  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+  /* --background: var(--ion-item-background, var(--ion-background-color, #fff)); */
+  --background: var(--palette-light-orange);
 }
 
 ion-menu.md ion-content {
@@ -11,6 +12,7 @@ ion-menu.md ion-content {
 
 ion-menu.md ion-list {
   padding: 20px 0;
+  background-color: var(--palette-light-orange);
 }
 
 ion-menu.md ion-note {
@@ -21,9 +23,9 @@ ion-menu.md ion-list-header, ion-menu.md ion-note {
   padding-left: 10px;
 }
 
-ion-menu.md ion-list#inbox-list {
+/* ion-menu.md ion-list#inbox-list {
   border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
-}
+} */
 
 ion-menu.md ion-list#inbox-list ion-list-header {
   font-size: 22px;
@@ -41,15 +43,18 @@ ion-menu.md ion-list#labels-list ion-list-header {
 ion-menu.md ion-item {
   --padding-start: 10px;
   --padding-end: 10px;
-  border-radius: 4px;
+  --background: var(--palette-light-orange);
+  border-radius: 30px;
 }
 
 ion-menu.md ion-item.selected {
-  --background: rgba(var(--ion-color-primary-rgb), 0.14);
+  /* --background: rgba(var(--ion-color-primary-rgb), 0.14); */
+  --background: var(--palette-red);
+  border-radius: 30px;
 }
 
 ion-menu.md ion-item.selected ion-icon {
-  color: var(--ion-color-primary);
+  color: white;
 }
 
 ion-menu.md ion-item ion-icon {
@@ -109,5 +114,26 @@ ion-note {
 }
 
 ion-item.selected {
-  --color: var(--ion-color-primary);
-} 
+  /* --color: var(--ion-color-primary); */
+  --color: white;
+}
+
+.center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center .name{
+  font-size: large;
+  font-weight: bold;
+}
+
+.profile-image{
+  background-image: url("https://microbiology.ucr.edu/sites/default/files/styles/form_preview/public/blank-profile-pic.png?itok=4teBBoet");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 200px;
+  height: 200px;
+}
