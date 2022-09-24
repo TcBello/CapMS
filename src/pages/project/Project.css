@@ -1,0 +1,86 @@
+.project-container{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+}
+
+.project-container .project-propose-button{
+    --background: var(--palette-blue);
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    height: 50px;
+}
+
+.project-container .project-item-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.project-item-container .item-card{
+    border-radius: 20px;
+    height: 200px;
+    width: 180px;
+    box-shadow: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item-card .project-status-approved-color{
+    width: 100%;
+    height: 25px;
+    background-color: var(--palette-green);
+}
+
+.item-card .project-status-approved-image{
+    width: 100px;
+    height: 100px;
+    background-image: url("../../../public/assets/images/approved.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.item-card .project-status-denied-color{
+    width: 100%;
+    height: 25px;
+    background-color: var(--palette-red);
+}
+
+.item-card .project-status-denied-image{
+    width: 100px;
+    height: 100px;
+    background-image: url("../../../public/assets/images/denied.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.item-card .project-status-pending-color{
+    width: 100%;
+    height: 25px;
+    background-color: var(--palette-light-orange);
+}
+
+.item-card .project-status-pending-image{
+    width: 100px;
+    height: 100px;
+    background-image: url("../../../public/assets/images/pending.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.item-card .project-item-name{
+    color: black;
+    width: 180px;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+}

@@ -1,6 +1,7 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useParams } from 'react-router';
 import Profile from '../profile/Profile';
+import Project from '../project/Project';
 import './Home.css';
 
 const Home: React.FC = () => {
@@ -27,11 +28,7 @@ const Home: React.FC = () => {
       );
     // PROJECT PAGE
     case "projects":
-      return (
-        <div>
-          <h1>this is projects</h1>
-        </div>
-      );
+      return <Project />;
     // LOGOUT PAGE
     case "logout":
       return (
