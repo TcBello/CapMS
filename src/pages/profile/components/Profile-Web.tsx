@@ -11,6 +11,7 @@ class ProfileWeb extends Component{
         return (
             <MediaQuery minWidth={webWidth}>
                 <IonPage>
+                    {/* CONTENT HEADER */}
                     <ContentHeader title="User Profile"/>
                     <IonContent className="content">
                         <div className="profile-container">

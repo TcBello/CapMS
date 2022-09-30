@@ -1,5 +1,6 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useParams } from 'react-router';
+import Adviser from '../adviser/Adviser';
 import Profile from '../profile/Profile';
 import './Home.css';
 
@@ -13,11 +14,7 @@ const Home: React.FC = () => {
       return <Profile />;
     // ADVISER PAGE
     case "advisers":
-      return (
-        <div>
-          <h1>this is advisers</h1>
-        </div>
-      );
+     return <Adviser />;
     // WORKBENCH PAGE
     case "workbench":
       return (
