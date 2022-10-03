@@ -19,7 +19,7 @@ class LoginWeb extends Component{
                     <div className="content-center">
                     <div className="spacer-h-xl"/>
                         {/* CAPMS HEADER */}
-                        <h1>Cap<span>MS</span></h1>
+                        <h1 className="cap-text">Cap<span>MS</span></h1>
                         <div className="spacer-h-xl"/>
                         {/* CARD */}
                         <IonCard className="card">
