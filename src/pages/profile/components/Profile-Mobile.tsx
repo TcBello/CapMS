@@ -1,14 +1,52 @@
-import { IonHeader, IonMenuButton, IonPage } from "@ionic/react";
+import { IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonPage } from "@ionic/react";
+import { call, mail, school } from "ionicons/icons";
 import { Component } from "react";
 
 class ProfileMobile extends Component{
     render(){
         return (
-            <IonPage>
-                <IonHeader>
-                    <IonMenuButton></IonMenuButton>
+            <IonContent className="profile-mobile-page">
+                {/* APPBAR */}
+                <IonHeader className="profile-mobile-appbar">
+                    {/* MENU BUTTON */}
+                    <IonMenuButton className="menu-button"></IonMenuButton>
+                    <div className="spacer-w-xs"/>
+                    {/* PROFILE HEADER */}
+                    <h6 className="header">Profile</h6>
                 </IonHeader>
-            </IonPage>
+                <div className="profile-mobile-container">
+                    <div className="profile-mobile-content-center">
+                    <div className="spacer-h-l"/>
+                        {/* PHOTO */}
+                        <div className="photo" />
+                        {/* NAME */}
+                        <h5 className="name">Sum Ting Wong</h5>
+                        {/* ROLE */}
+                        <h5 className="role">Student</h5>
+                    </div>
+                    <div className="spacer-h-m"/>
+                    {/* EMAIL */}
+                    <IonItem lines="none">
+                        <IonIcon icon={mail} slot="start" />
+                        <IonLabel>sumting.wong@g.batstate-u.edu.ph</IonLabel>
+                    </IonItem>
+                    {/* SR CODE */}
+                    <IonItem lines="none">
+                        <IonIcon icon="/assets/icon/srcode-logo.svg" slot="start" />
+                        <IonLabel>19-00345</IonLabel>
+                    </IonItem>
+                    {/* MAJOR IN */}
+                    <IonItem lines="none">
+                        <IonIcon icon={school} slot="start" />
+                        <IonLabel>Major in Business Analytics</IonLabel>
+                    </IonItem>
+                    {/* CONTACT NUMBER */}
+                    <IonItem lines="none">
+                        <IonIcon icon={call} slot="start" />
+                        <IonLabel>09203457123</IonLabel>
+                    </IonItem>
+                </div>
+            </IonContent>
         );
     }
 }
