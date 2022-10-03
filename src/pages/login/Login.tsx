@@ -6,6 +6,7 @@ import "../../core/components/Spacer.css";
 import MediaQuery from "react-responsive";
 import LoginWeb from "./components/Login-Web";
 import LoginMobile from "./components/Login-Mobile";
+import "./Login.css";
 
 class Login extends Component{
     constructor(props: {}){
