@@ -1,4 +1,8 @@
-.container{
+.content-header-container{
     background-color: var(--palette-light-red);
     text-align: center;
+}
+
+.content-header-container h1{
+    color: white;
 }

@@ -54,8 +54,9 @@ class ProjectWeb extends Component{
                                 }
                             })}
                         </div>
+                        {/* PROPOSE TOPIC BUTTON */}
                         <IonButton className="project-propose-button">
-                            <IonIcon slot="start" icon={add}></IonIcon>
+                            <IonIcon slot="start" icon={add} className="icon"></IonIcon>
                             Propose Topic
                         </IonButton>
                     </div>

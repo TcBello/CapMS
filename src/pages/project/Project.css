@@ -13,6 +13,11 @@
     margin-bottom: 20px;
     margin-right: 20px;
     height: 50px;
+    color: white;
+}
+
+.project-propose-button .icon{
+    color: white;
 }
 
 .project-container .project-item-container{
