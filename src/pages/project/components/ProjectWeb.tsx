@@ -11,21 +11,25 @@ import PendingProject from "./PendingProject";
 
 interface ProjectData{
     name: string,
-    status: string
+    status: string,
+    gDocsLink: string
 }
 
 const sampleProjectData: ProjectData[] = [
     {
         name: "CapMS",
-        status: "approved"
+        status: "approved",
+        gDocsLink: "https://docs.google.com/document/d/1YvFSbvS1icW8goiYBpFthwyagygjYU9UZB6bEhFJk_g/edit"
     },
     {
         name: "Loady Search",
-        status: "pending"
+        status: "pending",
+        gDocsLink: "https://docs.google.com/document/d/1YvFSbvS1icW8goiYBpFthwyagygjYU9UZB6bEhFJk_g/edit"
     },
     {
         name: "Palay Corp",
-        status: "denied"
+        status: "denied",
+        gDocsLink: "https://docs.google.com/document/d/1YvFSbvS1icW8goiYBpFthwyagygjYU9UZB6bEhFJk_g/edit"
     }
 ];
 
@@ -39,16 +43,18 @@ class ProjectWeb extends Component{
                     <div className="project-container">
                         <div className="project-item-container">
                             {sampleProjectData.map((project, index) => {
+                                let hrefLink = `/${project.name}/files`;
+
                                 switch(project.status){
                                     case "approved":
                                         // APPROVED PROJECT CARD
-                                        return <ApprovedProject name={project.name}/>;
+                                        return <ApprovedProject name={project.name} href={hrefLink}/>;
                                     case "denied":
                                         // DENIED PROJECT CARD
-                                        return <DeniedProject name={project.name}/>;
+                                        return <DeniedProject name={project.name} href={hrefLink}/>;
                                     case "pending":
                                         // PENDING PROJECT CARD
-                                        return <PendingProject name={project.name}/>;
+                                        return <PendingProject name={project.name} href={hrefLink}/>;
                                     default:
                                         return <div></div>;
                                 }

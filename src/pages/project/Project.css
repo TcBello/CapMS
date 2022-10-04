@@ -48,6 +48,8 @@
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .item-card .project-status-denied-color{
@@ -63,6 +65,8 @@
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .item-card .project-status-pending-color{
@@ -78,6 +82,8 @@
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .item-card .project-item-name{

@@ -25,6 +25,7 @@ import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import SplitView from './pages/split-view/Split-View';
 import Test from './pages/test';
+import ProjectFile from './pages/project-file/Project-File';
 
 setupIonicReact();
 
@@ -40,20 +41,9 @@ const App: React.FC = () => {
           <Route path="/split-view" exact={true} component={SplitView}></Route>
           <Route path="/test" exact={true} component={Test}></Route>
           <Route path="/home/:name" exact={true}>
-          <Redirect to="/split-view"/>
-            {/* <Home /> */}
+            <Redirect to="/split-view"/>
           </Route>
-          {/* <IonSplitPane contentId="main"> */}
-            {/* <Menu /> */}
-            {/* <IonRouterOutlet id="main">
-              <Route path="/home" exact={true}>
-                <Redirect to="/home/Inbox" />
-              </Route>
-              <Route path="/home/:name" exact={true}>
-                <Home />
-              </Route>
-            </IonRouterOutlet>
-          </IonSplitPane> */}
+          <Route path="/:name/files" component={ProjectFile}/>
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
