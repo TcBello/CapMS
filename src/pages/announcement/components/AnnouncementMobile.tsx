@@ -35,7 +35,7 @@ class AnnouncementMobile extends Component{
             <IonContent>
                 {/* CONTENT HEADER */}
                 <MobileMenuAppBar title="Announcements"/>
-                <div className="announcement-container">
+                <div className="announcement-container-mobile">
                     {sampleData.map((announcement, index) => {
                         return <AnnouncementCard by={announcement.by} createdAt={announcement.createdAt} content={announcement.content} />;
                     })}
