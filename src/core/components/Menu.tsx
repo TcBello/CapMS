@@ -23,25 +23,19 @@ interface AppPage {
 
 const appPages: AppPage[] = [
   {
+    title: 'Announcements',
+    url: '/home/announcements',
+    icon: '/assets/icon/announcement.svg',
+  },
+  {
     title: 'Profile',
     url: '/home/profile',
     icon: person,
   },
   {
-    title: 'Advisers',
+    title: 'My Team',
     url: '/home/advisers',
-    icon: '/assets/icon/adviser-logo.svg'
-  },
-  // {
-  //   title: 'Favorites',
-  //   url: '/home/Favorites',
-  //   iosIcon: heartOutline,
-  //   mdIcon: heartSharp
-  // },
-  {
-    title: 'Workbench',
-    url: '/home/workbench',
-    icon: document
+    icon: '/assets/icon/my-team.svg'
   },
   {
     title: 'Projects',
