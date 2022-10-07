@@ -15,7 +15,7 @@ class SplitView extends Component{
                         <Menu />
                         <IonRouterOutlet id="main">
                             <Route path="/split-view" exact={true}>
-                                <Redirect to="/home/profile" />
+                                <Redirect to="/home/announcements" />
                             </Route>
                             <Route path="/home/:name" exact={true}>
                                 <Home />

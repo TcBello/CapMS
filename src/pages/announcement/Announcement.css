@@ -1,0 +1,24 @@
+.announcement-container{
+    background-color: var(--palette-light-orange);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.announcement-card{
+    border-radius: 20px;
+    background-color: white;
+    width: 90%;
+}
+
+.announcement-card .title{
+    font-weight: bold;
+}
+
+.announcement-card p{
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: justify;
+}
