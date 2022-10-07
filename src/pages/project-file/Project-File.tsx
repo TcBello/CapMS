@@ -3,6 +3,7 @@ import { Component } from "react";
 import "./Project-File.css";
 import "../../core/components/Spacer.css";
 import { add, arrowBack, document } from "ionicons/icons";
+import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
 
 interface FilesData{
     name: string,
@@ -26,18 +27,12 @@ const sampleData: FilesData[] = [
 
 class ProjectFile extends Component<{match: any},{}>{
     render(){
+        const title: string = `${this.props.match.params.name}'s Files`;
+        
         return (
             <IonPage>
                 {/* APPBAR */}
-                <IonHeader className="project-file-appbar">
-                    {/* BACK BUTTON */}
-                    <IonButton className="project-file-back-button" fill="clear" href="/home/projects">
-                        <IonIcon icon={arrowBack} className="icon"/>
-                    </IonButton>
-                    <div className="spacer-w-xs"/>
-                    {/* PROFILE HEADER */}
-                    <h6 className="header">{this.props.match.params.name}'s Files</h6>
-                </IonHeader>
+                <MobileArrowBackAppBar title={title} href="/split-view" />
                 {/* CONTENT */}
                 <IonContent>
                     {/* FILE ITEMS */}

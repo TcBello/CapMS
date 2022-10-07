@@ -1,19 +1,14 @@
 import { IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonPage } from "@ionic/react";
 import { call, mail, school } from "ionicons/icons";
 import { Component } from "react";
+import { MobileMenuAppBar } from "../../../core/components/Mobile-Appbar";
 
 class ProfileMobile extends Component{
     render(){
         return (
             <IonContent className="profile-mobile-page">
                 {/* APPBAR */}
-                <IonHeader className="profile-mobile-appbar">
-                    {/* MENU BUTTON */}
-                    <IonMenuButton className="menu-button"></IonMenuButton>
-                    <div className="spacer-w-xs"/>
-                    {/* PROFILE HEADER */}
-                    <h6 className="header">Profile</h6>
-                </IonHeader>
+                <MobileMenuAppBar title="Profile" />
                 <div className="profile-mobile-container">
                     <div className="profile-mobile-content-center">
                     <div className="spacer-h-l"/>

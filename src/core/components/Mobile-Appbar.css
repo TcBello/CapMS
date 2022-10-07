@@ -1,0 +1,24 @@
+.mobile-appbar{
+    width: 100%;
+    height: 70px;
+    background-color: var(--palette-light-red);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.mobile-appbar .menu-button{
+    color: white;
+}
+
+.mobile-appbar .back-button-icon{
+    color: white;
+}
+
+.mobile-appbar .header{
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+    line-height: 0px;
+    height: 8%;
+}
