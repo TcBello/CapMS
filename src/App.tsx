@@ -26,6 +26,8 @@ import Login from './pages/login/Login';
 import SplitView from './pages/split-view/Split-View';
 import Test from './pages/test';
 import ProjectFile from './pages/project-file/Project-File';
+import ProposeTopic from './pages/propose-topic/Propose-Topic';
+import Adviser from './pages/adviser/Adviser';
 
 setupIonicReact();
 
@@ -44,6 +46,8 @@ const App: React.FC = () => {
             <Redirect to="/split-view"/>
           </Route>
           <Route path="/:name/files" component={ProjectFile}/>
+          <Route path="/projects/propose-topic" component={ProposeTopic}/>
+          <Route path="/projects/propose-topic/select-adviser/:number" component={Adviser}/>
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
