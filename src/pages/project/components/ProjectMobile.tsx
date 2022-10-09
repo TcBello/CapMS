@@ -61,7 +61,7 @@ class ProjectMobile extends Component{
                         })}
                     </div>
                     {/* PROPOSE TOPIC BUTTON */}
-                    <IonButton className="project-propose-button">
+                    <IonButton className="project-propose-button" href="/projects/propose-topic">
                         <IonIcon slot="start" icon={add} className="icon"></IonIcon>
                         Propose Topic
                     </IonButton>
