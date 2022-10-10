@@ -78,7 +78,7 @@ class Adviser extends Component{
                                 case "available":
                                     return <AvailableCard name={adviser.name} image={adviser.image} href="/projects/propose-topic"/>;
                                 case "unavailable":
-                                    return <UnavailableCard name={adviser.name} image={adviser.image} href=""/>;
+                                    return <UnavailableCard name={adviser.name} image={adviser.image} href="/projects/propose-topic"/>;
                                 default:
                                     return <div></div>;
                             }
