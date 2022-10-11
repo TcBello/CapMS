@@ -34,7 +34,9 @@ const sampleData: MyTeamModel[] = [
 const MyTeamMobile = (props: any) => {
     return (
         <IonContent>
+            {/* APP BAR */}
             <MobileMenuAppBar title="My Team" />
+            {/* MEMBER ITEM */}
             {sampleData.map((member, index) => {
                 return <div>
                     <div className="spacer-h-m" />
