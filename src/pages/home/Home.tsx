@@ -2,6 +2,7 @@ import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, Io
 import { useParams } from 'react-router';
 import Adviser from '../adviser/Adviser';
 import Announcement from '../announcement/Announcement';
+import MyTeam from '../my-team/My-Team';
 import Profile from '../profile/Profile';
 import Project from '../project/Project';
 import './Home.css';
@@ -18,7 +19,7 @@ const Home: React.FC = () => {
       return <Profile />;
     // MY TEAM PAGE
     case "my-team":
-     return <Adviser />;
+     return <MyTeam />
     // PROJECT PAGE
     case "projects":
       return <Project />;
