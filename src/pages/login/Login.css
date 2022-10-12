@@ -2,6 +2,12 @@
     color: black;
 }
 
+ion-toast.custom-toast {
+    --background: var(--palette-red);
+    --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
 h1{
     z-index: 1;
     font-weight: bold;

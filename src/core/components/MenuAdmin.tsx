@@ -23,35 +23,50 @@ interface AppPage {
 
 const appPages: AppPage[] = [
   {
+    title: 'Dashboard',
+    url: '/home/admin/dashboard',
+    icon: '/assets/icon/dashboard.svg',
+  },
+  {
     title: 'Announcements',
-    url: '/home/student/announcements',
+    url: '/home/admin/announcements',
     icon: '/assets/icon/announcement.svg',
   },
   {
     title: 'Profile',
-    url: '/home/student/profile',
+    url: '/home/admin/profile',
     icon: person,
   },
   {
-    title: 'My Team',
-    url: '/home/student/my-team',
+    title: 'Teams',
+    url: '/home/admin/my-team',
     icon: '/assets/icon/my-team.svg'
   },
   {
+    title: 'Students',
+    url: '/home/admin/students',
+    icon: '/assets/icon/student.svg'
+  },
+  {
+    title: 'Faculty Staffs',
+    url: '/home/admin/faculty-staffs',
+    icon: '/assets/icon/faculty.svg'
+  },
+  {
     title: 'Projects',
-    url: '/home/student/projects',
+    url: '/home/admin/projects',
     icon: '/assets/icon/project-icon.svg'
   },
   {
     title: 'Logout',
-    url: '/home/student/logout',
+    url: '/home/admin/logout',
     icon: logOut
   }
 ];
 
 const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
-const Menu: React.FC = () => {
+const MenuAdmin: React.FC = () => {
   const location = useLocation();
 
   return (
@@ -91,4 +106,4 @@ const Menu: React.FC = () => {
   );
 };
 
-export default Menu;
+export default MenuAdmin;

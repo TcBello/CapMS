@@ -1,6 +1,7 @@
 import { IonIcon, IonItem, IonLabel, IonInput, IonButton } from "@ionic/react";
 import { lockClosed, mail } from "ionicons/icons";
 import { Component } from "react";
+import { useHistory } from "react-router";
 
 class LoginMobile extends Component{
     render(){
