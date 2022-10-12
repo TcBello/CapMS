@@ -24,34 +24,34 @@ interface AppPage {
 const appPages: AppPage[] = [
   {
     title: 'Announcements',
-    url: '/home/student/announcements',
+    url: '/home/faculty/announcements',
     icon: '/assets/icon/announcement.svg',
   },
   {
     title: 'Profile',
-    url: '/home/student/profile',
+    url: '/home/faculty/profile',
     icon: person,
   },
   {
-    title: 'My Team',
-    url: '/home/student/my-team',
+    title: 'My Advisees',
+    url: '/home/faculty/my-team',
     icon: '/assets/icon/my-team.svg'
   },
   {
     title: 'Projects',
-    url: '/home/student/projects',
+    url: '/home/faculty/projects',
     icon: '/assets/icon/project-icon.svg'
   },
   {
     title: 'Logout',
-    url: '/home/student/logout',
+    url: '/home/faculty/logout',
     icon: logOut
   }
 ];
 
 const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
-const Menu: React.FC = () => {
+const MenuFaculty: React.FC = () => {
   const location = useLocation();
 
   return (
@@ -91,4 +91,4 @@ const Menu: React.FC = () => {
   );
 };
 
-export default Menu;
+export default MenuFaculty;

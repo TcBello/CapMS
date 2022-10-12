@@ -23,11 +23,10 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
-import SplitView from './pages/split-view/Split-View';
-import Test from './pages/test';
 import ProjectFile from './pages/project-file/Project-File';
 import ProposeTopic from './pages/propose-topic/Propose-Topic';
 import Adviser from './pages/adviser/Adviser';
+import { SplitView, SplitViewAdmin, SplitViewAdviser } from './pages/split-view/Split-View';
 
 setupIonicReact();
 
@@ -40,10 +39,17 @@ const App: React.FC = () => {
             <Redirect to="/login"/>
           </Route>
           <Route path="/login" component={Login}></Route>
-          <Route path="/split-view" exact={true} component={SplitView}></Route>
-          <Route path="/test" exact={true} component={Test}></Route>
-          <Route path="/home/:name" exact={true}>
+          <Route path="/split-view" exact={true} component={SplitView} />
+          <Route path="/split-view-faculty" exact={true} component={SplitViewAdviser} />
+          <Route path="/split-view-admin" exact={true} component={SplitViewAdmin} />
+          <Route path="/home/student/:name" exact={true}>
             <Redirect to="/split-view"/>
+          </Route>
+          <Route path="/home/faculty/:name" exact={true}>
+            <Redirect to="/split-view-faculty"/>
+          </Route>
+          <Route path="/home/admin/:name" exact={true}>
+            <Redirect to="/split-view-admin"/>
           </Route>
           <Route path="/:name/files" component={ProjectFile}/>
           <Route path="/projects/propose-topic" component={ProposeTopic}/>
