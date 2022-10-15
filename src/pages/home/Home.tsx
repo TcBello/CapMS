@@ -4,6 +4,7 @@ import Announcement from '../announcement/Announcement';
 import MyTeam from '../my-team/My-Team';
 import Profile from '../profile/Profile';
 import Project from '../project/Project';
+import Student from '../student/Student';
 import './Home.css';
 
 const Home: React.FC = () => {
@@ -55,7 +56,7 @@ const HomeAdmin: React.FC = () => {
      return <MyTeam />
     // STUDENT PAGE
     case "students":
-      return <div></div>;
+      return <Student /> ;
     // FACULTY STAFF PAGE
     case "faculty-staffs":
       return <AdviserAdmin />;

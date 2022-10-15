@@ -1,0 +1,81 @@
+.student-content{
+    --background: var(--palette-light-orange);
+    --padding-bottom: 80px;
+  }
+  
+.student-content-mobile{
+    --background: white;
+    --padding-bottom: 80px;
+}
+
+.student-fab-button{
+    --background: var(--palette-blue);
+}
+
+.student-fab-button .icon{
+    color: white;
+}
+
+.student-container{
+    background-color: var(--palette-light-orange);
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.student-container-mobile{
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.student-container .item-card{
+    border-radius: 20px;
+    height: auto;
+    width: 180px;
+    box-shadow: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.student-container-mobile .item-card{
+    border-radius: 20px;
+    height: auto;
+    width: 180px;
+    box-shadow: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item-card img{
+    height: 180px;
+    width: 180px;
+    background-size: contain;
+}
+
+.item-card .name{
+    font-weight: bold;
+    font-size: 20px;
+    height: 0px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-overflow: ellipsis;
+    width: 180px;
+    height: 25px;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
