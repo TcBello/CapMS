@@ -1,7 +1,6 @@
 import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
-import Page from './pages/home/Home';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -21,12 +20,11 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import ProjectFile from './pages/project-file/Project-File';
 import ProposeTopic from './pages/propose-topic/Propose-Topic';
-import Adviser from './pages/adviser/Adviser';
 import { SplitView, SplitViewAdmin, SplitViewAdviser } from './pages/split-view/Split-View';
+import { Adviser } from './pages/adviser/Adviser';
 
 setupIonicReact();
 

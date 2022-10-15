@@ -5,7 +5,7 @@ import { Route, Redirect } from "react-router";
 import Menu from "../../core/components/Menu";
 import MenuAdmin from "../../core/components/MenuAdmin";
 import MenuFaculty from "../../core/components/MenuFaculty";
-import Home from "../home/Home";
+import { Home, HomeAdmin } from "../home/Home";
 import './Split-View.css';
 
 class SplitView extends Component{
@@ -64,7 +64,7 @@ class SplitViewAdmin extends Component{
                                 <Redirect to="/home/admin/dashboard" />
                             </Route>
                             <Route path="/home/admin/:name" exact={true}>
-                                <Home />
+                                <HomeAdmin />
                             </Route>
                         </IonRouterOutlet>
                     </IonSplitPane>
