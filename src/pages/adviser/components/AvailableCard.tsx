@@ -1,11 +1,11 @@
 import { IonCard} from "@ionic/react";
 import { useHistory} from "react-router-dom";
+import { goPage } from "../../../core/Utils";
 
-const AvailableCard = (props: any) => {
-    let history = useHistory();
+const AvailableCard = (props: {name: string, course: string, image: string, href: string}) => {
 
     function goBack(){
-        history.replace(props.href);
+        goPage(props.href);
     }
 
     return <IonCard className="item-card" button onClick={goBack}>
@@ -15,6 +15,8 @@ const AvailableCard = (props: any) => {
         <img src={props.image} />
         {/* ADVISER NAME */}
         <h6 className="name">{props.name}</h6>
+        {/* ADVISER COURSE */}
+        <p className="course">{props.course}</p>
     </IonCard>;
 }
 
