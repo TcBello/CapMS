@@ -53,11 +53,6 @@ const appPages: AppPage[] = [
     icon: '/assets/icon/faculty.svg'
   },
   {
-    title: 'Projects',
-    url: '/home/admin/projects',
-    icon: '/assets/icon/project-icon.svg'
-  },
-  {
     title: 'Logout',
     url: '/home/admin/logout',
     icon: logOut

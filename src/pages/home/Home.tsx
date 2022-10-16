@@ -60,9 +60,6 @@ const HomeAdmin: React.FC = () => {
     // FACULTY STAFF PAGE
     case "faculty-staffs":
       return <AdviserAdmin />;
-    // PROJECT PAGE
-    case "projects":
-      return <Project />;
     // LOGOUT PAGE
     case "logout":
       return (
