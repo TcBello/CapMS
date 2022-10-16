@@ -39,7 +39,7 @@ const appPages: AppPage[] = [
   },
   {
     title: 'Teams',
-    url: '/home/admin/my-team',
+    url: '/home/admin/teams',
     icon: '/assets/icon/my-team.svg'
   },
   {

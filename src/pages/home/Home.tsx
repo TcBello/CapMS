@@ -5,6 +5,7 @@ import MyTeam from '../my-team/My-Team';
 import Profile from '../profile/Profile';
 import Project from '../project/Project';
 import Student from '../student/Student';
+import Team from '../team/Team';
 import './Home.css';
 
 const Home: React.FC = () => {
@@ -52,8 +53,8 @@ const HomeAdmin: React.FC = () => {
     case "profile":
       return <Profile />;
     // MY TEAM PAGE
-    case "my-team":
-     return <MyTeam />
+    case "teams":
+     return <Team />
     // STUDENT PAGE
     case "students":
       return <Student /> ;
