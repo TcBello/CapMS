@@ -5,7 +5,7 @@ import { Route, Redirect } from "react-router";
 import Menu from "../../core/components/Menu";
 import MenuAdmin from "../../core/components/MenuAdmin";
 import MenuFaculty from "../../core/components/MenuFaculty";
-import { Home, HomeAdmin } from "../home/Home";
+import { Home, HomeAdmin, HomeFaculty } from "../home/Home";
 import './Split-View.css';
 
 class SplitView extends Component{
@@ -30,7 +30,7 @@ class SplitView extends Component{
     }
 }
 
-class SplitViewAdviser extends Component{
+class SplitViewFaculty extends Component{
     render(){
         return (
             <div>
@@ -42,7 +42,7 @@ class SplitViewAdviser extends Component{
                                 <Redirect to="/home/faculty/announcements" />
                             </Route>
                             <Route path="/home/faculty/:name" exact={true}>
-                                <Home />
+                                <HomeFaculty />
                             </Route>
                         </IonRouterOutlet>
                     </IonSplitPane>
@@ -74,4 +74,4 @@ class SplitViewAdmin extends Component{
     }
 }
 
-export {SplitView, SplitViewAdviser, SplitViewAdmin};
+export {SplitView, SplitViewFaculty, SplitViewAdmin};

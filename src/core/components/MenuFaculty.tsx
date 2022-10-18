@@ -34,7 +34,7 @@ const appPages: AppPage[] = [
   },
   {
     title: 'My Advisees',
-    url: '/home/faculty/my-team',
+    url: '/home/faculty/my-advisees',
     icon: '/assets/icon/my-team.svg'
   },
   {

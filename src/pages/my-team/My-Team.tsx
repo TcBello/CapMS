@@ -14,5 +14,4 @@ const MyTeam = (props: any) => {
         </IonPage>
     );
 }
-
 export default MyTeam;
