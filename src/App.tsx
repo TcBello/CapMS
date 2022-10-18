@@ -23,7 +23,7 @@ import './theme/variables.css';
 import Login from './pages/login/Login';
 import ProjectFile from './pages/project-file/Project-File';
 import ProposeTopic from './pages/propose-topic/Propose-Topic';
-import { SplitView, SplitViewAdmin, SplitViewAdviser } from './pages/split-view/Split-View';
+import { SplitView, SplitViewAdmin, SplitViewFaculty } from './pages/split-view/Split-View';
 import { Adviser } from './pages/adviser/Adviser';
 
 setupIonicReact();
@@ -38,7 +38,7 @@ const App: React.FC = () => {
           </Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/split-view" exact={true} component={SplitView} />
-          <Route path="/split-view-faculty" exact={true} component={SplitViewAdviser} />
+          <Route path="/split-view-faculty" exact={true} component={SplitViewFaculty} />
           <Route path="/split-view-admin" exact={true} component={SplitViewAdmin} />
           <Route path="/home/student/:name" exact={true}>
             <Redirect to="/split-view"/>
