@@ -49,17 +49,19 @@ const Student = () => {
                 ? <ContentHeader title="Students" />
                 : <MobileMenuAppBar title="Students" />
         }
-        <div className={isDesktop ? "student-container" : "student-container-mobile"}>
-            {sampleData.map((student, index) => {
-                return <StudentCard image={student.image} name={student.name} href="/"/>
-            })}
-        </div>
         <IonContent className={isDesktop ? "student-content" : "student-content-mobile"}>
-        <IonFab vertical="bottom" horizontal="end" slot="fixed" className="student-fab-button">
-            <IonFabButton>
-                <IonIcon icon={add} className="icon"/>
-            </IonFabButton>
-        </IonFab>
+            {/* STUDENT CARD */}
+            <div className={isDesktop ? "student-container" : "student-container-mobile"}>
+                {sampleData.map((student, index) => {
+                    return <StudentCard image={student.image} name={student.name} href="/"/>
+                })}
+            </div>
+            {/* FAB BUTTON */}
+            <IonFab vertical="bottom" horizontal="end" slot="fixed" className="student-fab-button">
+                <IonFabButton href="/home/admin/students/add">
+                    <IonIcon icon={add} className="icon"/>  
+                </IonFabButton>
+            </IonFab>
         </IonContent>
     </IonPage>;
 }

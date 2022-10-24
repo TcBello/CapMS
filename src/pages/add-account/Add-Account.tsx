@@ -3,19 +3,22 @@ import { useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
 import { webWidth } from "../../core/Utils";
-import "./Add-Faculty.css";
+import "./Add-Account.css";
 import "../../core/components/Spacer.css";
 import { add, addCircle } from "ionicons/icons";
 
-const AddFaculty = () => {
+const AddAccount = (props: any) => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
 
     const inputFile = useRef<HTMLInputElement | null>(null);
+
+    const isFaculty = props.match.params.role == "faculty-staffs";
 
     const [email, setEmail] = useState("");
     const [fName, setFname] = useState("");
     const [lName, setLname] = useState("");
     const [password, setPassword] = useState("");
+    const [course, setCourse] = useState("");
     const [srCode, setSrCode] = useState("");
     const [file, setFile] = useState<any[]>([]);
 
@@ -29,7 +32,7 @@ const AddFaculty = () => {
 
     return <IonPage>
         {/* APP BAR */}
-        <MobileArrowBackAppBar title="Add Faculty Staff" href="split-view-admin"/>
+        <MobileArrowBackAppBar title={isFaculty ? "Add Faculty Staff" : "Add Student"} href="split-view-admin"/>
         {/* CONTENT */}
         <IonContent>
             <div className="spacer-h-m"/>
@@ -78,6 +81,14 @@ const AddFaculty = () => {
                     <IonInput value={password} onIonChange={(e: any) => setPassword(e.target.value)} />
                 </IonItem>
                 <div className="spacer-h-s"/>
+                {/* COURSE INPUT FIELD */}
+                <IonItem lines="none" className={isDesktop ? "add-faculty-input-field" : "add-faculty-input-field-mobile"}>
+                    <IonLabel position="floating">
+                        Course
+                    </IonLabel>
+                    <IonInput value={course} onIonChange={(e: any) => setCourse(e.target.value)} />
+                </IonItem>
+                <div className="spacer-h-s"/>
                 {/* SR CODE INPUT FIELD */}
                 <IonItem lines="none" className={isDesktop ? "add-faculty-input-field" : "add-faculty-input-field-mobile"}>
                     <IonLabel position="floating">
@@ -99,4 +110,4 @@ const AddFaculty = () => {
     </IonPage>
 }
 
-export default AddFaculty;
+export default AddAccount;
