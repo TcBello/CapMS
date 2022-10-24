@@ -98,7 +98,7 @@ const Team = () => {
             </div>
             {/* FAB BUTTON */}
             <IonFab vertical="bottom" horizontal="end" slot="fixed" className="team-fab-button">
-                <IonFabButton>
+                <IonFabButton href="/home/admin/teams/add">
                     <IonIcon icon={add} className="icon"/>
                 </IonFabButton>
             </IonFab>

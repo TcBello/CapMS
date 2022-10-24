@@ -26,6 +26,7 @@ import ProposeTopic from './pages/propose-topic/Propose-Topic';
 import { SplitView, SplitViewAdmin, SplitViewFaculty } from './pages/split-view/Split-View';
 import { Adviser } from './pages/adviser/Adviser';
 import AddAccount from './pages/add-account/Add-Account';
+import AddTeam from './pages/add-team/Add-Team';
 
 setupIonicReact();
 
@@ -54,6 +55,7 @@ const App: React.FC = () => {
           <Route path="/projects/propose-topic" component={ProposeTopic}/>
           <Route path="/projects/propose-topic/select-adviser/:number" component={Adviser}/>
           <Route path="/home/admin/:role/add" component={AddAccount} />
+          <Route path="/home/admin/teams/add" component={AddTeam} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

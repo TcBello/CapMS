@@ -1,0 +1,67 @@
+.add-team-header{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.add-team-select-button{
+    --background: var(--palette-red);
+    --padding-top: 15px;
+    --padding-bottom: 15px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    color: white;
+}
+
+.add-team-content-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-team-content-center .add-team-avatar{
+    height: 100px;
+    width: 100px;
+}
+
+.add-team-content-center .add-team-member-name{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.add-team-input-field{
+    --border-width: 3px;
+    --border-color: grey;
+    --border-radius: 10px;
+    width: 400px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.add-team-input-field-mobile{
+    --border-width: 3px;
+    --border-color: grey;
+    --border-radius: 10px;
+    width: 92%;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.add-team-content-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.add-team-add-button{
+    --background: var(--palette-red);
+    color: white;
+    --padding-start: 50px;
+    --padding-end: 50px;
+    --padding-top: 25px;
+    --padding-bottom: 25px;
+}
+
+.add-team-cancel-button{
+    --padding-top: 25px;
+    --padding-bottom: 25px;
+}
