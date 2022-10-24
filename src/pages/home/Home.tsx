@@ -1,6 +1,7 @@
 import { useParams } from 'react-router';
 import { AdviserAdmin } from '../adviser/Adviser';
 import Announcement from '../announcement/Announcement';
+import Dashboard from '../dashboard/Dashboard';
 import MyAdvisee from '../my-advisee/MyAdvisee';
 import MyTeam from '../my-team/My-Team';
 import Profile from '../profile/Profile';
@@ -76,7 +77,7 @@ const HomeAdmin: React.FC = () => {
   switch(name){
     // DASHBOARD PAGE
     case "dashboard":
-      return <div></div>;
+      return <Dashboard />;
     // ANNOUNCEMENT PAGE
     case "announcements":
       return <Announcement />;
