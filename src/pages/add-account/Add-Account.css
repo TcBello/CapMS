@@ -1,0 +1,78 @@
+.add-faculty-content-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-faculty-content-center img{
+    height: 150px;
+    width: 150px;
+    border-radius: 75px;
+}
+
+.add-faculty-content-left{
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.add-faculty-content-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    bottom: 25px;
+    right: 5px;
+    position: fixed;
+}
+
+.add-faculty-input-field{
+    --border-width: 3px;
+    --border-color: grey;
+    --border-radius: 10px;
+    width: 400px;
+}
+
+.add-faculty-input-field-mobile{
+    --border-width: 3px;
+    --border-color: grey;
+    --border-radius: 10px;
+    width: 100%;
+}
+
+.add-faculty-add-button{
+    --background: var(--palette-red);
+    color: white;
+    --padding-start: 50px;
+    --padding-end: 50px;
+    --padding-top: 25px;
+    --padding-bottom: 25px;
+}
+
+.add-faculty-cancel-button{
+    --padding-top: 25px;
+    --padding-bottom: 25px;
+}
+
+.add-faculty-stacked-button{
+    --background: var(--palette-blue);
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+.add-faculty-stacked-button .icon{
+    color: white;
+}
+
+.add-faculty-avatar-container{
+    position: relative;
+}
+
+.add-faculty-avatar-container input{
+    display: none;
+}

@@ -130,7 +130,7 @@ const AdviserAdmin = () => {
                     })}
                 </div>
                 <IonFab vertical="bottom" horizontal="end" slot="fixed" className="adviser-fab-button">
-                    <IonFabButton>
+                    <IonFabButton href="/home/admin/faculty-staffs/add">
                         <IonIcon icon={add} className="icon"/>
                     </IonFabButton>
                 </IonFab>
