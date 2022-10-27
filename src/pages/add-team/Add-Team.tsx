@@ -19,7 +19,7 @@ const AddTeam = () => {
             {/* 1ST MEMBER */}
             <IonItem lines="none">
                 <IonLabel slot="start" className="add-team-header">1st Member</IonLabel>
-                <IonButton slot="end" className="add-team-select-button" shape="round">Select</IonButton>
+                <IonButton slot="end" className="add-team-select-button" shape="round" href="/home/admin/teams/add/select-a-student">Select</IonButton>
             </IonItem>
             <div className="spacer-h-s"/>
             {/* AVATAR WITH NAME */}
@@ -33,7 +33,7 @@ const AddTeam = () => {
             {/* 2ND MEMBER */}
             <IonItem lines="none">
                 <IonLabel slot="start" className="add-team-header">2nd Member</IonLabel>
-                <IonButton slot="end" className="add-team-select-button" shape="round">Select</IonButton>
+                <IonButton slot="end" className="add-team-select-button" shape="round" href="/home/admin/teams/add/select-a-student">Select</IonButton>
             </IonItem>
             <div className="spacer-h-s"/>
             {/* AVATAR WITH NAME */}
@@ -47,7 +47,7 @@ const AddTeam = () => {
             {/* 3RD MEMBER */}
             <IonItem lines="none">
                 <IonLabel slot="start" className="add-team-header">3rd Member</IonLabel>
-                <IonButton slot="end" className="add-team-select-button" shape="round">Select</IonButton>
+                <IonButton slot="end" className="add-team-select-button" shape="round" href="/home/admin/teams/add/select-a-student">Select</IonButton>
             </IonItem>
             <div className="spacer-h-s"/>
             {/* AVATAR WITH NAME */}

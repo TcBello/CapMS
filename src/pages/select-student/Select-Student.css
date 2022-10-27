@@ -1,0 +1,17 @@
+.select-student-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.select-student-card{
+    border-radius: 20px;
+    width: 180px;
+    height: auto;
+}
+
+.select-student-name{
+    text-align: center;
+    font-weight: bold;
+    line-height: 0px;
+    padding-bottom: 10px;
+}
