@@ -5,13 +5,62 @@ import BackgroundLogin from "./components/BackgroundLogin";
 import "../../core/components/Spacer.css";
 import { useMediaQuery } from "react-responsive";
 import "./Login.css";
-import { webWidth } from "../../core/Utils";
+import { goPage, showToast, webWidth } from "../../core/Utils";
+
+interface UserModel{
+    name: string,
+    email: string,
+    password: string,
+    role: string
+}
+
+const sampleData: UserModel[] = [
+    {
+        name: "Admin",
+        email: "admin@gmail.com",
+        password: "admin",
+        role: "Admin"
+    },
+    {
+        name: "Sum Ting Wong",
+        email: "student@gmail.com",
+        password: "student",
+        role: "Student"
+    },
+    {
+        name: "Dum Fuk",
+        email: "faculty@gmail.com",
+        password: "faculty",
+        role: "Faculty"
+    }
+];
 
 const Login = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    function LoginUser(){
+        var user = sampleData.find(users => users.email == email);
+        if(user){
+            if(user.password == password && user.role == "Student"){
+                goPage("/split-view");
+            }
+            else if(user.password == password && user.role == "Faculty"){
+                goPage("/split-view-faculty");
+            }
+            else if(user.password == password && user.role == "Admin"){
+                goPage("/split-view-admin");
+            }
+            else{
+                // showToast(toast, LoginInvalidCredentialError);
+            }
+        }
+        else{
+            // showToast(toast, LoginInvalidCredentialError);
+        }
+    }
 
     return <IonPage>
         {/* CONTENT */}
@@ -55,7 +104,7 @@ const Login = () => {
                         </div>
                         <div className="spacer-h-m"/>
                         {/* LOGIN BUTTON */}
-                        <IonButton className="login-button" onClick={Login}>LOGIN</IonButton>
+                        <IonButton className="login-button" onClick={LoginUser}>LOGIN</IonButton>
                     </IonCard>
                 </div>
         </IonContent>
