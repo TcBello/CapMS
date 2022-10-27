@@ -39,13 +39,23 @@ h1 span{
     left: -15px;
 }
 
-.card{
+.login-card{
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 50%;
+    padding-bottom: 50px;
+}
+
+.login-card-mobile{
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
     padding-bottom: 50px;
 }
 
