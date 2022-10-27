@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage} from "@ionic/react";
+import { IonButton, IonCard, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage, useIonToast} from "@ionic/react";
 import { lockClosed, mail } from "ionicons/icons";
 import { Component, useState } from "react";
 import BackgroundLogin from "./components/BackgroundLogin";
@@ -6,6 +6,7 @@ import "../../core/components/Spacer.css";
 import { useMediaQuery } from "react-responsive";
 import "./Login.css";
 import { goPage, showToast, webWidth } from "../../core/Utils";
+import { LoginInvalidCredentialError } from "../../core/Errors";
 
 interface UserModel{
     name: string,
@@ -38,6 +39,8 @@ const sampleData: UserModel[] = [
 const Login = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
 
+    const [toast] = useIonToast();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -54,12 +57,16 @@ const Login = () => {
                 goPage("/split-view-admin");
             }
             else{
-                // showToast(toast, LoginInvalidCredentialError);
+                showToast(toast, LoginInvalidCredentialError);
             }
         }
         else{
-            // showToast(toast, LoginInvalidCredentialError);
+            showToast(toast, LoginInvalidCredentialError);
         }
+
+        // EMPTY TEXT FIELD
+        setEmail("");
+        setPassword("");
     }
 
     return <IonPage>
