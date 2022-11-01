@@ -72,7 +72,7 @@ const MenuAdmin: React.FC = () => {
             {/* PROFILE IMAGE */}
             <div className='profile-image' />
             {/* NAME */}
-            <div className='name'>Sum Ting Wong</div>
+            <div className='name'>Admin</div>
           </div>
           <div className='spacer-h-m'/>
           {appPages.map((appPage, index) => {

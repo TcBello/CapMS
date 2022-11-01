@@ -1,4 +1,6 @@
 import { useParams } from 'react-router';
+import { logout } from '../../core/services/auth_service';
+import { replacePage } from '../../core/Utils';
 import { AdviserAdmin } from '../adviser/Adviser';
 import Announcement from '../announcement/Announcement';
 import Dashboard from '../dashboard/Dashboard';
@@ -95,11 +97,9 @@ const HomeAdmin: React.FC = () => {
       return <AdviserAdmin />;
     // LOGOUT PAGE
     case "logout":
-      return (
-        <div>
-          <h1>this is logout</h1>
-        </div>
-      );
+      logout();
+      replacePage("/");
+      return <div></div>;
     default:
       return(
         <div></div>

@@ -4,6 +4,10 @@ function goPage(url: string){
     window.location.href = url;
 }
 
+function replacePage(url: string){
+    window.location.replace(url);
+}
+
 function showToast(toast: any, message: string){
     toast({
         message: message,
@@ -13,4 +17,4 @@ function showToast(toast: any, message: string){
     });
 }
 
-export {webWidth, goPage, showToast};
+export {webWidth, goPage, showToast, replacePage};
