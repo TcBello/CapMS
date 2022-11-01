@@ -7,6 +7,8 @@ import { useMediaQuery } from "react-responsive";
 import "./Login.css";
 import { goPage, showToast, webWidth } from "../../core/Utils";
 import { LoginInvalidCredentialError } from "../../core/Errors";
+import { useDispatch, useSelector } from "react-redux";
+import { loginWithEmailAndPassword } from "../../core/services/auth_service";
 
 interface UserModel{
     name: string,
@@ -44,25 +46,32 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    function LoginUser(){
-        var user = sampleData.find(users => users.email == email);
-        if(user){
-            if(user.password == password && user.role == "Student"){
-                goPage("/split-view");
-            }
-            else if(user.password == password && user.role == "Faculty"){
-                goPage("/split-view-faculty");
-            }
-            else if(user.password == password && user.role == "Admin"){
-                goPage("/split-view-admin");
-            }
-            else{
-                showToast(toast, LoginInvalidCredentialError);
-            }
-        }
-        else{
-            showToast(toast, LoginInvalidCredentialError);
-        }
+    const user = useSelector((state: any) => state.user.value);
+    const admin = useSelector((state: any) => state.admin.value);
+
+    const dispatch = useDispatch();
+
+    async function LoginUser(){
+        await loginWithEmailAndPassword(dispatch, email, password);
+        console.log(`REDUX DATA: ${admin.email}`)
+        // var user = sampleData.find(users => users.email == email);
+        // if(user){
+        //     if(user.password == password && user.role == "Student"){
+        //         goPage("/split-view");
+        //     }
+        //     else if(user.password == password && user.role == "Faculty"){
+        //         goPage("/split-view-faculty");
+        //     }
+        //     else if(user.password == password && user.role == "Admin"){
+        //         goPage("/split-view-admin");
+        //     }
+        //     else{
+        //         showToast(toast, LoginInvalidCredentialError);
+        //     }
+        // }
+        // else{
+        //     showToast(toast, LoginInvalidCredentialError);
+        // }
 
         // EMPTY TEXT FIELD
         setEmail("");
