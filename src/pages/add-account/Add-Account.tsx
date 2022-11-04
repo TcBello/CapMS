@@ -44,7 +44,8 @@ const AddAccount = (props: any) => {
             password: password,
             course: course,
             srCode: srCode,
-            role: role
+            role: role,
+            status: isFaculty ? "Available" : ""
         });
         
         const result = await createAccount(userModel);

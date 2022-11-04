@@ -1,29 +1,45 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase-setup/firebase-setup";
-import UserModel from "../models/user_model";
+import UserModel, { setUserModel } from "../models/user_model";
 
-const userCollection = collection(db, "users")
+const userCollection = collection(db, "users");
 
 async function createAccount(userModel: UserModel){
     try{
-        console.log(userModel.course);
         // CREATE USER WITH EMAIL AND PASSWORD
         let userCreds = await createUserWithEmailAndPassword(auth, userModel.email, userModel.password);
         let user = userCreds.user;
 
-        // POST DATA IN CLOUD FIRESTORE
-        await addDoc(userCollection, {
-            uid: user.uid,
-            first_name: userModel.firstName,
-            last_name: userModel.lastName,
-            email: userModel.email,
-            course: userModel.course,
-            sr_code: userModel.srCode,
-            image: userModel.image,
-            role: userModel.role,
-            created_at: Date().toString()
-        })
+        // POST DATA IN CLOUD FIRESTORE WITH STUDENT ROLE
+        if(userModel.role == "Student"){
+            await addDoc(userCollection, {
+                uid: user.uid,
+                first_name: userModel.firstName,
+                last_name: userModel.lastName,
+                email: userModel.email,
+                course: userModel.course,
+                sr_code: userModel.srCode,
+                image: userModel.image,
+                role: userModel.role,
+                created_at: Date().toString()
+            });
+        }
+        // POST DATA IN CLOUD FIRESTORE WITH FACULTY ROLE
+        if(userModel.role == "Faculty"){
+            await addDoc(userCollection, {
+                uid: user.uid,
+                first_name: userModel.firstName,
+                last_name: userModel.lastName,
+                email: userModel.email,
+                course: userModel.course,
+                sr_code: userModel.srCode,
+                image: userModel.image,
+                role: userModel.role,
+                status: userModel.status,
+                created_at: Date().toString()
+            });
+        }
 
         return true;
     }
@@ -34,4 +50,67 @@ async function createAccount(userModel: UserModel){
     return false;
 }
 
-export { createAccount };
+async function getAllStudents(){
+    try{
+        // DEFINE A QUERY WHERE ROLE IS STUDENT
+        const ref = query(
+            userCollection,
+            where("role", "==", "Student")
+        );
+        
+        // GET DOCUMENTS 
+        const snapshot = await getDocs(ref);
+        
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+
+            return setUserModel({
+                uid: data['id'],
+                firstName: data['first_name'],
+                lastName: data['last_name'],
+                email: data['email'],
+                course: data['course'],
+                srCode: data['sr_code'],
+                image: data['image'],
+                role: data['role'],
+            });
+        })
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+async function getAllFaculties(){
+    try{
+        // DEFINE A QUERY WHERE ROLE IS STUDENT
+        const ref = query(
+            userCollection,
+            where("role", "==", "Faculty")
+        );
+        
+        // GET DOCUMENTS 
+        const snapshot = await getDocs(ref);
+        
+        return snapshot.docs.map((doc) => {
+            const data = doc.data();
+
+            return setUserModel({
+                uid: data['id'],
+                firstName: data['first_name'],
+                lastName: data['last_name'],
+                email: data['email'],
+                course: data['course'],
+                srCode: data['sr_code'],
+                image: data['image'],
+                role: data['role'],
+                status: data['status']
+            });
+        })
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+export { createAccount, getAllStudents, getAllFaculties };

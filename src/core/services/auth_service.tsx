@@ -7,12 +7,14 @@ import { replacePage, showToast } from "../Utils";
 import { LoginInvalidCredentialError } from "../Errors";
 import { setUserModel } from "../models/user_model";
 
+const userCollection = collection(db, "users");
+
 async function registerWithEmailAndPassword(email: string, password: string){
     try{
         let userCreds = await createUserWithEmailAndPassword(auth, email, password);
         let user = userCreds.user;
 
-        await addDoc(collection(db, "users"), {
+        await addDoc(userCollection, {
             uid: user.uid,
             email: email,
             role: "Admin"
@@ -43,7 +45,7 @@ async function loginWithEmailAndPassword(dispatch: any, email: string, password:
 
 async function getUserData(dispatch: any, uid: string){
     // GET SNAPSHOT
-    const snapshot = await getDocs(collection(db, "users"));
+    const snapshot = await getDocs(userCollection);
 
     let userData: DocumentData = {};
 

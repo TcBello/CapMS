@@ -8,10 +8,11 @@ interface UserModel{
     srCode: string;
     image: string;
     role: string;
+    status: string;
 }
 
 function setUserModel({uid = "", firstName = "", lastName = "", email = "", password = "",
-                        course = "", srCode = "", image = "", role = ""}){
+                        course = "", srCode = "", image = "", role = "", status = ""}){
 
     let userModel: UserModel = {
         uid: uid,
@@ -22,7 +23,8 @@ function setUserModel({uid = "", firstName = "", lastName = "", email = "", pass
         course: course,
         srCode: srCode,
         image: image,
-        role: role
+        role: role,
+        status: status
     };
 
     return userModel;
