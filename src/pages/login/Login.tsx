@@ -11,34 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { authenticate, loginWithEmailAndPassword, logout } from "../../core/services/auth_service";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../core/firebase-setup/firebase-setup";
-
-interface UserModel{
-    name: string,
-    email: string,
-    password: string,
-    role: string
-}
-
-const sampleData: UserModel[] = [
-    {
-        name: "Admin",
-        email: "admin@gmail.com",
-        password: "admin",
-        role: "Admin"
-    },
-    {
-        name: "Sum Ting Wong",
-        email: "student@gmail.com",
-        password: "student",
-        role: "Student"
-    },
-    {
-        name: "Dum Fuk",
-        email: "faculty@gmail.com",
-        password: "faculty",
-        role: "Faculty"
-    }
-];
+import UserModel from "../../core/models/user_model";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
@@ -49,6 +23,8 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     const [user, loading, error] = useAuthState(auth);
+
+    const [cookies, setCookie, removeCookie] = useCookies(['uid']);
 
     const dispatch = useDispatch();
 
@@ -67,6 +43,7 @@ const Login = () => {
         return <IonPage><p>Error</p></IonPage>;
     }
     if(user){
+        setCookie("uid", user.uid)
         authenticate(dispatch, user);
         return <IonPage></IonPage>;
     }

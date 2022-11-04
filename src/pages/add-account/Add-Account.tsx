@@ -1,11 +1,14 @@
-import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage } from "@ionic/react";
+import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage, useIonToast } from "@ionic/react";
 import { useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
-import { webWidth } from "../../core/Utils";
+import { showToast, webWidth } from "../../core/Utils";
 import "./Add-Account.css";
 import "../../core/components/Spacer.css";
 import { add, addCircle } from "ionicons/icons";
+import { createAccount } from "../../core/services/admin_service";
+import { setUserModel } from "../../core/models/user_model";
+import { CreateAccountMessage } from "../../core/Success";
 
 const AddAccount = (props: any) => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
@@ -22,12 +25,41 @@ const AddAccount = (props: any) => {
     const [srCode, setSrCode] = useState("");
     const [file, setFile] = useState<any[]>([]);
 
+    const [toast] = useIonToast();
+
     function handleChange(e: any) {
         setFile([...file, e.target.files[0]]);
     }
 
     function openFile(){
         inputFile.current?.click();
+    }
+
+    async function addAccount(){
+        const role = isFaculty ? "Faculty" : "Student"
+        const userModel = setUserModel({
+            firstName: fName,
+            lastName: lName,
+            email: email,
+            password: password,
+            course: course,
+            srCode: srCode,
+            role: role
+        });
+        
+        const result = await createAccount(userModel);
+
+        if(result){
+            showToast(toast, CreateAccountMessage);
+
+            // CLEAR TEXT FIELDS
+            setFname("");
+            setLname("");
+            setEmail("");
+            setPassword("");
+            setCourse("");
+            setSrCode("");
+        }
     }
 
     return <IonPage>
@@ -103,7 +135,7 @@ const AddAccount = (props: any) => {
                 <IonButton fill="clear" className="add-faculty-cancel-button" href="split-view-admin">Cancel</IonButton>
                 <div className="spacer-w-xs" />
                 {/* ADD BUTTON */}
-                <IonButton className="add-faculty-add-button" shape="round">Add</IonButton>
+                <IonButton className="add-faculty-add-button" shape="round" onClick={addAccount}>Add</IonButton>
                 <div className="spacer-w-xs" />
             </div>
         </IonContent>

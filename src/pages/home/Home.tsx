@@ -1,3 +1,4 @@
+import { useCookies } from 'react-cookie';
 import { useParams } from 'react-router';
 import { logout } from '../../core/services/auth_service';
 import { replacePage } from '../../core/Utils';
@@ -16,6 +17,8 @@ const Home: React.FC = () => {
 
   const { name } = useParams<{ name: string; }>();
 
+  const [cookies, setCookie, removeCookie] = useCookies(['uid']);
+
   switch(name){
     case "announcements":
       return <Announcement />;
@@ -30,11 +33,11 @@ const Home: React.FC = () => {
       return <Project />;
     // LOGOUT PAGE
     case "logout":
-      return (
-        <div>
-          <h1>this is logout</h1>
-        </div>
-      );
+      logout().then(value => {
+        removeCookie("uid");
+        replacePage("/");
+      });
+      return <div></div>;
     default:
       return(
         <div></div>
@@ -45,6 +48,8 @@ const Home: React.FC = () => {
 const HomeFaculty: React.FC = () => {
 
   const { name } = useParams<{ name: string; }>();
+
+  const [cookies, setCookie, removeCookie] = useCookies(['uid']);
 
   switch(name){
     case "announcements":
@@ -60,11 +65,11 @@ const HomeFaculty: React.FC = () => {
       return <Project />;
     // LOGOUT PAGE
     case "logout":
-      return (
-        <div>
-          <h1>this is logout</h1>
-        </div>
-      );
+      logout().then(value => {
+        removeCookie("uid");
+        replacePage("/");
+      });
+      return <div></div>;
     default:
       return(
         <div></div>
@@ -75,6 +80,8 @@ const HomeFaculty: React.FC = () => {
 const HomeAdmin: React.FC = () => {
 
   const { name } = useParams<{ name: string; }>();
+
+  const [cookies, setCookie, removeCookie] = useCookies(['uid']);
 
   switch(name){
     // DASHBOARD PAGE
@@ -97,8 +104,10 @@ const HomeAdmin: React.FC = () => {
       return <AdviserAdmin />;
     // LOGOUT PAGE
     case "logout":
-      logout();
-      replacePage("/");
+      logout().then(value => {
+        removeCookie("uid");
+        replacePage("/");
+      });
       return <div></div>;
     default:
       return(

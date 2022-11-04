@@ -5,6 +5,7 @@ import { loginAdmin } from "../redux/slices/admin";
 import { login } from "../redux/slices/user";
 import { replacePage, showToast } from "../Utils";
 import { LoginInvalidCredentialError } from "../Errors";
+import { setUserModel } from "../models/user_model";
 
 async function registerWithEmailAndPassword(email: string, password: string){
     try{
@@ -60,8 +61,20 @@ async function getUserData(dispatch: any, uid: string){
         
         // USER SIDE
         if(data['uid'] == uid && (data['role'] == "Student" || data['role'] == "Faculty")){
+            // DATA THAT WILL BE SENT TO REDUX
+            const userModel = setUserModel({
+                uid: data['uid'],
+                firstName: data['first_name'],
+                lastName: data['last_name'],
+                email: data['email'],
+                course: data['course'],
+                srCode: data['sr_code'],
+                image: data['image'],
+                role: data['role']
+            });
+
             // SEND DATA TO REDUX
-            dispatch(login({uid: data['uid'], email: data['email'], role: data['role']}));
+            dispatch(login(userModel));
 
             userData = data;
         }
@@ -76,10 +89,10 @@ async function authenticate(dispatch: any, user: User){
 
     // SWITCH PAGE ACCORDING TO ROLE
     if(userData['role'] == "Student"){
-        replacePage("/split-view");
+        replacePage("/home/student/announcements");
     }
     if(userData['role'] == "Faculty"){
-        replacePage("/split-view-faculty");
+        replacePage("/home/faculty/announcements");
     }
     if(userData['role'] == "Admin"){
         replacePage("/home/admin/dashboard");
@@ -90,4 +103,9 @@ async function logout(){
     await signOut(auth);
 }
 
-export {registerWithEmailAndPassword, loginWithEmailAndPassword, authenticate, logout};
+function initUser(dispatch: any, uid: string){
+    // GET USER DATA
+    getUserData(dispatch, uid);
+}
+
+export {registerWithEmailAndPassword, loginWithEmailAndPassword, authenticate, logout, initUser};
