@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage, useIonToast } from "@ionic/react";
+import { IonAvatar, IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage, useIonToast } from "@ionic/react";
 import { useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
@@ -17,18 +17,24 @@ const AddAccount = (props: any) => {
 
     const isFaculty = props.match.params.role == "faculty-staffs";
 
+    const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
+
     const [email, setEmail] = useState("");
     const [fName, setFname] = useState("");
     const [lName, setLname] = useState("");
     const [password, setPassword] = useState("");
     const [course, setCourse] = useState("");
     const [srCode, setSrCode] = useState("");
-    const [file, setFile] = useState<any[]>([]);
+    const [file, setFile] = useState<any>(null);
+    const [image, setImage] = useState(defaultImage);
 
     const [toast] = useIonToast();
 
     function handleChange(e: any) {
-        setFile([...file, e.target.files[0]]);
+        if(e.target.files && e.target.files[0]){
+            setImage(URL.createObjectURL(e.target.files[0]));
+            setFile(e.target.files[0]);
+        }
     }
 
     function openFile(){
@@ -48,7 +54,7 @@ const AddAccount = (props: any) => {
             status: isFaculty ? "Available" : ""
         });
         
-        const result = await createAccount(userModel);
+        const result = await createAccount(userModel, file);
 
         if(result){
             showToast(toast, CreateAccountMessage);
@@ -60,6 +66,9 @@ const AddAccount = (props: any) => {
             setPassword("");
             setCourse("");
             setSrCode("");
+            // CLEAR IMAGE
+            setFile(null);
+            setImage(defaultImage);
         }
     }
 
@@ -77,7 +86,9 @@ const AddAccount = (props: any) => {
                     </IonButton>
                     <input type="file" ref={inputFile} onChange={handleChange}/>
                     {/* AVATAR */}
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
+                    <IonAvatar className="add-faculty-avatar">
+                        <img src={image} />
+                    </IonAvatar>
                 </div>
             </div>
             <div className="spacer-h-m"/>

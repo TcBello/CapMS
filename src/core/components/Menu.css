@@ -131,10 +131,6 @@ ion-item.selected {
 }
 
 .profile-image{
-  background-image: url("https://microbiology.ucr.edu/sites/default/files/styles/form_preview/public/blank-profile-pic.png?itok=4teBBoet");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
   width: 200px;
   height: 200px;
 }

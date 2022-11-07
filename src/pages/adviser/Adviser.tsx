@@ -116,7 +116,7 @@ const AdviserAdmin = () => {
         getAllFaculties().then((value) => {
             setFaculties(value as UserModel[]);
         });
-    });
+    }, []);
 
     
     return (
@@ -135,14 +135,14 @@ const AdviserAdmin = () => {
                                 return <AvailableCard
                                     name={faculty.firstName + " " + faculty.lastName}
                                     course={faculty.course}
-                                    image={sampleData[0].image}
+                                    image={faculty.image}
                                     href="/projects/propose-topic"
                                 />;
                             case "Unavailable":
                                 return <UnavailableCard
                                     name={faculty.firstName + " " + faculty.lastName}
                                     course={faculty.course}
-                                    image={sampleData[0].image}
+                                    image={faculty.image}
                                     href="/projects/propose-topic"
                                 />;
                             default:

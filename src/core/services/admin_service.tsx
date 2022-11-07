@@ -1,15 +1,30 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import { auth, db } from "../firebase-setup/firebase-setup";
+import { auth, db, storage } from "../firebase-setup/firebase-setup";
 import UserModel, { setUserModel } from "../models/user_model";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const userCollection = collection(db, "users");
 
-async function createAccount(userModel: UserModel){
+function avatarStorage(filename: string){
+    return ref(storage, `/avatars/${filename}`);
+}
+
+async function createAccount(userModel: UserModel, imageFile: any){
     try{
         // CREATE USER WITH EMAIL AND PASSWORD
         let userCreds = await createUserWithEmailAndPassword(auth, userModel.email, userModel.password);
         let user = userCreds.user;
+
+        let upload: any = null;
+        let imageUrl: any = null;
+
+        if(imageFile != null){
+            // UPLOAD IMAGE ON FIREBASE STORAGE
+            upload = await uploadBytes(avatarStorage(imageFile.name), imageFile);
+            // GET IMAGE URL FROM FIREBASE STORAGE
+            imageUrl = await getDownloadURL(upload.ref);
+        }
 
         // POST DATA IN CLOUD FIRESTORE WITH STUDENT ROLE
         if(userModel.role == "Student"){
@@ -20,7 +35,7 @@ async function createAccount(userModel: UserModel){
                 email: userModel.email,
                 course: userModel.course,
                 sr_code: userModel.srCode,
-                image: userModel.image,
+                image: imageFile != null ? imageUrl : userModel.image,
                 role: userModel.role,
                 created_at: Date().toString()
             });
@@ -34,7 +49,7 @@ async function createAccount(userModel: UserModel){
                 email: userModel.email,
                 course: userModel.course,
                 sr_code: userModel.srCode,
-                image: userModel.image,
+                image: imageFile != null ? imageUrl : userModel.image,
                 role: userModel.role,
                 status: userModel.status,
                 created_at: Date().toString()

@@ -51,7 +51,7 @@ const Student = () => {
         getAllStudents().then((value) => {
             setStudents(value as UserModel[]);
         });
-    });
+    }, []);
 
     return <IonPage>
         {/* CONTENT HEADER */}
@@ -65,7 +65,7 @@ const Student = () => {
             <div className={isDesktop ? "student-container" : "student-container-mobile"}>
                 {students.map((student, index) => {
                     return <StudentCard
-                        image={sampleData[0].image}
+                        image={student.image}
                         name={student.firstName + " " + student.lastName}
                         href="/"
                     />

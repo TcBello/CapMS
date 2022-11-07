@@ -1,4 +1,5 @@
 import {
+  IonAvatar,
   IonContent,
   IonIcon,
   IonItem,
@@ -82,7 +83,10 @@ const MenuAdmin: React.FC = () => {
         <IonList id="inbox-list" lines='none'>
           <div className='center'>
             {/* PROFILE IMAGE */}
-            <div className='profile-image' />
+            <IonAvatar className="profile-image">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"/>
+            </IonAvatar>
+            <div className='spacer-h-s' />
             {/* NAME */}
             <div className='name'>Admin</div>
           </div>

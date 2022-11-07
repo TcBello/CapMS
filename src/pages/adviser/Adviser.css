@@ -41,10 +41,12 @@
 }
 
 
-.adviser-container img{
-  height: 180px;
-  width: 180px;
-  background-size: contain;
+.adviser-container .adviser-avatar{
+  height: 120px;
+  width: 120px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .adviser-container .name{
