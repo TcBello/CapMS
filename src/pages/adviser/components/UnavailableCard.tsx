@@ -1,4 +1,4 @@
-import { IonCard} from "@ionic/react";
+import { IonAvatar, IonCard} from "@ionic/react";
 import { useHistory} from "react-router-dom";
 import { goPage } from "../../../core/Utils";
 
@@ -11,7 +11,9 @@ const UnavailableCard = (props: {name: string, course: string, image: string, hr
         {/* STATUS COLOR */}
         <div className="status-color-unavailable" />
         {/* ADVISER IMAGE */}
-        <img src={props.image} />
+        <IonAvatar className="adviser-avatar">
+            <img src={props.image} />
+        </IonAvatar>
         {/* ADVISER NAME */}
         <h6 className="name">{props.name}</h6>
         {/* ADVISER COURSE */}

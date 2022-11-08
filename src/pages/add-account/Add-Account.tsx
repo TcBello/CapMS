@@ -1,11 +1,14 @@
-import { IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage } from "@ionic/react";
+import { IonAvatar, IonButton, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage, useIonToast } from "@ionic/react";
 import { useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
-import { webWidth } from "../../core/Utils";
+import { showToast, webWidth } from "../../core/Utils";
 import "./Add-Account.css";
 import "../../core/components/Spacer.css";
 import { add, addCircle } from "ionicons/icons";
+import { createAccount } from "../../core/services/admin_service";
+import { setUserModel } from "../../core/models/user_model";
+import { CreateAccountMessage } from "../../core/Success";
 
 const AddAccount = (props: any) => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
@@ -14,20 +17,59 @@ const AddAccount = (props: any) => {
 
     const isFaculty = props.match.params.role == "faculty-staffs";
 
+    const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
+
     const [email, setEmail] = useState("");
     const [fName, setFname] = useState("");
     const [lName, setLname] = useState("");
     const [password, setPassword] = useState("");
     const [course, setCourse] = useState("");
     const [srCode, setSrCode] = useState("");
-    const [file, setFile] = useState<any[]>([]);
+    const [file, setFile] = useState<any>(null);
+    const [image, setImage] = useState(defaultImage);
+
+    const [toast] = useIonToast();
 
     function handleChange(e: any) {
-        setFile([...file, e.target.files[0]]);
+        if(e.target.files && e.target.files[0]){
+            setImage(URL.createObjectURL(e.target.files[0]));
+            setFile(e.target.files[0]);
+        }
     }
 
     function openFile(){
         inputFile.current?.click();
+    }
+
+    async function addAccount(){
+        const role = isFaculty ? "Faculty" : "Student"
+        const userModel = setUserModel({
+            firstName: fName,
+            lastName: lName,
+            email: email,
+            password: password,
+            course: course,
+            srCode: srCode,
+            role: role,
+            status: isFaculty ? "Available" : ""
+        });
+        
+        const result = await createAccount(userModel, file);
+
+        if(result){
+            showToast(toast, CreateAccountMessage);
+
+            // CLEAR TEXT FIELDS
+            setFname("");
+            setLname("");
+            setEmail("");
+            setPassword("");
+            setCourse("");
+            setSrCode("");
+            // CLEAR IMAGE
+            setFile(null);
+            setImage(defaultImage);
+        }
     }
 
     return <IonPage>
@@ -44,7 +86,9 @@ const AddAccount = (props: any) => {
                     </IonButton>
                     <input type="file" ref={inputFile} onChange={handleChange}/>
                     {/* AVATAR */}
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
+                    <IonAvatar className="add-faculty-avatar">
+                        <img src={image} />
+                    </IonAvatar>
                 </div>
             </div>
             <div className="spacer-h-m"/>
@@ -103,7 +147,7 @@ const AddAccount = (props: any) => {
                 <IonButton fill="clear" className="add-faculty-cancel-button" href="split-view-admin">Cancel</IonButton>
                 <div className="spacer-w-xs" />
                 {/* ADD BUTTON */}
-                <IonButton className="add-faculty-add-button" shape="round">Add</IonButton>
+                <IonButton className="add-faculty-add-button" shape="round" onClick={addAccount}>Add</IonButton>
                 <div className="spacer-w-xs" />
             </div>
         </IonContent>

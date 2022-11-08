@@ -1,5 +1,5 @@
 
-import { Component} from "react";
+import { Component, useEffect, useState} from "react";
 import { IonContent, IonFab, IonFabButton, IonIcon, IonPage } from '@ionic/react';
 import './Adviser.css';
 import { MobileArrowBackAppBar, MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
@@ -9,6 +9,8 @@ import { add } from "ionicons/icons";
 import ContentHeader from "../../core/components/ContentHeader";
 import { useMediaQuery } from "react-responsive";
 import { webWidth } from "../../core/Utils";
+import UserModel from "../../core/models/user_model";
+import { getAllFaculties, getAllStudents } from "../../core/services/admin_service";
 
 interface AdviserModel{
     image: string,
@@ -107,6 +109,15 @@ class Adviser extends Component{
 
 const AdviserAdmin = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
+
+    const [faculties, setFaculties] = useState<UserModel[]>([]);
+
+    useEffect(() => {
+        getAllFaculties().then((value) => {
+            setFaculties(value as UserModel[]);
+        });
+    }, []);
+
     
     return (
         <IonPage>
@@ -118,12 +129,22 @@ const AdviserAdmin = () => {
             }
             <IonContent className={isDesktop ? "adviser-content" : "adviser-content-mobile"}>
                 <div className="adviser-container">
-                    {sampleData.map((adviser, index) => {
-                        switch(adviser.status){
-                            case "available":
-                                return <AvailableCard name={adviser.name} course={adviser.course} image={adviser.image} href="/projects/propose-topic"/>;
-                            case "unavailable":
-                                return <UnavailableCard name={adviser.name} course={adviser.course} image={adviser.image} href="/projects/propose-topic"/>;
+                    {faculties.map((faculty, index) => {
+                        switch(faculty.status){
+                            case "Available":
+                                return <AvailableCard
+                                    name={faculty.firstName + " " + faculty.lastName}
+                                    course={faculty.course}
+                                    image={faculty.image}
+                                    href="/projects/propose-topic"
+                                />;
+                            case "Unavailable":
+                                return <UnavailableCard
+                                    name={faculty.firstName + " " + faculty.lastName}
+                                    course={faculty.course}
+                                    image={faculty.image}
+                                    href="/projects/propose-topic"
+                                />;
                             default:
                                 return <div></div>;
                         }

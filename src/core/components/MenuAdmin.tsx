@@ -1,4 +1,5 @@
 import {
+  IonAvatar,
   IonContent,
   IonIcon,
   IonItem,
@@ -14,6 +15,10 @@ import { useLocation } from 'react-router-dom';
 import { archiveOutline, archiveSharp, bookmarkOutline, document, heartOutline, heartSharp, logOut, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, person, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 import './Menu.css';
 import '../../core/components/Spacer.css';
+import { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
+import { useDispatch } from 'react-redux';
+import { initUser } from '../services/auth_service';
 
 interface AppPage {
   url: string;
@@ -64,15 +69,26 @@ const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 const MenuAdmin: React.FC = () => {
   const location = useLocation();
 
+  const [cookies, setCookie, removeCookie] = useCookies(['uid']);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    initUser(dispatch, cookies.uid);
+  }, []);
+
   return (
     <IonMenu contentId="main" type="push">
       <IonContent>
         <IonList id="inbox-list" lines='none'>
           <div className='center'>
             {/* PROFILE IMAGE */}
-            <div className='profile-image' />
+            <IonAvatar className="profile-image">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"/>
+            </IonAvatar>
+            <div className='spacer-h-s' />
             {/* NAME */}
-            <div className='name'>Sum Ting Wong</div>
+            <div className='name'>Admin</div>
           </div>
           <div className='spacer-h-m'/>
           {appPages.map((appPage, index) => {
@@ -86,16 +102,6 @@ const MenuAdmin: React.FC = () => {
             );
           })}
         </IonList>
-
-        {/* <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
-          {labels.map((label, index) => (
-            <IonItem lines="none" key={index}>
-              <IonIcon slot="start" icon={bookmarkOutline} />
-              <IonLabel>{label}</IonLabel>
-            </IonItem>
-          ))}
-        </IonList> */}
       </IonContent>
     </IonMenu>
   );

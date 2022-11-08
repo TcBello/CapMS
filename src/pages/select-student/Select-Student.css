@@ -1,0 +1,26 @@
+.select-student-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.select-student-card{
+    border-radius: 20px;
+    width: 180px;
+    height: auto;
+}
+
+.select-student-name{
+    text-align: center;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.select-student-image{
+    width: 120px;
+    height: 120px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,10 +1,12 @@
 import { IonSplitPane, IonRouterOutlet, IonPage, IonApp } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Component } from "react";
+import { Component, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Route, Redirect } from "react-router";
 import Menu from "../../core/components/Menu";
 import MenuAdmin from "../../core/components/MenuAdmin";
 import MenuFaculty from "../../core/components/MenuFaculty";
+import UserModel from "../../core/models/user_model";
 import { Home, HomeAdmin, HomeFaculty } from "../home/Home";
 import './Split-View.css';
 

@@ -1,30 +1,91 @@
-import { IonButton, IonCard, IonIcon, IonInput, IonItem, IonLabel, IonPage} from "@ionic/react";
-import { lockClosed } from "ionicons/icons";
-import { Component } from "react";
+import { IonButton, IonCard, IonContent, IonIcon, IonInput, IonItem, IonLabel, IonPage, useIonToast} from "@ionic/react";
+import { lockClosed, mail } from "ionicons/icons";
+import { Component, useEffect, useState } from "react";
 import BackgroundLogin from "./components/BackgroundLogin";
 import "../../core/components/Spacer.css";
-import MediaQuery from "react-responsive";
-import LoginWeb from "./components/Login-Web";
-import LoginMobile from "./components/Login-Mobile";
+import { useMediaQuery } from "react-responsive";
 import "./Login.css";
+import { goPage, replacePage, showToast, webWidth } from "../../core/Utils";
+import { LoginInvalidCredentialError } from "../../core/Errors";
+import { useDispatch, useSelector } from "react-redux";
+import { authenticate, loginWithEmailAndPassword, logout } from "../../core/services/auth_service";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../core/firebase-setup/firebase-setup";
+import UserModel from "../../core/models/user_model";
+import { useCookies } from "react-cookie";
+import InputField from "../../core/components/InputField";
 
-class Login extends Component{
-    constructor(props: {}){
-        super(props);
+const Login = () => {
+    const isDesktop = useMediaQuery({minWidth: webWidth});
+
+    const [toast] = useIonToast();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [user, loading, error] = useAuthState(auth);
+
+    const [cookies, setCookie, removeCookie] = useCookies(['uid']);
+
+    const dispatch = useDispatch();
+
+    async function LoginUser(){
+        await loginWithEmailAndPassword(dispatch, email, password, toast);
+
+        // EMPTY TEXT FIELD
+        setEmail("");
+        setPassword("");
     }
 
-    render(){
-        return (
-            <div>
-                <IonPage>
-                    {/* WEB VERSION */}
-                    <LoginWeb />
-                    {/* MOBILE VERSION */}
-                    <LoginMobile />
-                </IonPage>
-            </div>
-        );
+    if(loading){
+        return <IonPage></IonPage>;
     }
-}
+    if(error){
+        return <IonPage><p>Error</p></IonPage>;
+    }
+    if(user){
+        setCookie("uid", user.uid)
+        authenticate(dispatch, user);
+        return <IonPage></IonPage>;
+    }
+
+    return <IonPage>
+        {/* CONTENT */}
+        <IonContent scrollY={false}>
+            {/* BACKGROUND IMAGE */}
+            <BackgroundLogin />
+                <div className="content-center">
+                    <div className="spacer-h-xl"/>
+                    {/* CAPMS HEADER */}
+                    <h1 className="cap-text">Cap<span>MS</span></h1>
+                    <div className="spacer-h-xl"/>
+                    {/* CARD */}
+                    <IonCard className={isDesktop ? "login-card" : "login-card-mobile"}>
+                        {/* LOGIN HEADER */}
+                        <h1 className="login-header">Login</h1>
+                        <div className="spacer-h-l"/>
+                        <div className="input-field-container">
+                            {/* EMAIL ICON */}
+                            <IonIcon icon={mail} className="icon"></IonIcon>
+                            <div className="spacer-w-xs" />
+                            {/* EMAIL INPUT FIELD */}
+                            <InputField title="Email" useState={[email, setEmail]} obscure={false}/>
+                        </div>
+                        <div className="spacer-h-s"/>
+                        <div className="input-field-container">
+                            {/* PASSWORD ICON */}
+                            <IonIcon icon={lockClosed} className="icon"></IonIcon>
+                            <div className="spacer-w-xs" />
+                            {/* PASSWORD INPUT FIELD */}
+                            <InputField title="Password" useState={[password, setPassword]} obscure={true}/>
+                        </div>
+                        <div className="spacer-h-m"/>
+                        {/* LOGIN BUTTON */}
+                        <IonButton className="login-button" onClick={LoginUser}>LOGIN</IonButton>
+                    </IonCard>
+                </div>
+        </IonContent>
+    </IonPage>
+};
 
 export default Login;
