@@ -5,51 +5,39 @@ import UserModel from "../../core/models/user_model";
 import { getAllStudents } from "../../core/services/admin_service";
 import SelectStudentCard from "./component/Select-Student-Card";
 import "./Select-Student.css";
+import "../../core/components/Spacer.css";
+import { useSelector } from "react-redux";
+import { selectFirstMember, selectSecondMember, selectThirdMember } from "../../core/redux/slices/select-student-slice";
+import { replacePage } from "../../core/Utils";
 
-interface StudentModel{
-    name: string,
-    image: string
-}
-
-const sampleData: StudentModel[] = [
-    {
-        name: "Sum Ting Wong",
-        image: "https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"
-    },
-    {
-        name: "Sum Ting Wong",
-        image: "https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"
-    },
-    {
-        name: "Sum Ting Wong",
-        image: "https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"
-    },
-    {
-        name: "Sum Ting Wong",
-        image: "https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"
-    },
-    {
-        name: "Sum Ting Wong",
-        image: "https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"
-    },
-    {
-        name: "Sum Ting Wong",
-        image: "https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"
-    },
-    {
-        name: "Sum Ting Wong",
-        image: "https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"
-    }
-];
-
-const SelectStudent = () => {
+const SelectStudent = (props: any) => {
     const [students, setStudents] = useState<UserModel[]>([]);
+
+    const memberNumber = props.match.params.memberNumber;
+
+    const selectedStudents = useSelector((state: any) => state.selectStudent);
 
     useEffect(() => {
         getAllStudents().then((value) => {
             setStudents(value as UserModel[]);
         });
     }, []);
+
+    function selectStudent(student: UserModel){
+        if(memberNumber == "first-member"){
+            selectFirstMember(student);
+            // replacePage("/home/admin/teams/add");
+            console.log(selectedStudents.firstMember);
+        }
+        if(memberNumber == "second-member"){
+            selectSecondMember(student);
+            replacePage("/home/admin/teams/add");
+        }
+        if(memberNumber == "third-member"){
+            selectThirdMember(student);
+            replacePage("/home/admin/teams/add");
+        }
+    }
 
     return <IonPage>
         {/* APP BAR */}
@@ -61,7 +49,8 @@ const SelectStudent = () => {
                 {students.map((student, index) => {
                     return <SelectStudentCard
                         name={student.firstName + " " + student.lastName}
-                        image={student.image} href=""
+                        image={student.image}
+                        onClick={() => selectStudent(student)}
                     />;
                 })}
             </div>

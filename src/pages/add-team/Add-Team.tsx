@@ -5,11 +5,15 @@ import "../../core/components/Spacer.css";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { webWidth } from "../../core/Utils";
+import { useSelector } from "react-redux";
+import UserModel from "../../core/models/user_model";
 
 const AddTeam = () => {
     const [name, setName] = useState("");
 
     const isDesktop = useMediaQuery({minWidth: webWidth});
+
+    const selectedStudents = useSelector((state: any) => state.selectStudent);
 
     return <IonPage>
         {/* APP BAR */}
@@ -19,44 +23,41 @@ const AddTeam = () => {
             {/* 1ST MEMBER */}
             <IonItem lines="none">
                 <IonLabel slot="start" className="add-team-header">1st Member</IonLabel>
-                <IonButton slot="end" className="add-team-select-button" shape="round" href="/home/admin/teams/add/select-a-student">Select</IonButton>
+                <IonButton slot="end" className="add-team-select-button" shape="round" href="/home/admin/teams/add/select-a-student/first-member">Select</IonButton>
             </IonItem>
             <div className="spacer-h-s"/>
             {/* AVATAR WITH NAME */}
             <div className="add-team-content-center">
-                {/* <img src="https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png" className="add-team-avatar"/> */}
                 <IonAvatar className="add-team-avatar">
-                <img src="https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"/>
+                    <img src={selectedStudents.firstMember.image}/>
                 </IonAvatar>
-                <h6 className="add-team-member-name">Sum Ting Wong</h6>
+                <h6 className="add-team-member-name">{selectedStudents.firstMember.firstName + " " + selectedStudents.firstMember.lastName}</h6>
             </div>
             {/* 2ND MEMBER */}
             <IonItem lines="none">
                 <IonLabel slot="start" className="add-team-header">2nd Member</IonLabel>
-                <IonButton slot="end" className="add-team-select-button" shape="round" href="/home/admin/teams/add/select-a-student">Select</IonButton>
+                <IonButton slot="end" className="add-team-select-button" shape="round" href="/home/admin/teams/add/select-a-student/second-member">Select</IonButton>
             </IonItem>
             <div className="spacer-h-s"/>
             {/* AVATAR WITH NAME */}
             <div className="add-team-content-center">
-                {/* <img src="https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png" className="add-team-avatar"/> */}
                 <IonAvatar className="add-team-avatar">
-                <img src="https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"/>
+                    <img src={selectedStudents.secondMember.image}/>
                 </IonAvatar>
-                <h6 className="add-team-member-name">Sum Ting Wong</h6>
+                <h6 className="add-team-member-name">{selectedStudents.secondMember.firstName + " " + selectedStudents.secondMember.lastName}</h6>
             </div>
             {/* 3RD MEMBER */}
             <IonItem lines="none">
                 <IonLabel slot="start" className="add-team-header">3rd Member</IonLabel>
-                <IonButton slot="end" className="add-team-select-button" shape="round" href="/home/admin/teams/add/select-a-student">Select</IonButton>
+                <IonButton slot="end" className="add-team-select-button" shape="round" href="/home/admin/teams/add/select-a-student/third-member">Select</IonButton>
             </IonItem>
             <div className="spacer-h-s"/>
             {/* AVATAR WITH NAME */}
             <div className="add-team-content-center">
-                {/* <img src="https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png" className="add-team-avatar"/> */}
                 <IonAvatar className="add-team-avatar">
-                <img src="https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"/>
+                    <img src={selectedStudents.thirdMember.image}/>
                 </IonAvatar>
-                <h6 className="add-team-member-name">Sum Ting Wong</h6>
+                <h6 className="add-team-member-name">{selectedStudents.thirdMember.firstName + " " + selectedStudents.thirdMember.lastName}</h6>
             </div>
             <div className="spacer-h-m"/>
             {/* TEAM NAME INPUT FIELD */}

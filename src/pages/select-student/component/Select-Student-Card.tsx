@@ -1,7 +1,7 @@
 import { IonAvatar, IonCard } from "@ionic/react";
 
-const SelectStudentCard = (props: {name: string, image: string, href: string}) => {
-    return <IonCard className="select-student-card" button>
+const SelectStudentCard = (props: {name: string, image: string, onClick: any}) => {
+    return <IonCard className="select-student-card" button onClick={props.onClick}>
         {/* STUDENT IMAGE */}
         <IonAvatar className="select-student-image">
             <img src={props.image}/>
