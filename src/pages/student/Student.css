@@ -69,12 +69,10 @@
 
 .item-card .name{
     font-weight: bold;
-    font-size: 20px;
     height: 0px;
     padding-bottom: 15px;
     padding-left: 10px;
     padding-right: 10px;
-    text-overflow: ellipsis;
     width: 180px;
     height: 25px;
     text-align: center;
