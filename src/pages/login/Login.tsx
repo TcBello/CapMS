@@ -13,6 +13,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../core/firebase-setup/firebase-setup";
 import UserModel from "../../core/models/user_model";
 import { useCookies } from "react-cookie";
+import InputField from "../../core/components/InputField";
 
 const Login = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
@@ -68,12 +69,7 @@ const Login = () => {
                             <IonIcon icon={mail} className="icon"></IonIcon>
                             <div className="spacer-w-xs" />
                             {/* EMAIL INPUT FIELD */}
-                            <IonItem lines="none" className={isDesktop ? "input-field" : "input-field-mobile"}>
-                                <IonLabel position="floating">
-                                    Email
-                                </IonLabel>
-                                <IonInput value={email} onIonChange={(e: any) => setEmail(e.target.value)} />
-                            </IonItem>
+                            <InputField title="Email" useState={[email, setEmail]} obscure={false}/>
                         </div>
                         <div className="spacer-h-s"/>
                         <div className="input-field-container">
@@ -81,12 +77,7 @@ const Login = () => {
                             <IonIcon icon={lockClosed} className="icon"></IonIcon>
                             <div className="spacer-w-xs" />
                             {/* PASSWORD INPUT FIELD */}
-                            <IonItem lines="none" className={isDesktop ? "input-field" : "input-field-mobile"}>
-                                <IonLabel position="floating">
-                                    Password
-                                </IonLabel>
-                                <IonInput type="password" value={password} onIonChange={(e: any) => setPassword(e.target.value)}/>
-                            </IonItem>
+                            <InputField title="Password" useState={[password, setPassword]} obscure={true}/>
                         </div>
                         <div className="spacer-h-m"/>
                         {/* LOGIN BUTTON */}
