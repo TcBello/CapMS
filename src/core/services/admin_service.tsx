@@ -80,7 +80,7 @@ async function getAllStudents(){
             const data = doc.data();
 
             return setUserModel({
-                uid: data['id'],
+                uid: data['uid'],
                 firstName: data['first_name'],
                 lastName: data['last_name'],
                 email: data['email'],
@@ -111,7 +111,7 @@ async function getAllFaculties(){
             const data = doc.data();
 
             return setUserModel({
-                uid: data['id'],
+                uid: data['uid'],
                 firstName: data['first_name'],
                 lastName: data['last_name'],
                 email: data['email'],
