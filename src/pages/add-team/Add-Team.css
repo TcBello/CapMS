@@ -28,24 +28,6 @@
     font-weight: 500;
 }
 
-.add-team-input-field{
-    --border-width: 3px;
-    --border-color: grey;
-    --border-radius: 10px;
-    width: 400px;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-.add-team-input-field-mobile{
-    --border-width: 3px;
-    --border-color: grey;
-    --border-radius: 10px;
-    width: 92%;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
 .add-team-content-right{
     display: flex;
     flex-direction: row;
@@ -64,4 +46,8 @@
 .add-team-cancel-button{
     --padding-top: 25px;
     --padding-bottom: 25px;
+}
+
+.add-team-input-field{
+    margin-left: 15px;
 }

@@ -7,6 +7,7 @@ import Menu from "../../core/components/Menu";
 import MenuAdmin from "../../core/components/MenuAdmin";
 import MenuFaculty from "../../core/components/MenuFaculty";
 import UserModel from "../../core/models/user_model";
+import { clearStorageData } from "../../core/Utils";
 import { Home, HomeAdmin, HomeFaculty } from "../home/Home";
 import './Split-View.css';
 
@@ -55,6 +56,11 @@ class SplitViewFaculty extends Component{
 }
 
 class SplitViewAdmin extends Component{
+
+    componentDidMount(){
+        clearStorageData();
+    }
+    
     render(){
         return (
             <div>

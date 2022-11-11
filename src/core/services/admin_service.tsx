@@ -3,8 +3,11 @@ import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { auth, db, storage } from "../firebase-setup/firebase-setup";
 import UserModel, { setUserModel } from "../models/user_model";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { defaultImage } from "../Utils";
+import { setTeamModel } from "../models/team_model";
 
 const userCollection = collection(db, "users");
+const teamCollection = collection(db, "teams");
 
 function avatarStorage(filename: string){
     return ref(storage, `/avatars/${filename}`);
@@ -128,4 +131,72 @@ async function getAllFaculties(){
     }
 }
 
-export { createAccount, getAllStudents, getAllFaculties };
+async function createTeam(teamName: string, firstMember: UserModel, secondMember: UserModel, thirdMember: UserModel){
+    try{
+        await addDoc(teamCollection, {
+            team_name: teamName,
+            members: [
+                {
+                    uid: firstMember.uid,
+                    first_name: firstMember.firstName,
+                    last_name: firstMember.lastName,
+                    email: firstMember.email,
+                    course: firstMember.course,
+                    sr_code: firstMember.srCode,
+                    image: firstMember.image,
+                    role: firstMember.role
+                },
+                {
+                    uid: secondMember.uid,
+                    first_name: secondMember.firstName,
+                    last_name: secondMember.lastName,
+                    email: secondMember.email,
+                    course: secondMember.course,
+                    sr_code: secondMember.srCode,
+                    image: secondMember.image,
+                    role: secondMember.role
+                },
+                {
+                    uid: thirdMember.uid,
+                    first_name: thirdMember.firstName,
+                    last_name: thirdMember.lastName,
+                    email: thirdMember.email,
+                    course: thirdMember.course,
+                    sr_code: thirdMember.srCode,
+                    image: thirdMember.image,
+                    role: thirdMember.role
+                },
+                {
+                    uid: "",
+                    first_name: "No",
+                    last_name: "Adviser",
+                    email: "",
+                    course: "",
+                    sr_code: "",
+                    image: defaultImage,
+                    role: "Adviser",
+                    status: "",
+                }
+            ],
+            created_at: Date().toString()
+        });
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+async function getAllTeams(){
+    try{
+        const docData = await getDocs(teamCollection);
+        return docData.docs.map((doc) => setTeamModel({
+            teamName: doc.data()['team_name'],
+            members: doc.data()['members'] as UserModel[]
+        }));
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+export { createAccount, getAllStudents, getAllFaculties, createTeam, getAllTeams };

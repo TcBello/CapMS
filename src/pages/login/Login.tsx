@@ -69,7 +69,12 @@ const Login = () => {
                             <IonIcon icon={mail} className="icon"></IonIcon>
                             <div className="spacer-w-xs" />
                             {/* EMAIL INPUT FIELD */}
-                            <InputField title="Email" useState={[email, setEmail]} obscure={false}/>
+                            <IonItem lines="none" className={isDesktop ? "login-input-field" : "login-input-field-mobile"}>
+                                <IonLabel position="floating">
+                                    Email
+                                </IonLabel>
+                                <IonInput value={email} onIonChange={(e: any) => setEmail(e.target.value)} />
+                            </IonItem>
                         </div>
                         <div className="spacer-h-s"/>
                         <div className="input-field-container">
@@ -77,7 +82,12 @@ const Login = () => {
                             <IonIcon icon={lockClosed} className="icon"></IonIcon>
                             <div className="spacer-w-xs" />
                             {/* PASSWORD INPUT FIELD */}
-                            <InputField title="Password" useState={[password, setPassword]} obscure={true}/>
+                            <IonItem lines="none" className={isDesktop ? "login-input-field" : "login-input-field-mobile"}>
+                                <IonLabel position="floating">
+                                    Password
+                                </IonLabel>
+                                <IonInput type="password" value={password} onIonChange={(e: any) => setPassword(e.target.value)} />
+                            </IonItem>
                         </div>
                         <div className="spacer-h-m"/>
                         {/* LOGIN BUTTON */}
