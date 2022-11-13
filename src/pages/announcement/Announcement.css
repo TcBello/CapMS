@@ -31,3 +31,11 @@
     padding-right: 20px;
     text-align: justify;
 }
+
+.announcement-fab-button{
+    --background: var(--palette-blue);
+}
+
+.announcement-fab-button .icon{
+    color: white;
+}

@@ -1,0 +1,65 @@
+.add-announcement-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 15px
+}
+
+.add-announcement-content-left{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.add-announcement-content-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-announcement-button-container{
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    bottom: 30px;
+    right: 15px;
+}
+
+.add-announcement-add-button{
+    --background: var(--palette-red);
+    color: white;
+    --padding-start: 50px;
+    --padding-end: 50px;
+    --padding-top: 25px;
+    --padding-bottom: 25px;
+}
+
+.add-announcement-cancel-button{
+    --padding-top: 25px;
+    --padding-bottom: 25px;
+}
+
+.add-announcement-message-container{
+    border: 3px solid grey;
+    border-radius: 10px;
+    width: 500px;
+    height: auto;
+    min-height: 300px;
+}
+
+.add-announcement-message-container-mobile{
+    border: 3px solid grey;
+    border-radius: 10px;
+    width: 95%;
+    height: auto;
+    min-height: 300px;
+}
+
+.add-announcement-message-field{
+    word-wrap: normal;
+    --background: green;
+    height: auto;
+    min-height: 280px;
+    width: fit-content;
+}

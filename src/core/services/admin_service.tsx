@@ -1,13 +1,17 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, orderBy, query, Timestamp, where } from "firebase/firestore";
 import { auth, db, storage } from "../firebase-setup/firebase-setup";
 import UserModel, { setUserModel } from "../models/user_model";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { defaultImage } from "../Utils";
 import { setTeamModel } from "../models/team_model";
+import AnnouncementModel, { setAnnouncementModel } from "../models/announcement_model";
+import { format } from "date-fns";
 
+// TABLE COLLECTIONS
 const userCollection = collection(db, "users");
 const teamCollection = collection(db, "teams");
+const announcementCollection = collection(db, "announcements");
 
 function avatarStorage(filename: string){
     return ref(storage, `/avatars/${filename}`);
@@ -189,14 +193,69 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
 async function getAllTeams(){
     try{
         const docData = await getDocs(teamCollection);
-        return docData.docs.map((doc) => setTeamModel({
-            teamName: doc.data()['team_name'],
-            members: doc.data()['members'] as UserModel[]
-        }));
+        return docData.docs.map((doc) => {
+            let members = (doc.data()['members'] as []).map((member) => {
+                return setUserModel({
+                    uid: member['uid'],
+                    firstName: member['first_name'],
+                    lastName: member['last_name'],
+                    email: member['email'],
+                    course: member['course'],
+                    srCode: member['sr_code'],
+                    image: member['image'],
+                    role: member['role'],
+                    status: member['status'],
+                })
+            });
+
+            return setTeamModel({
+                teamName: doc.data()['team_name'],
+                members: members
+            });
+        });
     }
     catch(e){
         console.log(e);
     }
 }
 
-export { createAccount, getAllStudents, getAllFaculties, createTeam, getAllTeams };
+async function createAnnouncement(announcement: AnnouncementModel){
+    try{
+        await addDoc(announcementCollection, {
+            by: announcement.by,
+            message: announcement.message,
+            created_at: announcement.date
+        });
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+async function getAllAnnouncements(){
+    try{
+        // QUERY THAT WILL BE USED IN GETTING DOCUMENTS
+        const getAnnouncementQuery = query(
+            announcementCollection,
+            orderBy("created_at", "desc")
+        );
+
+        // GET DOCUMENTS
+        const docData = await getDocs(getAnnouncementQuery);
+
+        const announcementModels = docData.docs.map((doc) => {
+            return setAnnouncementModel({
+                by: doc.data()['by'],
+                message: doc.data()['message'],
+                date: doc.data()['created_at'] as Timestamp
+            });
+        });
+
+        return announcementModels;
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+export { createAccount, getAllStudents, getAllFaculties, createTeam, getAllTeams, createAnnouncement, getAllAnnouncements };

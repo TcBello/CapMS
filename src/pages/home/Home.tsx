@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { logout } from '../../core/services/auth_service';
 import { replacePage } from '../../core/Utils';
 import { AdviserAdmin } from '../adviser/Adviser';
-import Announcement from '../announcement/Announcement';
+import { Announcement, AnnouncementAdmin } from '../announcement/Announcement';
 import Dashboard from '../dashboard/Dashboard';
 import MyAdvisee from '../my-advisee/MyAdvisee';
 import MyTeam from '../my-team/My-Team';
@@ -89,7 +89,7 @@ const HomeAdmin: React.FC = () => {
       return <Dashboard />;
     // ANNOUNCEMENT PAGE
     case "announcements":
-      return <Announcement />;
+      return <AnnouncementAdmin />;
     // PROFILE PAGE
     case "profile":
       return <Profile />;

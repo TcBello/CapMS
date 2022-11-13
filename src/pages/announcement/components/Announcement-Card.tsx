@@ -1,22 +1,20 @@
 import { IonCard, IonItem, IonLabel } from "@ionic/react";
-import { Component } from "react";
+import AnnouncementModel from "../../../core/models/announcement_model";
+import { format } from "date-fns";
 
-class AnnouncementCard extends Component<{by: string, createdAt: string, content: string},{}>{
-    constructor(props: any){
-        super(props);
-    }
+const AnnouncementCard = (props: {announcementModel: AnnouncementModel}) => {
+    var date = props.announcementModel.date.toDate();
+    var formattedDate = format(date, "MMM d, yyyy");
 
-    render(){
-        return (
-            <IonCard className="announcement-card">
-                <IonItem lines="none">
-                    <IonLabel slot="start" className="title">By {this.props.by}</IonLabel>
-                    <IonLabel slot="end" className="title">By {this.props.createdAt}</IonLabel>
-                </IonItem>
-                <p>{this.props.content}</p>
-            </IonCard>
-        );
-    }
-}
+    return (
+        <IonCard className="announcement-card">
+            <IonItem lines="none">
+                <IonLabel slot="start" className="title">By {props.announcementModel.by}</IonLabel>
+                <IonLabel slot="end" className="title">{formattedDate}</IonLabel>
+            </IonItem>
+            <p>{props.announcementModel.message}</p>
+        </IonCard>
+    );
+};
 
 export default AnnouncementCard;
