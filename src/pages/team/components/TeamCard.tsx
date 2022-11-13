@@ -6,7 +6,9 @@ const TeamCard = (props: {name: string, members: UserModel[], href: string}) => 
         <div className="image-container">
             {/* MEMBER IMAGES */}
             {props.members.map((member, index) => {
-                return <img src={member.image}/>;
+                return <IonAvatar className="team-card-avatar">
+                    <img src={member.image}/>
+                </IonAvatar>;
             })}
         </div>
         <div className="content-center">
@@ -16,7 +18,7 @@ const TeamCard = (props: {name: string, members: UserModel[], href: string}) => 
         <div className="content-left">
             {/* MEMBER NAMES */}
             {props.members.map((member, index) => {
-                return <p className="member-name">{member.image}</p>;
+                return <p className="member-name">{member.firstName} {member.lastName}</p>;
             })}
         </div>
     </IonCard>
