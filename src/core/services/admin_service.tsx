@@ -44,7 +44,7 @@ async function createAccount(userModel: UserModel, imageFile: any){
                 sr_code: userModel.srCode,
                 image: imageFile != null ? imageUrl : userModel.image,
                 role: userModel.role,
-                created_at: Date().toString()
+                created_at: Timestamp.now()
             });
         }
         // POST DATA IN CLOUD FIRESTORE WITH FACULTY ROLE
@@ -59,7 +59,7 @@ async function createAccount(userModel: UserModel, imageFile: any){
                 image: imageFile != null ? imageUrl : userModel.image,
                 role: userModel.role,
                 status: userModel.status,
-                created_at: Date().toString()
+                created_at: Timestamp.now()
             });
         }
 
@@ -182,7 +182,7 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
                     status: "",
                 }
             ],
-            created_at: Date().toString()
+            created_at: Timestamp.now()
         });
     }
     catch(e){
