@@ -5,7 +5,7 @@ import BackgroundLogin from "./components/BackgroundLogin";
 import "../../core/components/Spacer.css";
 import { useMediaQuery } from "react-responsive";
 import "./Login.css";
-import { goPage, replacePage, showToast, webWidth } from "../../core/Utils";
+import { goPage, replacePage, setStorageData, showToast, webWidth } from "../../core/Utils";
 import { LoginInvalidCredentialError } from "../../core/Errors";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticate, loginWithEmailAndPassword, logout } from "../../core/services/auth_service";
@@ -46,6 +46,7 @@ const Login = () => {
     if(user){
         setCookie("uid", user.uid)
         authenticate(dispatch, user);
+        setStorageData("user", JSON.stringify(user));
         return <IonPage></IonPage>;
     }
 

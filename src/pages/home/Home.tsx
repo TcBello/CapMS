@@ -1,13 +1,13 @@
 import { useCookies } from 'react-cookie';
 import { useParams } from 'react-router';
 import { logout } from '../../core/services/auth_service';
-import { replacePage } from '../../core/Utils';
+import { clearStorageData, replacePage } from '../../core/Utils';
 import { AdviserAdmin } from '../adviser/Adviser';
 import { Announcement, AnnouncementAdmin } from '../announcement/Announcement';
 import Dashboard from '../dashboard/Dashboard';
 import MyAdvisee from '../my-advisee/MyAdvisee';
 import MyTeam from '../my-team/My-Team';
-import Profile from '../profile/Profile';
+import Profile, { ProfileAdmin } from '../profile/Profile';
 import Project from '../project/Project';
 import Student from '../student/Student';
 import Team from '../team/Team';
@@ -92,7 +92,7 @@ const HomeAdmin: React.FC = () => {
       return <AnnouncementAdmin />;
     // PROFILE PAGE
     case "profile":
-      return <Profile />;
+      return <ProfileAdmin />;
     // MY TEAM PAGE
     case "teams":
      return <Team />
@@ -106,6 +106,7 @@ const HomeAdmin: React.FC = () => {
     case "logout":
       logout().then(value => {
         removeCookie("uid");
+        clearStorageData();
         replacePage("/");
       });
       return <div></div>;

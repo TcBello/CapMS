@@ -258,4 +258,38 @@ async function getAllAnnouncements(){
     }
 }
 
-export { createAccount, getAllStudents, getAllFaculties, createTeam, getAllTeams, createAnnouncement, getAllAnnouncements };
+async function getAdminProfile(uid: string){
+    try{
+        // QUERY THAT WILL BE USED IN GETTING DOCS
+        const getProfileQuery = query(
+            userCollection,
+            where("uid", "==", uid)
+        );
+
+        // GET DOCS
+        const docData = await getDocs(getProfileQuery);
+
+        // DOCS MAP TO USER MODEL
+        const user = docData.docs.map((doc) => setUserModel({
+            uid: uid,
+            email: doc.data()['email'],
+            role: doc.data()['role']
+        }));
+
+        return user[0];
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+export {
+    createAccount,
+    getAllStudents,
+    getAllFaculties,
+    createTeam,
+    getAllTeams,
+    createAnnouncement,
+    getAllAnnouncements,
+    getAdminProfile
+};

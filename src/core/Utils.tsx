@@ -27,8 +27,22 @@ function setStorageData(key: string, value: string){
     window.localStorage.setItem(key, value);
 }
 
+function removeStorageData(key: string){
+    window.localStorage.removeItem(key);
+}
+
 function clearStorageData(){
     window.localStorage.clear();
 }
 
-export { webWidth, goPage, showToast, replacePage, getStorageData, setStorageData, clearStorageData, defaultImage };
+export {
+    webWidth,
+    goPage,
+    showToast,
+    replacePage,
+    getStorageData, 
+    setStorageData,
+    clearStorageData,
+    removeStorageData,
+    defaultImage
+};
