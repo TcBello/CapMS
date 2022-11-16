@@ -6,16 +6,12 @@ import { getAllStudents } from "../../core/services/admin_service";
 import SelectStudentCard from "./component/Select-Student-Card";
 import "./Select-Student.css";
 import "../../core/components/Spacer.css";
-import { useSelector } from "react-redux";
-import { selectFirstMember, selectSecondMember, selectThirdMember } from "../../core/redux/slices/select-student-slice";
-import { replacePage } from "../../core/Utils";
+import { replacePage, setStorageData } from "../../core/Utils";
 
 const SelectStudent = (props: any) => {
     const [students, setStudents] = useState<UserModel[]>([]);
 
     const memberNumber = props.match.params.memberNumber;
-
-    const selectedStudents = useSelector((state: any) => state.selectStudent);
 
     useEffect(() => {
         getAllStudents().then((value) => {
@@ -25,16 +21,15 @@ const SelectStudent = (props: any) => {
 
     function selectStudent(student: UserModel){
         if(memberNumber == "first-member"){
-            selectFirstMember(student);
-            // replacePage("/home/admin/teams/add");
-            console.log(selectedStudents.firstMember);
+            setStorageData('first-member', JSON.stringify(student));
+            replacePage("/home/admin/teams/add");
         }
         if(memberNumber == "second-member"){
-            selectSecondMember(student);
+            setStorageData('second-member', JSON.stringify(student));
             replacePage("/home/admin/teams/add");
         }
         if(memberNumber == "third-member"){
-            selectThirdMember(student);
+            setStorageData('third-member', JSON.stringify(student));
             replacePage("/home/admin/teams/add");
         }
     }

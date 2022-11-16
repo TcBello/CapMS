@@ -1,4 +1,6 @@
-const webWidth: number = 992; //760
+const webWidth: number = 992;
+
+const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
 
 function goPage(url: string){
     window.location.href = url;
@@ -17,4 +19,30 @@ function showToast(toast: any, message: string){
     });
 }
 
-export {webWidth, goPage, showToast, replacePage};
+function getStorageData(key: string){
+    return window.localStorage.getItem(key);
+}
+
+function setStorageData(key: string, value: string){
+    window.localStorage.setItem(key, value);
+}
+
+function removeStorageData(key: string){
+    window.localStorage.removeItem(key);
+}
+
+function clearStorageData(){
+    window.localStorage.clear();
+}
+
+export {
+    webWidth,
+    goPage,
+    showToast,
+    replacePage,
+    getStorageData, 
+    setStorageData,
+    clearStorageData,
+    removeStorageData,
+    defaultImage
+};

@@ -1,7 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import UserModel, { setUserModel } from "../../models/user_model";
-
-const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
 
 // SELECT STUDENT INITIAL STATE
 // const selectStudentInitialState: UserModel[] = [
@@ -33,21 +31,21 @@ const selectStudentInitialState = {
         {
             firstName: "First",
             lastName: "Member Name",
-            image: defaultImage
+            // image: defaultImage
         }
     ),
     secondMember: setUserModel(
         {
             firstName: "Second",
             lastName: "Member Name",
-            image: defaultImage
+            // image: defaultImage
         }
     ),
     thirdMember: setUserModel(
         {
             firstName: "Third",
             lastName: "Member Name",
-            image: defaultImage
+            // image: defaultImage
         }
     )
 };
@@ -71,3 +69,6 @@ const selectStudentSlice: any = createSlice({
 export const { selectFirstMember, selectSecondMember, selectThirdMember } = selectStudentSlice.actions;
 
 export default selectStudentSlice.reducer;
+
+const selectStudentState = (state: any) => state.selectStudent;
+export const selectedStudents = createSelector([selectStudentState], (state: any) => {return state;});

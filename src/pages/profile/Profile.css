@@ -1,5 +1,9 @@
-.content{
+.profile-content{
     --background: var(--palette-light-orange);
+}
+
+.profile-content-mobile{
+    --background: white;
 }
 
 .profile-container{
@@ -32,10 +36,6 @@
 }
 
 .profile-container .profile-image{
-    background-image: url("https://microbiology.ucr.edu/sites/default/files/styles/form_preview/public/blank-profile-pic.png?itok=4teBBoet");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
     width: 200px;
     height: 200px;
 }
@@ -45,6 +45,15 @@
     --box-shadow: none;
     color: black;
     font-weight: bold;
+}
+
+.edit-button-mobile{
+    --background: var(--palette-red);
+    color: white;
+    height: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: auto;
 }
 
 .profile-mobile-container{
@@ -58,11 +67,6 @@
 .profile-mobile-container .photo{
     height: 100px;
     width: 100px;
-    background-image: url("https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 50px;
 }
 
 .profile-mobile-container .name{

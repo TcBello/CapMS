@@ -1,19 +1,97 @@
-import { IonAvatar, IonButton, IonContent, IonInput, IonItem, IonLabel, IonPage } from "@ionic/react"
+import { IonAvatar, IonButton, IonContent, IonInput, IonItem, IonLabel, IonPage, useIonToast } from "@ionic/react"
 import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
 import "./Add-Team.css";
 import "../../core/components/Spacer.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { webWidth } from "../../core/Utils";
+import { clearStorageData, defaultImage, getStorageData, replacePage, showToast, webWidth } from "../../core/Utils";
 import { useSelector } from "react-redux";
-import UserModel from "../../core/models/user_model";
+import UserModel, { setUserModel } from "../../core/models/user_model";
+import { selectedStudents } from "../../core/redux/slices/select-student-slice";
+import InputField from "../../core/components/InputField";
+import { createTeam } from "../../core/services/admin_service";
+import { CreateTeamMessage } from "../../core/Success";
 
 const AddTeam = () => {
     const [name, setName] = useState("");
 
-    const isDesktop = useMediaQuery({minWidth: webWidth});
+    const [firstMember, setFirstMember] = useState<UserModel>(setUserModel({
+        firstName: "First",
+        lastName: "Member Name",
+        image: defaultImage
+    }));
 
-    const selectedStudents = useSelector((state: any) => state.selectStudent);
+    const [secondMember, setSecondMember] = useState<UserModel>(setUserModel({
+        firstName: "Second",
+        lastName: "Member Name",
+        image: defaultImage
+    }));
+
+    const [thirdMember, setThirdMember] = useState<UserModel>(setUserModel({
+        firstName: "Third",
+        lastName: "Member Name",
+        image: defaultImage
+    }));
+
+    const isDesktop = useMediaQuery({minWidth: webWidth});
+    
+    const [toast] = useIonToast();
+
+    async function addTeam() {
+        // CREATE TEAM
+        await createTeam(name, firstMember, secondMember, thirdMember);
+
+        // CLEAR LOCAL STORAGE DATA
+        clearStorageData();
+
+        // SET INITIAL DATA
+        setFirstMember(setUserModel({
+            firstName: "First",
+            lastName: "Member Name",
+            image: defaultImage
+        }));
+
+        setSecondMember(setUserModel({
+            firstName: "Second",
+            lastName: "Member Name",
+            image: defaultImage
+        }));
+
+        setThirdMember(setUserModel({
+            firstName: "Third",
+            lastName: "Member Name",
+            image: defaultImage
+        }));
+
+        setName("");
+
+        // SHOW TOAST
+        showToast(toast, CreateTeamMessage);
+    }
+
+    function cancel(){
+        clearStorageData();
+        replacePage("split-view-admin");
+    }
+
+    useEffect(() => {
+        // ON MOUNT
+        const currentFirstMember = getStorageData('first-member');
+        const currentSecondMember = getStorageData('second-member');
+        const currentThirdMember = getStorageData('third-member');
+        
+        if(currentFirstMember != null){
+            setFirstMember(JSON.parse(currentFirstMember));
+        }
+
+        if(currentSecondMember != null){
+            setSecondMember(JSON.parse(currentSecondMember));
+        }
+
+        if(currentThirdMember != null){
+            setThirdMember(JSON.parse(currentThirdMember));
+        }
+    }, []);
 
     return <IonPage>
         {/* APP BAR */}
@@ -29,9 +107,9 @@ const AddTeam = () => {
             {/* AVATAR WITH NAME */}
             <div className="add-team-content-center">
                 <IonAvatar className="add-team-avatar">
-                    <img src={selectedStudents.firstMember.image}/>
+                    <img src={firstMember.image}/>
                 </IonAvatar>
-                <h6 className="add-team-member-name">{selectedStudents.firstMember.firstName + " " + selectedStudents.firstMember.lastName}</h6>
+                <h6 className="add-team-member-name">{firstMember.firstName + " " + firstMember.lastName}</h6>
             </div>
             {/* 2ND MEMBER */}
             <IonItem lines="none">
@@ -42,9 +120,9 @@ const AddTeam = () => {
             {/* AVATAR WITH NAME */}
             <div className="add-team-content-center">
                 <IonAvatar className="add-team-avatar">
-                    <img src={selectedStudents.secondMember.image}/>
+                    <img src={secondMember.image}/>
                 </IonAvatar>
-                <h6 className="add-team-member-name">{selectedStudents.secondMember.firstName + " " + selectedStudents.secondMember.lastName}</h6>
+                <h6 className="add-team-member-name">{secondMember.firstName + " " + secondMember.lastName}</h6>
             </div>
             {/* 3RD MEMBER */}
             <IonItem lines="none">
@@ -55,26 +133,23 @@ const AddTeam = () => {
             {/* AVATAR WITH NAME */}
             <div className="add-team-content-center">
                 <IonAvatar className="add-team-avatar">
-                    <img src={selectedStudents.thirdMember.image}/>
+                    <img src={thirdMember.image}/>
                 </IonAvatar>
-                <h6 className="add-team-member-name">{selectedStudents.thirdMember.firstName + " " + selectedStudents.thirdMember.lastName}</h6>
+                <h6 className="add-team-member-name">{thirdMember.firstName + " " + thirdMember.lastName}</h6>
             </div>
             <div className="spacer-h-m"/>
             {/* TEAM NAME INPUT FIELD */}
-            <IonItem lines="none" className={isDesktop ? "add-team-input-field" : "add-team-input-field-mobile"}>
-                <IonLabel position="floating">
-                    Team Name
-                </IonLabel>
-                <IonInput value={name} onIonChange={(e: any) => setName(e.target.value)} />
-            </IonItem>
+            <div className={isDesktop ? "add-team-input-field" : "add-team-content-center"}>
+                <InputField title="Team Name" useState={[name, setName]} obscure={false}/>
+            </div>
             <div className="spacer-h-m"/>
             <div className="add-team-content-right">
                 {/* CANCEL BUTTON */}
-                <IonButton fill="clear" className="add-team-cancel-button" href="split-view-admin">Cancel</IonButton>
+                <IonButton fill="clear" className="add-team-cancel-button" onClick={cancel}>Cancel</IonButton>
                 <div className="spacer-w-xs" />
                 {/* ADD BUTTON */}
-                <IonButton className="add-team-add-button" shape="round">Add</IonButton>
-                <div className="spacer-w-xs" />
+                <IonButton className="add-team-add-button" shape="round" onClick={addTeam}>Add</IonButton>
+                <div className="spacer-w-s" />
             </div>
             <div className="spacer-h-m"/>
         </IonContent>

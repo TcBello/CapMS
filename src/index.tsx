@@ -5,16 +5,13 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux"
 import store from './core/redux/store';
-import { CookiesProvider } from "react-cookie";
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <CookiesProvider>
-        <App />
-      </CookiesProvider>
+      <App />
     </Provider>
   </React.StrictMode>
 );

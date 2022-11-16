@@ -1,11 +1,14 @@
 import { IonAvatar, IonCard } from "@ionic/react";
+import UserModel from "../../../core/models/user_model";
 
-const TeamCard = (props: {name: string, members: {image: string, name: string}[], href: string}) => {
+const TeamCard = (props: {name: string, members: UserModel[], href: string}) => {
     return <IonCard className="item-card" button href={props.href}>
         <div className="image-container">
             {/* MEMBER IMAGES */}
             {props.members.map((member, index) => {
-                return <img src={member.image}/>;
+                return <IonAvatar className="team-card-avatar">
+                    <img src={member.image}/>
+                </IonAvatar>;
             })}
         </div>
         <div className="content-center">
@@ -15,7 +18,7 @@ const TeamCard = (props: {name: string, members: {image: string, name: string}[]
         <div className="content-left">
             {/* MEMBER NAMES */}
             {props.members.map((member, index) => {
-                return <p className="member-name">{member.name}</p>
+                return <p className="member-name">{member.firstName} {member.lastName}</p>;
             })}
         </div>
     </IonCard>

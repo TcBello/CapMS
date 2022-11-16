@@ -51,10 +51,9 @@
     align-items: center;
 }
 
-.image-container img{
+.image-container .team-card-avatar{
     height: 100px;
     width: 100px;
-    border-radius: 50px;
 }
 
 .item-card .content-center{
