@@ -10,6 +10,7 @@ import { getStorageData, showToast, webWidth } from "../../core/Utils";
 import "../../core/components/Spacer.css";
 import "./Edit-Password.css";
 import { useMediaQuery } from "react-responsive";
+import UserModel from "../../core/models/user_model";
 
 const EditPassword = () => {
     const [newPassword, setNewPassword] = useState("");
@@ -18,6 +19,15 @@ const EditPassword = () => {
     const [toast] = useIonToast();
 
     const isDesktop = useMediaQuery({minWidth: webWidth});
+
+    const storageData = getStorageData("user");
+    const userModel = (JSON.parse(storageData!)) as UserModel;
+
+    const href = userModel.role == "Student"
+        ? "split-view"
+        : userModel.role == "Faculty"
+            ? "split-view-faculty"
+            : "split-view-admin";
 
     async function applyNewPassword() {
         if (newPassword && confirmNewPassword != "") {
@@ -49,7 +59,7 @@ const EditPassword = () => {
     return (
         <IonPage>
             {/* APP BAR */}
-            <MobileArrowBackAppBar title="Edit Password" href="split-view-admin" />
+            <MobileArrowBackAppBar title="Edit Password" href={href} />
             {/* CONTENT */}
             <IonContent>
                 <div className={isDesktop ? "edit-password-input-field-container" : "edit-password-input-field-container-mobile"}>
