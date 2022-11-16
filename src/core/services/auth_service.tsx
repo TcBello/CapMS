@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 import { addDoc, collection, DocumentData, getDocs } from "firebase/firestore";
 import { loginAdmin } from "../redux/slices/admin";
 import { login } from "../redux/slices/user";
-import { replacePage, showToast } from "../Utils";
+import { replacePage, setStorageData, showToast } from "../Utils";
 import { LoginInvalidCredentialError } from "../Errors";
 import { setUserModel } from "../models/user_model";
 
@@ -58,6 +58,14 @@ async function getUserData(dispatch: any, uid: string){
             // SEND DATA TO REDUX
             dispatch(loginAdmin({uid: data['uid'], email: data['email'], role: data['role']}));
 
+            const user = setUserModel({
+                uid: data['uid'],
+                email: data['email'],
+                role: data['role']
+            });
+
+            setStorageData("user", JSON.stringify(user));
+
             userData = data;
         }
         
@@ -77,6 +85,8 @@ async function getUserData(dispatch: any, uid: string){
 
             // SEND DATA TO REDUX
             dispatch(login(userModel));
+
+            setStorageData("user", JSON.stringify(userModel));
 
             userData = data;
         }

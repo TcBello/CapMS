@@ -12,7 +12,6 @@ import { authenticate, loginWithEmailAndPassword, logout } from "../../core/serv
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../core/firebase-setup/firebase-setup";
 import UserModel from "../../core/models/user_model";
-import { useCookies } from "react-cookie";
 import InputField from "../../core/components/InputField";
 
 const Login = () => {
@@ -24,8 +23,6 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     const [user, loading, error] = useAuthState(auth);
-
-    const [cookies, setCookie, removeCookie] = useCookies(['uid']);
 
     const dispatch = useDispatch();
 
@@ -44,9 +41,7 @@ const Login = () => {
         return <IonPage><p>Error</p></IonPage>;
     }
     if(user){
-        setCookie("uid", user.uid)
         authenticate(dispatch, user);
-        setStorageData("user", JSON.stringify(user));
         return <IonPage></IonPage>;
     }
 

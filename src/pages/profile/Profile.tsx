@@ -7,9 +7,8 @@ import "../../core/components/Spacer.css";
 import { person, mail, school, call } from "ionicons/icons";
 import ContentHeader from "../../core/components/ContentHeader";
 import { useMediaQuery } from "react-responsive";
-import { defaultImage, webWidth } from "../../core/Utils";
+import { defaultImage, getStorageData, webWidth } from "../../core/Utils";
 import { MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
-import { useCookies } from "react-cookie";
 import UserModel, { setUserModel } from "../../core/models/user_model";
 import { getAdminProfile } from "../../core/services/admin_service";
 
@@ -31,10 +30,11 @@ const ProfileAdmin = () => {
 
     const [user, setUser] = useState<UserModel>(setUserModel({}));
 
-    const [cookies, setCookie, removeCookie] = useCookies(['uid']);
+    const userData = getStorageData("user");
+    const userModel = (JSON.parse(userData!)) as UserModel;
 
     useEffect(() => {
-        getAdminProfile(cookies['uid']).then((value: any) => {
+        getAdminProfile(userModel.uid).then((value: any) => {
             setUser(value as UserModel);
         });
     }, []);

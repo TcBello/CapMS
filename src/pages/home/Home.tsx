@@ -1,4 +1,3 @@
-import { useCookies } from 'react-cookie';
 import { useParams } from 'react-router';
 import { logout } from '../../core/services/auth_service';
 import { clearStorageData, replacePage } from '../../core/Utils';
@@ -17,8 +16,6 @@ const Home: React.FC = () => {
 
   const { name } = useParams<{ name: string; }>();
 
-  const [cookies, setCookie, removeCookie] = useCookies(['uid']);
-
   switch(name){
     case "announcements":
       return <Announcement />;
@@ -34,7 +31,7 @@ const Home: React.FC = () => {
     // LOGOUT PAGE
     case "logout":
       logout().then(value => {
-        removeCookie("uid");
+        clearStorageData();
         replacePage("/");
       });
       return <div></div>;
@@ -48,8 +45,6 @@ const Home: React.FC = () => {
 const HomeFaculty: React.FC = () => {
 
   const { name } = useParams<{ name: string; }>();
-
-  const [cookies, setCookie, removeCookie] = useCookies(['uid']);
 
   switch(name){
     case "announcements":
@@ -66,7 +61,7 @@ const HomeFaculty: React.FC = () => {
     // LOGOUT PAGE
     case "logout":
       logout().then(value => {
-        removeCookie("uid");
+        clearStorageData();
         replacePage("/");
       });
       return <div></div>;
@@ -80,8 +75,6 @@ const HomeFaculty: React.FC = () => {
 const HomeAdmin: React.FC = () => {
 
   const { name } = useParams<{ name: string; }>();
-
-  const [cookies, setCookie, removeCookie] = useCookies(['uid']);
 
   switch(name){
     // DASHBOARD PAGE
@@ -105,7 +98,6 @@ const HomeAdmin: React.FC = () => {
     // LOGOUT PAGE
     case "logout":
       logout().then(value => {
-        removeCookie("uid");
         clearStorageData();
         replacePage("/");
       });

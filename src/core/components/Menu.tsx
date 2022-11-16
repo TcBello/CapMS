@@ -21,7 +21,7 @@ import UserModel from '../models/user_model';
 import { useEffect, useLayoutEffect } from 'react';
 import { debug } from 'console';
 import { authenticate, initUser } from '../services/auth_service';
-import { useCookies } from 'react-cookie';
+import { getStorageData } from '../Utils';
 
 interface AppPage {
   url: string;
@@ -64,12 +64,13 @@ const Menu: React.FC = () => {
 
   const user = useSelector((state: any) => state.user.value as UserModel);
 
-  const [cookies, setCookie, removeCookie] = useCookies(['uid']);
-
   const dispatch = useDispatch();
 
+  const userData = getStorageData("user");
+  const userModel = (JSON.parse(userData!)) as UserModel;
+
   useEffect(() => {
-    initUser(dispatch, cookies.uid);
+    initUser(dispatch, userModel.uid);
   }, []);
 
   return (

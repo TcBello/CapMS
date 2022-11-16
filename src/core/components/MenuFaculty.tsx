@@ -16,10 +16,10 @@ import { archiveOutline, archiveSharp, bookmarkOutline, document, heartOutline, 
 import './Menu.css';
 import '../../core/components/Spacer.css';
 import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import UserModel from '../models/user_model';
 import { initUser } from '../services/auth_service';
+import { getStorageData } from '../Utils';
 
 interface AppPage {
   url: string;
@@ -62,12 +62,13 @@ const MenuFaculty: React.FC = () => {
 
   const user = useSelector((state: any) => state.user.value as UserModel);
 
-  const [cookies, setCookie, removeCookie] = useCookies(['uid']);
+  const userData = getStorageData("user");
+  const userModel = (JSON.parse(userData!)) as UserModel;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    initUser(dispatch, cookies.uid);
+    initUser(dispatch, userModel.uid);
   }, []);
 
   return (

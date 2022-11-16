@@ -16,9 +16,10 @@ import { archiveOutline, archiveSharp, bookmarkOutline, document, heartOutline, 
 import './Menu.css';
 import '../../core/components/Spacer.css';
 import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
 import { initUser } from '../services/auth_service';
+import UserModel from '../models/user_model';
+import { getStorageData } from '../Utils';
 
 interface AppPage {
   url: string;
@@ -69,12 +70,13 @@ const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 const MenuAdmin: React.FC = () => {
   const location = useLocation();
 
-  const [cookies, setCookie, removeCookie] = useCookies(['uid']);
+  const userData = getStorageData("user");
+  const userModel = (JSON.parse(userData!)) as UserModel;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    initUser(dispatch, cookies.uid);
+    initUser(dispatch, userModel.uid);
   }, []);
 
   return (
