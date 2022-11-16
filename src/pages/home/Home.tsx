@@ -6,7 +6,7 @@ import { Announcement, AnnouncementAdmin } from '../announcement/Announcement';
 import Dashboard from '../dashboard/Dashboard';
 import MyAdvisee from '../my-advisee/MyAdvisee';
 import MyTeam from '../my-team/My-Team';
-import Profile, { ProfileAdmin } from '../profile/Profile';
+import { ProfileAdmin, Profile } from '../profile/Profile';
 import Project from '../project/Project';
 import Student from '../student/Student';
 import Team from '../team/Team';
