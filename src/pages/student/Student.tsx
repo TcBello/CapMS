@@ -67,7 +67,7 @@ const Student = () => {
                     return <StudentCard
                         image={student.image}
                         name={student.firstName + " " + student.lastName}
-                        href="/"
+                        href="/home/admin/students/profile"
                     />
                 })}
             </div>

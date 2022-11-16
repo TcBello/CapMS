@@ -30,6 +30,9 @@ import AddTeam from './pages/add-team/Add-Team';
 import SelectStudent from './pages/select-student/Select-Student';
 import AddAnnouncement from './pages/add-announcement/Add-Announcement';
 import EditPassword from './pages/edit-password/Edit-Password';
+import EditProfile from './pages/edit-profile/edit-profile';
+import OtherProfile from './pages/other-profile/other-profile';
+
 
 setupIonicReact();
 
@@ -62,6 +65,9 @@ const App: React.FC = () => {
           <Route path="/home/admin/teams/add/select-a-student/:memberNumber" component={SelectStudent} />
           <Route path="/home/admin/announcements/add" component={AddAnnouncement} />
           <Route path="/home/admin/profile/edit-password" component={EditPassword} />
+          <Route path="/home/admin/students/profile" component={OtherProfile} /> 
+          <Route path="/home/admin/students/profile/edit" component={EditProfile} />
+          
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
