@@ -166,7 +166,7 @@ const ProfileAdmin = () => {
                         // MOBILE VIEW
                         : <div className="profile-mobile-container">
                             <div className="profile-mobile-content-center">
-                            <div className="spacer-h-l"/>
+                                <div className="spacer-h-l"/>
                                 {/* PHOTO */}
                                 <IonAvatar className="photo">
                                     <img src={defaultImage} />

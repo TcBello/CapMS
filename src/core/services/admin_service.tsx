@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, getDocs, orderBy, query, Timestamp, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, Timestamp, updateDoc, where } from "firebase/firestore";
 import { auth, db, storage } from "../firebase-setup/firebase-setup";
 import UserModel, { setUserModel } from "../models/user_model";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -283,6 +283,57 @@ async function getAdminProfile(uid: string){
     }
 }
 
+async function editAnnouncement(announcementModel: AnnouncementModel){
+    try{
+        let docId = "";
+        
+        // QUERY THAT WILL BE USED IN GETTING DOCS
+        const docQuery = query(
+            announcementCollection,
+            where("created_at", "==", announcementModel.date)
+        );
+
+        // GET DOCS
+        const snapshot = await getDocs(docQuery);
+
+        snapshot.docs.map((doc) => {
+            docId = doc.id;
+        });
+
+        const announcement = doc(db, "announcements", docId);
+
+        // UPDATE DOC
+        await updateDoc(announcement, {
+            message: announcementModel.message
+        })
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+async function deleteAnnouncement(announcementModel: AnnouncementModel){
+    try{
+        let docRef: any;
+
+        // QUERY THAT WILL BE USED IN GETTING DOCS
+        const docQuery = query(
+            announcementCollection,
+            where("created_at", "==", announcementModel.date)
+        );
+        
+        const snapshot = await getDocs(docQuery);
+        snapshot.docs.map((doc) => {
+            docRef = doc.ref;
+        });
+
+        await deleteDoc(docRef);
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
 export {
     createAccount,
     getAllStudents,
@@ -291,5 +342,7 @@ export {
     getAllTeams,
     createAnnouncement,
     getAllAnnouncements,
-    getAdminProfile
+    getAdminProfile,
+    editAnnouncement,
+    deleteAnnouncement
 };
