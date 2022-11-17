@@ -1,0 +1,12 @@
+.other-profile-delete-button{
+    color: red;
+    font-weight: bold;
+}
+
+.other-profile-delete-button-mobile{
+    color: red;
+    height: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-weight: bold;
+}

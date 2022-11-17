@@ -1,22 +1,20 @@
 import { IonButton, IonContent, IonPage, useIonToast } from "@ionic/react";
 import { User } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../../core/components/InputField";
 import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
 import { MissingFieldError, PasswordFailError, PasswordMatchError } from "../../core/Errors";
 import { changePassword } from "../../core/services/auth_service";
-import { UpdatePasswordMessage } from "../../core/Success";
-import { getStorageData, showToast, webWidth } from "../../core/Utils";
+import { UpdatePasswordMessage, UpdateProfileMessage } from "../../core/Success";
+import { getStorageData, replacePage, setStorageData, showToast, webWidth } from "../../core/Utils";
 import "../../core/components/Spacer.css";
 // import "./Edit-Password.css";
 import { useMediaQuery } from "react-responsive";
-import UserModel from "../../core/models/user_model";
+import UserModel, { setUserModel } from "../../core/models/user_model";
+import { updateUserAccount } from "../../core/services/admin_service";
 
-const EditProfile = () => {
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmNewPassword, setConfirmNewPassword] = useState("");
-
-    const [newFirstName, setNewFirstName] = useState("ako")
+const EditProfile = (props: any) => {
+    const [newFirstName, setNewFirstName] = useState("")
     const [newLastName, setNewLastName] = useState("")
     const [newEmail, setNewEmail] = useState("")
     const [newSrCode, setNewSrCode] = useState("")
@@ -26,41 +24,55 @@ const EditProfile = () => {
 
     const isDesktop = useMediaQuery({minWidth: webWidth});
 
-    const storageData = getStorageData("user");
+    const isFaculty = props.match.params.role == "faculty-staffs";
+
+    const storageData = isFaculty
+        ? getStorageData("faculty-profile")
+        : getStorageData("student-profile");
     const userModel = (JSON.parse(storageData!)) as UserModel;
 
-    const href = userModel.role == "Student"
-        ? "split-view"
-        : userModel.role == "Faculty"
-            ? "split-view-faculty"
-            : "split-view-admin";
+    const href = isFaculty
+        ? "/home/admin/faculty-staffs/profile"
+        : "/home/admin/students/profile";
 
-    async function applyNewPassword() {
-        if (newPassword && confirmNewPassword != "") {
-            if (newPassword == confirmNewPassword) {
-                // CHANGE PASSWORD
-                const result = await changePassword(newPassword);
+    async function updateProfile(){
+        // DATA THAT WILL BE USED IN UPDATING USER
+        const user = setUserModel({
+            uid: userModel.uid,
+            firstName: newFirstName,
+            lastName: newLastName,
+            email: newEmail,
+            srCode: newSrCode,
+            course: newCourse,
+            image: userModel.image,
+            role: userModel.role,
+            status: userModel.status
+        });
 
-                if(result){
-                    // CLEAR INPUT FIELDS
-                    setNewPassword("");
-                    setConfirmNewPassword("");
+        // UPDATE USER
+        await updateUserAccount(user);
 
-                    // SHOW TOAST
-                    showToast(toast, UpdatePasswordMessage);
-                }
-                else{
-                    showToast(toast, PasswordFailError);
-                }
-            }
-            else {
-                showToast(toast, PasswordMatchError);
-            }
+        // SET STORAGE DATA OF USER
+        if(isFaculty){
+            setStorageData("faculty-profile", JSON.stringify(user));
         }
-        else {
-            showToast(toast, MissingFieldError);
+        else{
+            setStorageData("student-profile", JSON.stringify(user));
         }
+
+        // SHOW TOAST
+        showToast(toast, UpdateProfileMessage);
+
+        replacePage(href);
     }
+
+    useEffect(() => {
+        setNewFirstName(userModel.firstName);
+        setNewLastName(userModel.lastName);
+        setNewEmail(userModel.email);
+        setNewSrCode(userModel.srCode);
+        setNewCourse(userModel.course);
+    }, []);
 
     return (
         <IonPage>
@@ -87,10 +99,10 @@ const EditProfile = () => {
                 </div>
                 <div className="edit-password-button-container">
                     {/* CANCEL BUTTON */}
-                    <IonButton fill="clear" className="edit-password-cancel-button" href="split-view-admin">Cancel</IonButton>
+                    <IonButton fill="clear" className="edit-password-cancel-button" href={href}>Cancel</IonButton>
                     <div className="spacer-w-xs" />
                     {/* ADD BUTTON */}
-                    <IonButton className="edit-password-add-button" shape="round" onClick={applyNewPassword}>Apply</IonButton>
+                    <IonButton className="edit-password-add-button" shape="round" onClick={updateProfile}>Apply</IonButton>
                 </div>
             </IonContent>
         </IonPage>

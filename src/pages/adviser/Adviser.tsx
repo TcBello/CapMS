@@ -8,7 +8,7 @@ import UnavailableCard from "./components/UnavailableCard";
 import { add } from "ionicons/icons";
 import ContentHeader from "../../core/components/ContentHeader";
 import { useMediaQuery } from "react-responsive";
-import { webWidth } from "../../core/Utils";
+import { goPage, setStorageData, webWidth } from "../../core/Utils";
 import UserModel from "../../core/models/user_model";
 import { getAllFaculties, getAllStudents } from "../../core/services/admin_service";
 
@@ -92,10 +92,10 @@ class Adviser extends Component{
                     <div className="adviser-container">
                         {sampleData.map((adviser, index) => {
                             switch(adviser.status){
-                                case "available":
-                                    return <AvailableCard name={adviser.name} course={adviser.course} image={adviser.image} href="/projects/propose-topic"/>;
-                                case "unavailable":
-                                    return <UnavailableCard name={adviser.name} course={adviser.course} image={adviser.image} href="/projects/propose-topic"/>;
+                                // case "available":
+                                //     return <AvailableCard name={adviser.name} course={adviser.course} image={adviser.image} href="/projects/propose-topic"/>;
+                                // case "unavailable":
+                                //     return <UnavailableCard name={adviser.name} course={adviser.course} image={adviser.image} href="/projects/propose-topic"/>;
                                 default:
                                     return <div></div>;
                             }
@@ -118,6 +118,11 @@ const AdviserAdmin = () => {
         });
     }, []);
 
+    function onClickFaculty(userModel: UserModel){
+        setStorageData("faculty-profile", JSON.stringify(userModel));
+        goPage("/home/admin/faculty-staffs/profile");
+    }
+
     
     return (
         <IonPage>
@@ -133,17 +138,13 @@ const AdviserAdmin = () => {
                         switch(faculty.status){
                             case "Available":
                                 return <AvailableCard
-                                    name={faculty.firstName + " " + faculty.lastName}
-                                    course={faculty.course}
-                                    image={faculty.image}
-                                    href="/projects/propose-topic"
+                                    userModel={faculty}
+                                    onClick={() => {onClickFaculty(faculty)}}
                                 />;
                             case "Unavailable":
                                 return <UnavailableCard
-                                    name={faculty.firstName + " " + faculty.lastName}
-                                    course={faculty.course}
-                                    image={faculty.image}
-                                    href="/projects/propose-topic"
+                                    userModel={faculty}
+                                    onClick={() => {onClickFaculty(faculty)}}
                                 />;
                             default:
                                 return <div></div>;

@@ -221,6 +221,7 @@ async function getAllTeams(){
 
 async function createAnnouncement(announcement: AnnouncementModel){
     try{
+        // ADD DOC
         await addDoc(announcementCollection, {
             by: announcement.by,
             message: announcement.message,
@@ -334,6 +335,66 @@ async function deleteAnnouncement(announcementModel: AnnouncementModel){
     }
 }
 
+async function updateUserAccount(userModel: UserModel){
+    try{
+        let docId = "";
+
+        // QUERY THAT WILL BE USED IN GETTING DOCS
+        const docQuery = query(
+            userCollection,
+            where("uid", "==", userModel.uid)
+        );
+
+        // GET DOCS
+        const snapshot = await getDocs(docQuery);
+
+        snapshot.docs.map((doc) => {
+            docId = doc.id
+        });
+
+        const users = doc(db, "users", docId);
+
+        //  UPDATE DOCS
+        await updateDoc(users, {
+            first_name: userModel.firstName,
+            last_name: userModel.lastName,
+            email: userModel.email,
+            course: userModel.course,
+            sr_code: userModel.srCode
+        });
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+async function deleteAccount(uid: string){
+    try{
+        let docRef: any;
+
+        // QUERY FOR GETTING DOCS
+        const docQuery = query(
+            userCollection,
+            where("uid", "==", uid)
+        );
+
+        // GET DOCS
+        const snapshot = await getDocs(docQuery);
+
+        snapshot.docs.map((doc) => {
+            docRef = doc.ref;
+        });
+
+        if(docRef != null){
+            // DELETE DOC
+            await deleteDoc(docRef);
+        }
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
 export {
     createAccount,
     getAllStudents,
@@ -344,5 +405,7 @@ export {
     getAllAnnouncements,
     getAdminProfile,
     editAnnouncement,
-    deleteAnnouncement
+    deleteAnnouncement,
+    updateUserAccount,
+    deleteAccount
 };

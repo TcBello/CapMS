@@ -65,8 +65,8 @@ const App: React.FC = () => {
           <Route path="/home/admin/teams/add/select-a-student/:memberNumber" component={SelectStudent} />
           <Route path="/home/admin/announcements/add" component={AddAnnouncement} />
           <Route path="/home/admin/profile/edit-password" component={EditPassword} />
-          <Route path="/home/admin/students/profile" component={OtherProfile} /> 
-          <Route path="/home/admin/students/profile/edit" component={EditProfile} />
+          <Route path="/home/admin/:role/profile" component={OtherProfile} /> 
+          <Route path="/home/admin/:role/profile/edit" component={EditProfile} />
           
         </IonRouterOutlet>
       </IonReactRouter>
