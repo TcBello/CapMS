@@ -1,0 +1,36 @@
+.edit-password-button-container{
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    bottom: 30px;
+    right: 15px;
+}
+
+.edit-password-add-button{
+    --background: var(--palette-red);
+    color: white;
+    --padding-start: 50px;
+    --padding-end: 50px;
+    --padding-top: 25px;
+    --padding-bottom: 25px;
+}
+
+.edit-password-cancel-button{
+    --padding-top: 25px;
+    --padding-bottom: 25px;
+}
+
+.edit-password-input-field-container{
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 20px;
+}
+
+.edit-password-input-field-container-mobile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 20px;
+}

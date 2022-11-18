@@ -28,6 +28,7 @@ const sampleData: FilesData[] = [
 class ProjectFile extends Component<{match: any},{}>{
     render(){
         const title: string = `${this.props.match.params.name}'s Files`;
+        const projectName = this.props.match.params.name;
         
         return (
             <IonPage>
@@ -44,7 +45,7 @@ class ProjectFile extends Component<{match: any},{}>{
                     })}
                     {/* ADD FILE BUTTON */}
                     <IonFab vertical="bottom" horizontal="end" slot="fixed">
-                        <IonFabButton>
+                        <IonFabButton href={`/${projectName}/files/add`}>
                             <IonIcon icon={add} className="project-file-add-button-icon"/>
                         </IonFabButton>
                     </IonFab>
