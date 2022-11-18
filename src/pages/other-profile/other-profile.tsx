@@ -63,12 +63,12 @@ const OtherProfile = (props: any) => {
                             <div className="colorHeader" />
                             <div className="content-left">
                                 {/* INFORMATIONS */}
-                                <IonList>
-                                    {/* NAME */}
-                                    <IonItem lines="none">
-                                        <IonIcon icon={person} slot="start" color="black"></IonIcon>
-                                        <IonLabel>{user.firstName +" "+ user.lastName}</IonLabel>
-                                    </IonItem>
+                                    <IonList>
+                                        {/* NAME */}
+                                        <IonItem lines="none">
+                                            <IonIcon icon={person} slot="start" color="black"></IonIcon>
+                                            <IonLabel>{user.firstName +" "+ user.lastName}</IonLabel>
+                                        </IonItem>
                                     {/* EMAIL */}
                                     <IonItem lines="none">
                                         <IonIcon icon={mail} slot="start" color="black"></IonIcon>
