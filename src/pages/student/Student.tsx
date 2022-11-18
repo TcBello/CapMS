@@ -65,8 +65,7 @@ const Student = () => {
             <div className={isDesktop ? "student-container" : "student-container-mobile"}>
                 {students.map((student, index) => {
                     return <StudentCard
-                        image={student.image}
-                        name={student.firstName + " " + student.lastName}
+                        userModel={student}
                         href="/home/admin/students/profile"
                     />
                 })}
