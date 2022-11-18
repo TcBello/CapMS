@@ -67,7 +67,7 @@ const Profile = () => {
                                 <div className="content-right">
                                     {/* PROFILE IMAGE */}
                                     <IonAvatar className="profile-image">
-                                        <img src={defaultImage} />
+                                        <img src={userModel.image} />
                                     </IonAvatar>
                                     {/* EDIT BUTTON */}
                                     <IonButton className="edit-button" href="/home/admin/profile/edit-password">Edit Password</IonButton>
@@ -80,7 +80,7 @@ const Profile = () => {
                             <div className="spacer-h-l"/>
                                 {/* PHOTO */}
                                 <IonAvatar className="photo">
-                                    <img src={defaultImage} />
+                                    <img src={userModel.image} />
                                 </IonAvatar>
                                  {/* NAME */}
                                  <h5 className="name">{userModel.firstName + " " + userModel.lastName}</h5>
