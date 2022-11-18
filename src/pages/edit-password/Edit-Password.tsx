@@ -11,10 +11,12 @@ import "../../core/components/Spacer.css";
 import "./Edit-Password.css";
 import { useMediaQuery } from "react-responsive";
 import UserModel from "../../core/models/user_model";
+import Loading from "../../core/components/Loading";
 
 const EditPassword = () => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmNewPassword, setConfirmNewPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const [toast] = useIonToast();
 
@@ -29,11 +31,18 @@ const EditPassword = () => {
             ? "split-view-faculty"
             : "split-view-admin";
 
+    
     async function applyNewPassword() {
         if (newPassword && confirmNewPassword != "") {
             if (newPassword == confirmNewPassword) {
+                
+                setLoading(true);
+
                 // CHANGE PASSWORD
                 const result = await changePassword(newPassword);
+
+                setLoading(false);
+
 
                 if(result){
                     // CLEAR INPUT FIELDS
@@ -56,6 +65,7 @@ const EditPassword = () => {
         }
     }
 
+   if (!loading){
     return (
         <IonPage>
             {/* APP BAR */}
@@ -79,6 +89,12 @@ const EditPassword = () => {
             </IonContent>
         </IonPage>
     );
+   }
+
+   else {
+
+        return <Loading />;
+   }
 };
 
 export default EditPassword;

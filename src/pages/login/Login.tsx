@@ -13,6 +13,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../core/firebase-setup/firebase-setup";
 import UserModel from "../../core/models/user_model";
 import InputField from "../../core/components/InputField";
+import Loading from "../../core/components/Loading";
 
 const Login = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
@@ -35,14 +36,14 @@ const Login = () => {
     }
 
     if(loading){
-        return <IonPage></IonPage>;
+        return <Loading />
     }
     if(error){
         return <IonPage><p>Error</p></IonPage>;
     }
     if(user){
         authenticate(dispatch, user);
-        return <IonPage></IonPage>;
+        return <Loading />
     }
 
     return <IonPage>
