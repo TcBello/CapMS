@@ -39,3 +39,24 @@
 .announcement-fab-button .icon{
     color: white;
 }
+
+.announcement-edit-button{
+    --background: var(--palette-blue);
+}
+
+.announcement-edit-button .icon{
+    color: white;
+    height: 20px;
+    width: 20px;
+}
+
+.announcement-delete-button{
+    --background: var(--palette-red);
+    padding: 0px;
+}
+
+.announcement-delete-button .icon{
+    color: white;
+    height: 20px;
+    width: 20px;
+}
