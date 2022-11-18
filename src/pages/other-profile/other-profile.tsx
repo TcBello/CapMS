@@ -11,11 +11,15 @@ import UserModel, { setUserModel } from "../../core/models/user_model";
 import { deleteAccount, getAdminProfile } from "../../core/services/admin_service";
 import "../../core/components/Spacer.css";
 import "./other-profile.css";
+import Loading from "../../core/components/Loading";
 
 const OtherProfile = (props: any) => {
     const isDesktop = useMediaQuery({ minWidth: webWidth });
 
     const [user, setUser] = useState<UserModel>(setUserModel({}));
+
+    const [loading, setLoading] = useState(false);
+
 
     const isFaculty = props.match.params.role == "faculty-staffs";
 
@@ -28,15 +32,25 @@ const OtherProfile = (props: any) => {
         ? "/home/admin/faculty-staffs/profile/edit"
         : "/home/admin/students/profile/edit";
 
+    
+
     async function deleteUser(){
+
+        setLoading(true);
+
         await deleteAccount(user.uid);
+
+        setLoading(false);
+
         replacePage("split-view-admin");
+
     }
 
     useEffect(() => {
         setUser(userModel);
     }, []);
 
+  if(!loading){
     return (
         <IonPage>
             {/* APP BAR */}
@@ -122,6 +136,10 @@ const OtherProfile = (props: any) => {
             </IonContent>
         </IonPage>
     );
+  }
+  else{
+    return <Loading />
+  }
 };
 
 export default OtherProfile;

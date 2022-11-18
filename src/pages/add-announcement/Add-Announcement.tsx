@@ -9,10 +9,13 @@ import { showToast, webWidth } from "../../core/Utils";
 import { createAnnouncement } from "../../core/services/admin_service";
 import AnnouncementModel, { setAnnouncementModel } from "../../core/models/announcement_model";
 import { CreateAnnouncementMessage } from "../../core/Success";
+import Loading from "../../core/components/Loading";
 
 const AddAnnouncement = () => {
     const [by, setBy] = useState("");
     const [message, setMessage] = useState("");
+
+    const [loading, setLoading] = useState(false);
 
     const isDesktop = useMediaQuery({minWidth: webWidth});
 
@@ -20,10 +23,17 @@ const AddAnnouncement = () => {
 
     async function addAnnouncement(){
         // CREATE ANNOUNCEMENT
+
+        setLoading(true);
+
         await createAnnouncement(setAnnouncementModel({
+            
             by: by,
             message: message
+
         }));
+
+        setLoading(false);
 
         // SHOW TOAST
         showToast(toast, CreateAnnouncementMessage);
@@ -33,7 +43,8 @@ const AddAnnouncement = () => {
         setMessage("");
     }
 
-    return <IonPage>
+    if(!loading){
+        return <IonPage>
         {/* APP BAR */}
         <MobileArrowBackAppBar title="Add Announcement" href="split-view-admin"/>
         <IonContent>
@@ -60,6 +71,12 @@ const AddAnnouncement = () => {
             </div>
         </IonContent>
     </IonPage>;
+    }
+
+    else {
+        return <Loading />;
+    }
+
 };
 
 export default AddAnnouncement;

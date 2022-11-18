@@ -11,9 +11,12 @@ import { selectedStudents } from "../../core/redux/slices/select-student-slice";
 import InputField from "../../core/components/InputField";
 import { createTeam } from "../../core/services/admin_service";
 import { CreateTeamMessage } from "../../core/Success";
+import Loading from "../../core/components/Loading";
 
 const AddTeam = () => {
     const [name, setName] = useState("");
+    
+    const [loading, setLoading] = useState(false);
 
     const [firstMember, setFirstMember] = useState<UserModel>(setUserModel({
         firstName: "First",
@@ -38,8 +41,13 @@ const AddTeam = () => {
     const [toast] = useIonToast();
 
     async function addTeam() {
+
+        setLoading(true);
+
         // CREATE TEAM
         await createTeam(name, firstMember, secondMember, thirdMember);
+
+        setLoading(false);
 
         // CLEAR LOCAL STORAGE DATA
         clearStorageData();
@@ -93,7 +101,8 @@ const AddTeam = () => {
         }
     }, []);
 
-    return <IonPage>
+    if(!loading){
+        return <IonPage>
         {/* APP BAR */}
         <MobileArrowBackAppBar title="Add Team" href="split-view-admin" />
         {/* CONTENT */}
@@ -154,6 +163,11 @@ const AddTeam = () => {
             <div className="spacer-h-m"/>
         </IonContent>
     </IonPage>
+    }
+    
+    else{
+        return <Loading />;
+    }
 }
 
 export default AddTeam;

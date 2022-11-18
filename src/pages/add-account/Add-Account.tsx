@@ -9,6 +9,7 @@ import { add, addCircle } from "ionicons/icons";
 import { createAccount } from "../../core/services/admin_service";
 import { setUserModel } from "../../core/models/user_model";
 import { CreateAccountMessage } from "../../core/Success";
+import Loading from "../../core/components/Loading";
 
 const AddAccount = (props: any) => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
@@ -27,6 +28,7 @@ const AddAccount = (props: any) => {
     const [srCode, setSrCode] = useState("");
     const [file, setFile] = useState<any>(null);
     const [image, setImage] = useState(defaultImage);
+    const [loading, setLoading] = useState(false);
 
     const [toast] = useIonToast();
 
@@ -54,7 +56,11 @@ const AddAccount = (props: any) => {
             status: isFaculty ? "Available" : ""
         });
         
+        setLoading(true);
+
         const result = await createAccount(userModel, file);
+
+        setLoading(false);
 
         if(result){
             showToast(toast, CreateAccountMessage);
@@ -72,7 +78,8 @@ const AddAccount = (props: any) => {
         }
     }
 
-    return <IonPage>
+    if(!loading){
+        return <IonPage>
         {/* APP BAR */}
         <MobileArrowBackAppBar title={isFaculty ? "Add Faculty Staff" : "Add Student"} href="split-view-admin"/>
         {/* CONTENT */}
@@ -152,6 +159,10 @@ const AddAccount = (props: any) => {
             </div>
         </IonContent>
     </IonPage>
+    }
+  else {
+    return <Loading />;
+  }
 }
 
 export default AddAccount;
