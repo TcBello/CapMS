@@ -12,13 +12,15 @@ import "../../core/components/Spacer.css";
 import { useMediaQuery } from "react-responsive";
 import UserModel, { setUserModel } from "../../core/models/user_model";
 import { updateUserAccount } from "../../core/services/admin_service";
+import Loading from "../../core/components/Loading";
 
 const EditProfile = (props: any) => {
-    const [newFirstName, setNewFirstName] = useState("")
-    const [newLastName, setNewLastName] = useState("")
-    const [newEmail, setNewEmail] = useState("")
-    const [newSrCode, setNewSrCode] = useState("")
-    const [newCourse, setNewCourse] = useState("")
+    const [newFirstName, setNewFirstName] = useState("");
+    const [newLastName, setNewLastName] = useState("");
+    const [newEmail, setNewEmail] = useState("");
+    const [newSrCode, setNewSrCode] = useState("");
+    const [newCourse, setNewCourse] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const [toast] = useIonToast();
 
@@ -49,8 +51,11 @@ const EditProfile = (props: any) => {
             status: userModel.status
         });
 
+        setLoading(true);
+
         // UPDATE USER
         await updateUserAccount(user);
+        setLoading(false);
 
         // SET STORAGE DATA OF USER
         if(isFaculty){
@@ -74,39 +79,44 @@ const EditProfile = (props: any) => {
         setNewCourse(userModel.course);
     }, []);
 
-    return (
-        <IonPage>
-            {/* APP BAR */}
-            <MobileArrowBackAppBar title="Edit Profile" href={href} />
-            {/* CONTENT */}
-            <IonContent>
-                <div className={isDesktop ? "edit-password-input-field-container" : "edit-password-input-field-container-mobile"}>
-                    {/* EDIT FIRST NAME FIELD */}
-                    <InputField title="First Name" useState={[newFirstName, setNewFirstName]} obscure={false}/>
-                    <div className="spacer-h-s" />
-                    {/* EDIT LAST NAME FIELD */}
-                    <InputField title="Last Name" useState={[newLastName, setNewLastName]} obscure={false} />
-                    <div className="spacer-h-s" />
-                    {/* EDIT EMAIL FIELD */}
-                    <InputField title="Email" useState={[newEmail, setNewEmail]} obscure={false} />
-                    <div className="spacer-h-s" />
-                    {/* EDIT SR CODE FIELD */}
-                    <InputField title="Sr-Code" useState={[newSrCode, setNewSrCode]} obscure={false} />
-                    <div className="spacer-h-s" /> 
-                    {/* EDIT COURSE FIELD */}
-                    <InputField title="Course" useState={[newCourse, setNewCourse]} obscure={false} />
-                    <div className="spacer-h-s" /> 
-                </div>
-                <div className="edit-password-button-container">
-                    {/* CANCEL BUTTON */}
-                    <IonButton fill="clear" className="edit-password-cancel-button" href={href}>Cancel</IonButton>
-                    <div className="spacer-w-xs" />
-                    {/* ADD BUTTON */}
-                    <IonButton className="edit-password-add-button" shape="round" onClick={updateProfile}>Apply</IonButton>
-                </div>
-            </IonContent>
-        </IonPage>
-    );
+    if(!loading){
+        return (
+            <IonPage>
+                {/* APP BAR */}
+                <MobileArrowBackAppBar title="Edit Profile" href={href} />
+                {/* CONTENT */}
+                <IonContent>
+                    <div className={isDesktop ? "edit-password-input-field-container" : "edit-password-input-field-container-mobile"}>
+                        {/* EDIT FIRST NAME FIELD */}
+                        <InputField title="First Name" useState={[newFirstName, setNewFirstName]} obscure={false}/>
+                        <div className="spacer-h-s" />
+                        {/* EDIT LAST NAME FIELD */}
+                        <InputField title="Last Name" useState={[newLastName, setNewLastName]} obscure={false} />
+                        <div className="spacer-h-s" />
+                        {/* EDIT EMAIL FIELD */}
+                        <InputField title="Email" useState={[newEmail, setNewEmail]} obscure={false} />
+                        <div className="spacer-h-s" />
+                        {/* EDIT SR CODE FIELD */}
+                        <InputField title="Sr-Code" useState={[newSrCode, setNewSrCode]} obscure={false} />
+                        <div className="spacer-h-s" /> 
+                        {/* EDIT COURSE FIELD */}
+                        <InputField title="Course" useState={[newCourse, setNewCourse]} obscure={false} />
+                        <div className="spacer-h-s" /> 
+                    </div>
+                    <div className="edit-password-button-container">
+                        {/* CANCEL BUTTON */}
+                        <IonButton fill="clear" className="edit-password-cancel-button" href={href}>Cancel</IonButton>
+                        <div className="spacer-w-xs" />
+                        {/* ADD BUTTON */}
+                        <IonButton className="edit-password-add-button" shape="round" onClick={updateProfile}>Apply</IonButton>
+                    </div>
+                </IonContent>
+            </IonPage>
+        );
+    }
+    else{
+        return <Loading />;
+    }
 };
 
 export default EditProfile;
