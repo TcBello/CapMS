@@ -115,9 +115,9 @@ async function logout(){
     await signOut(auth);
 }
 
-function initUser(dispatch: any, uid: string){
+async function initUser(dispatch: any, uid: string){
     // GET USER DATA
-    getUserData(dispatch, uid);
+    await getUserData(dispatch, uid);
 }
 
 async function changePassword(newPassword: string){

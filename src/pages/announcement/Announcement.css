@@ -60,3 +60,8 @@
     height: 20px;
     width: 20px;
 }
+
+.announcement-date-mobile{
+    font-weight: bold;
+    padding-left: 17px;
+}

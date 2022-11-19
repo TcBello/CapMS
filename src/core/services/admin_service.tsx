@@ -230,10 +230,14 @@ async function getAllTeams(){
 async function createAnnouncement(announcement: AnnouncementModel){
     try{
         // ADD DOC
-        await addDoc(announcementCollection, {
+        const doc = await addDoc(announcementCollection, {
             by: announcement.by,
             message: announcement.message,
             created_at: announcement.date
+        });
+
+        await updateDoc(doc, {
+            uid: doc.id
         });
     }
     catch(e){
@@ -256,7 +260,8 @@ async function getAllAnnouncements(){
             return setAnnouncementModel({
                 by: doc.data()['by'],
                 message: doc.data()['message'],
-                date: doc.data()['created_at'] as Timestamp
+                date: doc.data()['created_at'] as Timestamp,
+                uid: doc.data()['uid']
             });
         });
 
@@ -292,14 +297,14 @@ async function getAdminProfile(uid: string){
     }
 }
 
-async function editAnnouncement(announcementModel: AnnouncementModel){
+async function updateAnnouncement(announcementModel: AnnouncementModel){
     try{
         let docId = "";
         
         // QUERY THAT WILL BE USED IN GETTING DOCS
         const docQuery = query(
             announcementCollection,
-            where("created_at", "==", announcementModel.date)
+            where("uid", "==", announcementModel.uid)
         );
 
         // GET DOCS
@@ -313,7 +318,8 @@ async function editAnnouncement(announcementModel: AnnouncementModel){
 
         // UPDATE DOC
         await updateDoc(announcement, {
-            message: announcementModel.message
+            message: announcementModel.message,
+            by: announcementModel.by
         })
     }
     catch(e){
@@ -328,7 +334,7 @@ async function deleteAnnouncement(announcementModel: AnnouncementModel){
         // QUERY THAT WILL BE USED IN GETTING DOCS
         const docQuery = query(
             announcementCollection,
-            where("created_at", "==", announcementModel.date)
+            where("uid", "==", announcementModel.uid)
         );
         
         const snapshot = await getDocs(docQuery);
@@ -435,7 +441,7 @@ export {
     createAnnouncement,
     getAllAnnouncements,
     getAdminProfile,
-    editAnnouncement,
+    updateAnnouncement,
     deleteAnnouncement,
     updateUserAccount,
     deleteAccount,

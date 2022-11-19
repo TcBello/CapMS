@@ -5,6 +5,7 @@ const UpdatePasswordMessage = "Password has been updated";
 const UpdateProfileMessage = "Profile has been updated";
 const DeleteTeamMessage = "Team has been deleted";
 const DeleteAccountMessage = "Account has been deleted";
+const UpdateAnnouncementMessage = "Announcement has been edited";
 
 export {
     CreateAccountMessage,
@@ -13,5 +14,6 @@ export {
     UpdatePasswordMessage,
     UpdateProfileMessage,
     DeleteTeamMessage,
-    DeleteAccountMessage
+    DeleteAccountMessage,
+    UpdateAnnouncementMessage
 };
