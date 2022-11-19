@@ -137,7 +137,7 @@ async function getAllFaculties(){
 
 async function createTeam(teamName: string, firstMember: UserModel, secondMember: UserModel, thirdMember: UserModel){
     try{
-        await addDoc(teamCollection, {
+        const docRef = await addDoc(teamCollection, {
             team_name: teamName,
             members: [
                 {
@@ -182,8 +182,15 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
                     status: "",
                 }
             ],
-            created_at: Timestamp.now()
+            created_at: Timestamp.now(),
+            uid: ""
         });
+
+        const teamDoc = doc(db, "teams", docRef.id);
+
+        await updateDoc(teamDoc, {
+            uid: docRef.id
+        })
     }
     catch(e){
         console.log(e);
@@ -210,7 +217,8 @@ async function getAllTeams(){
 
             return setTeamModel({
                 teamName: doc.data()['team_name'],
-                members: members
+                members: members,
+                uid: doc.data()['uid']
             });
         });
     }
@@ -395,6 +403,29 @@ async function deleteAccount(uid: string){
     }
 }
 
+async function deleteTeam(uid: string){
+    try{
+        let docRef: any;
+
+        // QUERY THAT WILL BE USED IN GETTING DOCS
+        const docQuery = query(
+            teamCollection,
+            where("uid", "==", uid)
+        );
+
+        const snapshot = await getDocs(docQuery);
+
+        snapshot.docs.map((doc) => {
+            docRef = doc.ref
+        });
+
+        await deleteDoc(docRef);
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
 export {
     createAccount,
     getAllStudents,
@@ -407,5 +438,6 @@ export {
     editAnnouncement,
     deleteAnnouncement,
     updateUserAccount,
-    deleteAccount
+    deleteAccount,
+    deleteTeam
 };

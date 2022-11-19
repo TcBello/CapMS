@@ -2,13 +2,15 @@ import UserModel from "./user_model";
 
 interface TeamModel{
     teamName: string,
-    members: UserModel[]
+    members: UserModel[],
+    uid: string
 };
 
-function setTeamModel({teamName= "", members = [] as UserModel[]}){
+function setTeamModel({teamName= "", members = [] as UserModel[], uid = ""}){
     const teamModel: TeamModel = {
         teamName: teamName,
-        members: members
+        members: members,
+        uid: uid
     };
 
     return teamModel;

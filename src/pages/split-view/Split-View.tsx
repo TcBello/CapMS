@@ -63,6 +63,7 @@ class SplitViewAdmin extends Component{
         removeStorageData("third-member");
         removeStorageData("student-profile");
         removeStorageData("faculty-profile");
+        removeStorageData("team");
     }
     
     render(){
