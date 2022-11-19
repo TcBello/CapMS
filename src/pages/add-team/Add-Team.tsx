@@ -104,7 +104,7 @@ const AddTeam = () => {
     if(!loading){
         return <IonPage>
         {/* APP BAR */}
-        <MobileArrowBackAppBar title="Add Team" href="split-view-admin" />
+        <MobileArrowBackAppBar title="Add Team" href="/split-view-admin" />
         {/* CONTENT */}
         <IonContent>
             {/* 1ST MEMBER */}

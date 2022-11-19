@@ -137,7 +137,7 @@ async function getAllFaculties(){
 
 async function createTeam(teamName: string, firstMember: UserModel, secondMember: UserModel, thirdMember: UserModel){
     try{
-        await addDoc(teamCollection, {
+        const docRef = await addDoc(teamCollection, {
             team_name: teamName,
             members: [
                 {
@@ -182,8 +182,15 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
                     status: "",
                 }
             ],
-            created_at: Timestamp.now()
+            created_at: Timestamp.now(),
+            uid: ""
         });
+
+        const teamDoc = doc(db, "teams", docRef.id);
+
+        await updateDoc(teamDoc, {
+            uid: docRef.id
+        })
     }
     catch(e){
         console.log(e);
@@ -210,7 +217,8 @@ async function getAllTeams(){
 
             return setTeamModel({
                 teamName: doc.data()['team_name'],
-                members: members
+                members: members,
+                uid: doc.data()['uid']
             });
         });
     }
@@ -222,10 +230,14 @@ async function getAllTeams(){
 async function createAnnouncement(announcement: AnnouncementModel){
     try{
         // ADD DOC
-        await addDoc(announcementCollection, {
+        const doc = await addDoc(announcementCollection, {
             by: announcement.by,
             message: announcement.message,
             created_at: announcement.date
+        });
+
+        await updateDoc(doc, {
+            uid: doc.id
         });
     }
     catch(e){
@@ -248,7 +260,8 @@ async function getAllAnnouncements(){
             return setAnnouncementModel({
                 by: doc.data()['by'],
                 message: doc.data()['message'],
-                date: doc.data()['created_at'] as Timestamp
+                date: doc.data()['created_at'] as Timestamp,
+                uid: doc.data()['uid']
             });
         });
 
@@ -284,14 +297,14 @@ async function getAdminProfile(uid: string){
     }
 }
 
-async function editAnnouncement(announcementModel: AnnouncementModel){
+async function updateAnnouncement(announcementModel: AnnouncementModel){
     try{
         let docId = "";
         
         // QUERY THAT WILL BE USED IN GETTING DOCS
         const docQuery = query(
             announcementCollection,
-            where("created_at", "==", announcementModel.date)
+            where("uid", "==", announcementModel.uid)
         );
 
         // GET DOCS
@@ -305,7 +318,8 @@ async function editAnnouncement(announcementModel: AnnouncementModel){
 
         // UPDATE DOC
         await updateDoc(announcement, {
-            message: announcementModel.message
+            message: announcementModel.message,
+            by: announcementModel.by
         })
     }
     catch(e){
@@ -320,7 +334,7 @@ async function deleteAnnouncement(announcementModel: AnnouncementModel){
         // QUERY THAT WILL BE USED IN GETTING DOCS
         const docQuery = query(
             announcementCollection,
-            where("created_at", "==", announcementModel.date)
+            where("uid", "==", announcementModel.uid)
         );
         
         const snapshot = await getDocs(docQuery);
@@ -395,6 +409,29 @@ async function deleteAccount(uid: string){
     }
 }
 
+async function deleteTeam(uid: string){
+    try{
+        let docRef: any;
+
+        // QUERY THAT WILL BE USED IN GETTING DOCS
+        const docQuery = query(
+            teamCollection,
+            where("uid", "==", uid)
+        );
+
+        const snapshot = await getDocs(docQuery);
+
+        snapshot.docs.map((doc) => {
+            docRef = doc.ref
+        });
+
+        await deleteDoc(docRef);
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
 export {
     createAccount,
     getAllStudents,
@@ -404,8 +441,9 @@ export {
     createAnnouncement,
     getAllAnnouncements,
     getAdminProfile,
-    editAnnouncement,
+    updateAnnouncement,
     deleteAnnouncement,
     updateUserAccount,
-    deleteAccount
+    deleteAccount,
+    deleteTeam
 };

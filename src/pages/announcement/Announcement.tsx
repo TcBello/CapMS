@@ -4,11 +4,11 @@ import "./Announcement.css";
 import ContentHeader from "../../core/components/ContentHeader";
 import { AnnouncementAdminCard, AnnouncementCard } from "./components/Announcement-Card";
 import { useMediaQuery } from "react-responsive";
-import { webWidth } from "../../core/Utils";
+import { goPage, setStorageData, webWidth } from "../../core/Utils";
 import { MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
 import { add } from "ionicons/icons";
 import AnnouncementModel from "../../core/models/announcement_model";
-import { deleteAnnouncement, editAnnouncement, getAllAnnouncements } from "../../core/services/admin_service";
+import { deleteAnnouncement, getAllAnnouncements } from "../../core/services/admin_service";
 
 const Announcement = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
@@ -44,7 +44,10 @@ const AnnouncementAdmin = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
     const [announcements, setAnnouncements] = useState<AnnouncementModel[]>([]);
 
-    async function editAnnouncement(){}
+    async function editAnnouncement(announcementModel: AnnouncementModel){
+        setStorageData("announcement", JSON.stringify(announcementModel));
+        goPage("/home/admin/announcements/edit");
+    }
 
     async function removeAnnouncement(announcementModel: AnnouncementModel){
         await deleteAnnouncement(announcementModel);
@@ -74,8 +77,9 @@ const AnnouncementAdmin = () => {
                 // ANNOUNCEMENT CARD
                 return <AnnouncementAdminCard
                     announcementModel={announcement}
-                    onEdit={editAnnouncement}
+                    onEdit={() => editAnnouncement(announcement)}
                     onDelete={() => removeAnnouncement(announcement)}
+                    isDesktop={isDesktop}
                 />;
             })}
         </div>

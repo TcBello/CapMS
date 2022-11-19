@@ -15,10 +15,10 @@ import { useLocation } from 'react-router-dom';
 import { archiveOutline, archiveSharp, bookmarkOutline, document, heartOutline, heartSharp, logOut, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, person, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 import './Menu.css';
 import '../../core/components/Spacer.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { initUser } from '../services/auth_service';
-import UserModel from '../models/user_model';
+import UserModel, { setUserModel } from '../models/user_model';
 import { getStorageData } from '../Utils';
 
 interface AppPage {
@@ -69,6 +69,7 @@ const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
 const MenuAdmin: React.FC = () => {
   const location = useLocation();
+  const [user, setUser] = useState<UserModel>(setUserModel({}));
 
   const userData = getStorageData("user");
   const userModel = (JSON.parse(userData!)) as UserModel;
@@ -76,7 +77,9 @@ const MenuAdmin: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    initUser(dispatch, userModel.uid);
+    initUser(dispatch, userModel.uid).then((value) => {
+      setUser(userModel);
+    });
   }, []);
 
   return (
@@ -86,11 +89,11 @@ const MenuAdmin: React.FC = () => {
           <div className='center'>
             {/* PROFILE IMAGE */}
             <IonAvatar className="profile-image">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"/>
+              <img src={user.image}/>
             </IonAvatar>
             <div className='spacer-h-s' />
             {/* NAME */}
-            <div className='name'>Admin</div>
+            <div className='name'>{user.role}</div>
           </div>
           <div className='spacer-h-m'/>
           {appPages.map((appPage, index) => {

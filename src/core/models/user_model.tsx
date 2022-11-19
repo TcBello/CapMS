@@ -1,3 +1,5 @@
+import { defaultImage } from "../Utils";
+
 interface UserModel{
     uid: string;
     firstName: string;
@@ -12,7 +14,7 @@ interface UserModel{
 }
 
 function setUserModel({uid = "", firstName = "", lastName = "", email = "", password = "",
-                        course = "", srCode = "", image = "", role = "", status = ""}){
+                        course = "", srCode = "", image = defaultImage, role = "", status = ""}){
 
     let userModel: UserModel = {
         uid: uid,

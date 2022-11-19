@@ -1,8 +1,8 @@
 import { IonAvatar, IonCard } from "@ionic/react";
 import UserModel from "../../../core/models/user_model";
 
-const TeamCard = (props: {name: string, members: UserModel[], href: string}) => {
-    return <IonCard className="item-card" button href={props.href}>
+const TeamCard = (props: {name: string, members: UserModel[], onClick: any}) => {
+    return <IonCard className="item-card" button onClick={props.onClick}>
         <div className="image-container">
             {/* MEMBER IMAGES */}
             {props.members.map((member, index) => {

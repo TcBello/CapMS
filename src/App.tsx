@@ -34,6 +34,7 @@ import EditProfile from './pages/edit-profile/edit-profile';
 import OtherProfile from './pages/other-profile/other-profile';
 import TeamProfile from './pages/team-profile/team-profile';
 import AddFile from './pages/add-files/add-files';
+import EditAnnouncement from './pages/edit-announcement/Edit-Announcement';
 
 
 setupIonicReact();
@@ -71,6 +72,7 @@ const App: React.FC = () => {
           <Route path="/home/admin/:role/profile/edit" component={EditProfile} />
           <Route path="/home/admin/teams/profile" component={TeamProfile} />
           <Route path="/:name/files/add" component={AddFile} />
+          <Route path="/home/admin/announcements/edit" component={EditAnnouncement} />
 
           
         </IonRouterOutlet>

@@ -1,17 +1,18 @@
-import { IonAvatar, IonButton, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenuButton, IonPage, IonTitle } from "@ionic/react";
+import { IonAvatar, IonButton, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenuButton, IonPage, IonTitle, useIonToast } from "@ionic/react";
 import { Component, useEffect, useState } from "react";
 // import "./Profile.css";
 import "../../core/components/Spacer.css";
 import { person, mail, school, call } from "ionicons/icons";
 import ContentHeader from "../../core/components/ContentHeader";
 import { useMediaQuery } from "react-responsive";
-import { defaultImage, getStorageData, replacePage, webWidth } from "../../core/Utils";
+import { defaultImage, getStorageData, replacePage, showToast, webWidth } from "../../core/Utils";
 import { MobileArrowBackAppBar, MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
 import UserModel, { setUserModel } from "../../core/models/user_model";
 import { deleteAccount, getAdminProfile } from "../../core/services/admin_service";
 import "../../core/components/Spacer.css";
 import "./other-profile.css";
 import Loading from "../../core/components/Loading";
+import { DeleteAccountMessage } from "../../core/Success";
 
 const OtherProfile = (props: any) => {
     const isDesktop = useMediaQuery({ minWidth: webWidth });
@@ -32,7 +33,7 @@ const OtherProfile = (props: any) => {
         ? "/home/admin/faculty-staffs/profile/edit"
         : "/home/admin/students/profile/edit";
 
-    
+    const [toast] = useIonToast();
 
     async function deleteUser(){
 
@@ -41,6 +42,8 @@ const OtherProfile = (props: any) => {
         await deleteAccount(user.uid);
 
         setLoading(false);
+
+        showToast(toast, DeleteAccountMessage);
 
         replacePage("split-view-admin");
 
@@ -91,7 +94,7 @@ const OtherProfile = (props: any) => {
                                         <img src={user.image} />
                                     </IonAvatar>
                                     {/* EDIT BUTTON */}
-                                    <IonButton className="edit-button" href="/home/admin/students/profile/edit">Edit Profile</IonButton>
+                                    <IonButton className="edit-button" href={href}>Edit Profile</IonButton>
                                     <div className="spacer-h-s" />
                                     {/* DELETE BUTTON */}
                                     <IonButton className="other-profile-delete-button" onClick={deleteUser} fill="clear">Delete Account</IonButton>
