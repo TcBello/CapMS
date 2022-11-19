@@ -113,7 +113,7 @@ const AdviserAdmin = () => {
     const [faculties, setFaculties] = useState<UserModel[]>([]);
 
     useEffect(() => {
-        getAllFaculties().then((value) => {
+        getAllFaculties().then((value: any) => {
             setFaculties(value as UserModel[]);
         });
     }, []);
@@ -139,12 +139,12 @@ const AdviserAdmin = () => {
                             case "Available":
                                 return <AvailableCard
                                     userModel={faculty}
-                                    onClick={() => {onClickFaculty(faculty)}}
+                                    onClick={() => onClickFaculty(faculty)}
                                 />;
                             case "Unavailable":
                                 return <UnavailableCard
                                     userModel={faculty}
-                                    onClick={() => {onClickFaculty(faculty)}}
+                                    onClick={() => onClickFaculty(faculty)}
                                 />;
                             default:
                                 return <div></div>;

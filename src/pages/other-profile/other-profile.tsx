@@ -91,7 +91,7 @@ const OtherProfile = (props: any) => {
                                         <img src={user.image} />
                                     </IonAvatar>
                                     {/* EDIT BUTTON */}
-                                    <IonButton className="edit-button" href="/home/admin/students/profile/edit">Edit Profile</IonButton>
+                                    <IonButton className="edit-button" href={href}>Edit Profile</IonButton>
                                     <div className="spacer-h-s" />
                                     {/* DELETE BUTTON */}
                                     <IonButton className="other-profile-delete-button" onClick={deleteUser} fill="clear">Delete Account</IonButton>
