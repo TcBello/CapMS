@@ -1,0 +1,113 @@
+.dashboard-content{
+    --background: rgba(255, 234, 201, 0.5);
+}
+
+.dashboard-upper-part{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-upper-part-mobile{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-school-year{
+    font-size: 36px;
+}
+
+.dashboard-school-year-card{
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dashboard-school-year-card-mobile{
+    width: 350px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dashboard-daily-visit-card{
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-title{
+    font-size: 24px;
+}
+
+.dashboard-total-user-container{
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    width: 35%;
+    justify-content: center;
+}
+
+.dashboard-total-user-container-mobile{
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    width: 35%;
+    justify-content: center;
+    align-items: center;
+}
+
+.total-faculty-icon{
+    height: 40px;
+    width: 40px;
+}
+
+.dashboard-pie-charts-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+}
+
+.dashboard-pie-charts-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 250px;
+}
+
+.dashboard-total-user-card{
+    width: auto;
+}
+
+.dashboard-total-user-card-mobile{
+    width: 350px;
+}
+
+.testing{
+    width: 350px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-left: auto;
+    margin-right: auto;
+}
