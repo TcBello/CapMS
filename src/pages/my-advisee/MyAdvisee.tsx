@@ -1,4 +1,4 @@
-import { IonContent, IonPage } from "@ionic/react";
+import { IonContent, IonLabel, IonPage } from "@ionic/react";
 import { useMediaQuery } from "react-responsive";
 import ContentHeader from "../../core/components/ContentHeader";
 import { MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
@@ -7,7 +7,7 @@ import AdviseeCard from "./components/AdviseeCard";
 import "./MyAdvisee.css";
 
 interface MyAdviseeModel{
-    members: {name: string, image: string}[]
+    members: {name: string, image: string}[];
 }
 
 const sampleData: MyAdviseeModel[] = [
@@ -43,8 +43,9 @@ const MyAdvisee = () => {
         <IonContent className={isDesktop ? "my-advisee-content" : "my-advisee-content-mobile"}>
             <div className={isDesktop ? "my-advisee-container" : "my-advisee-container-mobile"}>
                 {/* ADVISEE CARD */}
+                
                 {sampleData.map((advisee, index) => {
-                    return <AdviseeCard members={advisee.members} href="/"/>;
+                    return <AdviseeCard members={advisee.members} href="/home/faculty/my-advisees/profile"/>;
                 })}
             </div>
         </IonContent>
