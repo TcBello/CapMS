@@ -13,50 +13,12 @@ class ProposeTopicWeb extends Component{
                     <MobileArrowBackAppBar title="Propose a Topic" href="/split-view"/>
                     {/* CONTENT */}
                     <IonContent className="propose-topic-container">
-                        {/* 1ST PREFERRED ADVISER */}
+                        {/* PREFERRED ADVISER */}
                         <IonItem lines="none">
                             {/* HEADER */}
-                            <IonLabel slot="start" className="header">1st Preferred Adviser</IonLabel>
+                            <IonLabel slot="start" className="header">Preferred Adviser</IonLabel>
                             {/* SELECT BUTTON */}
                             <IonButton slot="end" className="select-button" shape="round" href="/projects/propose-topic/select-adviser/1">
-                                <IonLabel className="select-text">Select</IonLabel>
-                            </IonButton>
-                        </IonItem>
-                        <div className="spacer-h-s"/>
-                        <div className="content-center">
-                            {/* AVATAR */}
-                            <IonAvatar className="avatar">
-                                <img src="https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"/>
-                            </IonAvatar>
-                            {/* NAME */}
-                            <h6>Sum Ting Wong</h6>
-                        </div>
-                        <div className="spacer-h-s"/>
-                        {/* 2ND PREFERRED ADVISER */}
-                        <IonItem lines="none">
-                            {/* HEADER */}
-                            <IonLabel slot="start" className="header">2nd Preferred Adviser</IonLabel>
-                            {/* SELECT BUTTON */}
-                            <IonButton slot="end" className="select-button" shape="round" href="/projects/propose-topic/select-adviser/2">
-                                <IonLabel className="select-text">Select</IonLabel>
-                            </IonButton>
-                        </IonItem>
-                        <div className="spacer-h-s"/>
-                        <div className="content-center">
-                            {/* AVATAR */}
-                            <IonAvatar className="avatar">
-                                <img src="https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png"/>
-                            </IonAvatar>
-                            {/* NAME */}
-                            <h6>Sum Ting Wong</h6>
-                        </div>
-                        <div className="spacer-h-s"/>
-                        {/* 3RD PREFERRED ADVISER */}
-                        <IonItem lines="none">
-                            {/* HEADER */}
-                            <IonLabel slot="start" className="header">3rd Preferred Adviser</IonLabel>
-                            {/* SELECT BUTTON */}
-                            <IonButton slot="end" className="select-button" shape="round" href="/projects/propose-topic/select-adviser/3">
                                 <IonLabel className="select-text">Select</IonLabel>
                             </IonButton>
                         </IonItem>
