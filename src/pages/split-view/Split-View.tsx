@@ -6,12 +6,31 @@ import { Route, Redirect } from "react-router";
 import Menu from "../../core/components/Menu";
 import MenuAdmin from "../../core/components/MenuAdmin";
 import MenuFaculty from "../../core/components/MenuFaculty";
+import TeamModel from "../../core/models/team_model";
 import UserModel from "../../core/models/user_model";
-import { clearStorageData, removeStorageData } from "../../core/Utils";
+import { getMyTeam } from "../../core/services/user_service";
+import { clearStorageData, getStorageData, removeStorageData, setStorageData } from "../../core/Utils";
 import { Home, HomeAdmin, HomeFaculty } from "../home/Home";
 import './Split-View.css';
 
 class SplitView extends Component{
+    componentDidMount(): void {
+        const userStorageData = getStorageData("user");
+        const userModel = (JSON.parse(userStorageData!)) as UserModel;
+        const myTeamStorageData = getStorageData("my-team");
+
+        removeStorageData("preffered-adviser");
+        removeStorageData("project");
+
+        getMyTeam(userModel.uid).then((value: any) => {
+            const myTeamModel = value as TeamModel;
+
+            if(myTeamStorageData == null){
+                setStorageData("my-team", JSON.stringify(myTeamModel));
+            }
+        });
+    }
+    
     render(){
         return (
             <div>

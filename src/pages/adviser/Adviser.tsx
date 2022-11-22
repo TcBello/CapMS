@@ -8,7 +8,7 @@ import UnavailableCard from "./components/UnavailableCard";
 import { add } from "ionicons/icons";
 import ContentHeader from "../../core/components/ContentHeader";
 import { useMediaQuery } from "react-responsive";
-import { goPage, setStorageData, webWidth } from "../../core/Utils";
+import { goPage, replacePage, setStorageData, webWidth } from "../../core/Utils";
 import UserModel from "../../core/models/user_model";
 import { getAllFaculties, getAllStudents } from "../../core/services/admin_service";
 
@@ -82,30 +82,41 @@ const sampleData: AdviserModel[] = [
     }
 ];
 
-class Adviser extends Component{
-    render(){
-        return (
-            <IonPage>
-                {/* CONTENT HEADER */}
-                <MobileArrowBackAppBar title="Select an Adviser" href="/projects/propose-topic" />
-                <IonContent className="adviser-content">
-                    <div className="adviser-container">
-                        {sampleData.map((adviser, index) => {
-                            switch(adviser.status){
-                                // case "available":
-                                //     return <AvailableCard name={adviser.name} course={adviser.course} image={adviser.image} href="/projects/propose-topic"/>;
-                                // case "unavailable":
-                                //     return <UnavailableCard name={adviser.name} course={adviser.course} image={adviser.image} href="/projects/propose-topic"/>;
-                                default:
-                                    return <div></div>;
-                            }
-                        })}
-                    </div>
-                </IonContent>
-            </IonPage>
-        );
+const Adviser = () => {
+    const [faculties, setFaculties] = useState<UserModel[]>([]);
+
+    useEffect(() => {
+        getAllFaculties().then((value: any) => {
+            setFaculties(value as UserModel[]);
+        });
+    }, []);
+
+    function selectAdviser(userModel: UserModel){
+        setStorageData("preffered-adviser", JSON.stringify(userModel));
+        replacePage("/projects/propose-topic");
     }
-}
+
+    return (
+        <IonPage>
+            {/* CONTENT HEADER */}
+            <MobileArrowBackAppBar title="Select an Adviser" href="/projects/propose-topic" />
+            <IonContent className="adviser-content">
+                <div className="adviser-container">
+                    {faculties.map((adviser, index) => {
+                        switch(adviser.status){
+                            case "Available":
+                                return <AvailableCard userModel={adviser} onClick={() => selectAdviser(adviser)}/>;
+                            case "Unavailable":
+                                return <UnavailableCard userModel={adviser} onClick={() => selectAdviser(adviser)}/>;
+                            default:
+                                return <div></div>;
+                        }
+                    })}
+                </div>
+            </IonContent>
+        </IonPage>
+    );
+};
 
 const AdviserAdmin = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});

@@ -35,6 +35,10 @@ function clearStorageData(){
     window.localStorage.clear();
 }
 
+function openNewTab(url: string){
+    window.open(url);
+}
+
 export {
     webWidth,
     goPage,
@@ -44,5 +48,6 @@ export {
     setStorageData,
     clearStorageData,
     removeStorageData,
-    defaultImage
+    defaultImage,
+    openNewTab
 };

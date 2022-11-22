@@ -44,6 +44,7 @@ async function createAccount(userModel: UserModel, imageFile: any){
                 sr_code: userModel.srCode,
                 image: imageFile != null ? imageUrl : userModel.image,
                 role: userModel.role,
+                projects: [],
                 created_at: Timestamp.now()
             });
         }
@@ -59,6 +60,7 @@ async function createAccount(userModel: UserModel, imageFile: any){
                 image: imageFile != null ? imageUrl : userModel.image,
                 role: userModel.role,
                 status: userModel.status,
+                projects: [],
                 created_at: Timestamp.now()
             });
         }
@@ -95,6 +97,7 @@ async function getAllStudents(){
                 srCode: data['sr_code'],
                 image: data['image'],
                 role: data['role'],
+                projects: data['projects']
             });
         })
     }
@@ -126,7 +129,8 @@ async function getAllFaculties(){
                 srCode: data['sr_code'],
                 image: data['image'],
                 role: data['role'],
-                status: data['status']
+                status: data['status'],
+                projects: data['projects']
             });
         })
     }

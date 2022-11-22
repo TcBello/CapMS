@@ -80,7 +80,8 @@ async function getUserData(dispatch: any, uid: string){
                 course: data['course'],
                 srCode: data['sr_code'],
                 image: data['image'],
-                role: data['role']
+                role: data['role'],
+                projects: data['projects']
             });
 
             // SEND DATA TO REDUX

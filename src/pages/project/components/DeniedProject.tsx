@@ -3,7 +3,7 @@ import { Component } from "react";
 import '../Project.css';
 import '../../../core/components/Spacer.css';
 
-class DeniedProject extends Component<{name: string, href: string}, {}>{
+class DeniedProject extends Component<{name: string, onClick: any}, {}>{
     constructor(props: any){
         super(props);
     }
@@ -11,7 +11,7 @@ class DeniedProject extends Component<{name: string, href: string}, {}>{
     render(){
         return (
             // CARD
-            <IonCard className="item-card" href={this.props.href}>
+            <IonCard className="item-card" onClick={this.props.onClick}>
                 {/* STATUS COLOR */}
                 <div className="project-status-denied-color"/>
                 <div className="spacer-h-xs"/>

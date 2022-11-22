@@ -3,7 +3,7 @@ import { Component } from "react";
 import '../Project.css';
 import '../../../core/components/Spacer.css';
 
-class PendingProject extends Component<{name: string, href: string}, {}>{
+class PendingProject extends Component<{name: string, onClick: any}, {}>{
     constructor(props: any){
         super(props);
     }
@@ -11,7 +11,7 @@ class PendingProject extends Component<{name: string, href: string}, {}>{
     render(){
         return (
             // CARD
-            <IonCard className="item-card" href={this.props.href}>
+            <IonCard className="item-card" onClick={this.props.onClick}>
                 {/* STATUS COLOR */}
                 <div className="project-status-pending-color"/>
                 <div className="spacer-h-xs"/>
