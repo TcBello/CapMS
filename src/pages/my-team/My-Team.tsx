@@ -1,10 +1,10 @@
-import { IonContent, IonPage } from "@ionic/react";
+import { IonButton, IonContent, IonPage } from "@ionic/react";
 import "./My-Team.css";
 import "../../core/components/Spacer.css";
 import ContentHeader from "../../core/components/ContentHeader";
 import { MyTeamAdviserItem, MyTeamMemberItem } from "./components/My-Team-Member-Item";
 import { useMediaQuery } from "react-responsive";
-import { getStorageData, setStorageData, webWidth } from "../../core/Utils";
+import { getStorageData, goToGoogleMeet, setStorageData, webWidth } from "../../core/Utils";
 import { MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
 import { useEffect, useState } from "react";
 import TeamModel, { setTeamModel } from "../../core/models/team_model";
@@ -36,7 +36,9 @@ const MyTeam = () => {
         {
             isDesktop
                 ? <div className="my-team-container">
-                    <div className="spacer-h-l" />
+                    <div className="spacer-h-m" />
+                    <h2 className="my-team-name">{myTeam.teamName}</h2>
+                    <div className="spacer-h-m" />
                     {/* ADVISER */}
                     {myTeam.members.map((member, index) => {
                         if(member.role == "Adviser"){
@@ -56,8 +58,17 @@ const MyTeam = () => {
                             return <div></div>;
                         })}
                     </div>
+                    <div className="spacer-h-l" />
+                    {/* MEET BUTTON */}
+                    <IonButton className="my-team-meet-button" onClick={() => goToGoogleMeet(myTeam.teamName)} shape="round">Go To Meet</IonButton>
+                    <div className="spacer-h-l" />
+                    <p><b>Note:</b> Use BatState-u's G-suite account</p>
                 </div>
                 : <div>
+                    <div className="spacer-h-m" />
+                    <div className="my-team-content-center">
+                        <h2 className="my-team-name">{myTeam.teamName}</h2>
+                    </div>
                     {myTeam.members.map((member, index) => {
                         return <div>
                             <div className="spacer-h-m" />
@@ -65,6 +76,14 @@ const MyTeam = () => {
                             <div className="spacer-h-xs" />
                         </div>;
                     })}
+                    <div className="spacer-h-m" />
+                    <div className="my-team-content-center">
+                        {/* MEET BUTTON */}
+                        <IonButton className="my-team-meet-button" onClick={() => goToGoogleMeet(myTeam.teamName)} shape="round">Go To Meet</IonButton>
+                        <div className="spacer-h-m" />
+                        <p><b>Note:</b> Use BatState-u's G-suite account</p>
+                    </div>
+                    <div className="spacer-h-m" />
                 </div>
         }
     </IonContent>

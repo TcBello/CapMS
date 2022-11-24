@@ -39,6 +39,11 @@ function openNewTab(url: string){
     window.open(url);
 }
 
+function goToGoogleMeet(meetingName: string){
+    const newMeetingName = meetingName.replaceAll(" ", "");
+    openNewTab(`https://accounts.google.com/AccountChooser/signinchooser?continue=https://g.co/meet/${newMeetingName}`);
+}
+
 export {
     webWidth,
     goPage,
@@ -49,5 +54,6 @@ export {
     clearStorageData,
     removeStorageData,
     defaultImage,
-    openNewTab
+    openNewTab,
+    goToGoogleMeet
 };
