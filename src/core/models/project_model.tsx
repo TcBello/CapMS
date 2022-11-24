@@ -3,6 +3,7 @@ import ProjectFileModel from "./project_file_model";
 
 interface ProjectModel{
     uid: string,
+    teamId: string,
     title: string,
     status: string,
     files: ProjectFileModel[],
@@ -10,9 +11,10 @@ interface ProjectModel{
     created_at: Timestamp
 };
 
-function setProjectModel({uid = "", title = "", status = "Pending", files = [], proposedBy = "", created_at = Timestamp.now()}){
+function setProjectModel({uid = "", teamId = "", title = "", status = "Pending", files = [], proposedBy = "", created_at = Timestamp.now()}){
     const projectModel: ProjectModel = {
         uid: uid,
+        teamId,
         title: title,
         status: status,
         files: files,

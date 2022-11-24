@@ -7,7 +7,7 @@ import Dashboard from '../dashboard/Dashboard';
 import MyAdvisee from '../my-advisee/MyAdvisee';
 import MyTeam from '../my-team/My-Team';
 import { ProfileAdmin, Profile } from '../profile/Profile';
-import Project from '../project/Project';
+import { Project, ProjectFaculty } from '../project/Project';
 import Student from '../student/Student';
 import Team from '../team/Team';
 import './Home.css';
@@ -57,7 +57,7 @@ const HomeFaculty: React.FC = () => {
      return <MyAdvisee />
     // PROJECT PAGE
     case "projects":
-      return <Project />;
+      return <ProjectFaculty />;
     // LOGOUT PAGE
     case "logout":
       logout().then(value => {

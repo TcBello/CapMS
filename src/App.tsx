@@ -21,7 +21,6 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Login from './pages/login/Login';
-import ProjectFile from './pages/project-file/Project-File';
 import ProposeTopic from './pages/propose-topic/Propose-Topic';
 import { SplitView, SplitViewAdmin, SplitViewFaculty } from './pages/split-view/Split-View';
 import { Adviser } from './pages/adviser/Adviser';
@@ -35,6 +34,8 @@ import OtherProfile from './pages/other-profile/other-profile';
 import TeamProfile from './pages/team-profile/team-profile';
 import AddFile from './pages/add-files/add-files';
 import EditAnnouncement from './pages/edit-announcement/Edit-Announcement';
+import AdviseeProfile from './pages/advisee-profile/Advisee-Profile';
+import { ProjectFile, ProjectFileApprover } from './pages/project-file/Project-File';
 
 
 setupIonicReact();
@@ -73,6 +74,8 @@ const App: React.FC = () => {
           <Route path="/home/admin/teams/profile" component={TeamProfile} />
           <Route path="/:name/files/add" component={AddFile} />
           <Route path="/home/admin/announcements/edit" component={EditAnnouncement} />
+          <Route path="/home/faculty/my-advisees/profile" component={AdviseeProfile} />
+          <Route path="/:name/files/approver" component={ProjectFileApprover}/>
 
           
         </IonRouterOutlet>
