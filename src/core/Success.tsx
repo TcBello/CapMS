@@ -8,6 +8,8 @@ const DeleteAccountMessage = "Account has been deleted";
 const UpdateAnnouncementMessage = "Announcement has been edited";
 const ProposeTopicMessage = "Topic has been proposed";
 const AddFileMessage = "File has been added";
+const ApproveTopicMessage = "Topic has been approved";
+const DenyTopicMessage = "Topic has been denied";
 
 export {
     CreateAccountMessage,
@@ -19,5 +21,7 @@ export {
     DeleteAccountMessage,
     UpdateAnnouncementMessage,
     ProposeTopicMessage,
-    AddFileMessage
+    AddFileMessage,
+    ApproveTopicMessage,
+    DenyTopicMessage
 };

@@ -41,8 +41,8 @@ const MyTeam = () => {
                     <div className="spacer-h-m" />
                     {/* ADVISER */}
                     {myTeam.members.map((member, index) => {
-                        if(member.role == "Adviser"){
-                            return <MyTeamAdviserItem image={member.image} name={member.firstName + " " + member.lastName} role={member.role} />;
+                        if(member.role == "Faculty"){
+                            return <MyTeamAdviserItem image={member.image} name={member.firstName + " " + member.lastName} role={"Adviser"} />;
                         }
         
                         return <div className="my-team-student-container"></div>;

@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs, query, Timestamp, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, query, Timestamp, updateDoc, where } from "firebase/firestore";
 import { db } from "../firebase-setup/firebase-setup";
 import ProjectFileModel, { setProjectFileModel } from "../models/project_file_model";
 import ProjectModel, { setProjectModel } from "../models/project_model";
@@ -8,7 +8,6 @@ import UserModel, { setUserModel } from "../models/user_model";
 // TABLE COLLECTIONS
 const userCollection = collection(db, "users");
 const teamCollection = collection(db, "teams");
-const announcementCollection = collection(db, "announcements");
 const projectCollection = collection(db, "projects");
 const fileCollection = collection(db, "files");
 
@@ -67,6 +66,7 @@ async function proposeTopic(adviserUserModel: UserModel, teamModel: TeamModel, p
         // ADD DOC
         const topicDoc = await addDoc(projectCollection, {
             uid: "",
+            team_id: teamModel.uid,
             title: projectName,
             status: "Pending",
             proposed_by: teamModel.teamName,
@@ -161,6 +161,7 @@ async function getProjects(projectIds: string[]){
             if(projectIds.includes(doc.id)){
                 projectModel.push(setProjectModel({
                     uid: doc.data()['uid'],
+                    teamId: doc.data()['team_id'],
                     title: doc.data()['title'],
                     status: doc.data()['status'],
                     proposedBy: doc.data()['proposed_by'],
@@ -203,10 +204,166 @@ async function getProjectFiles(projectId: string){
     }
 }
 
+async function approveTopic(projectId: string, teamId: string, userModel: UserModel){
+    try{
+        const projectDoc = doc(db, "projects", projectId);
+
+        // UPDATE DOC
+        await updateDoc(projectDoc, {
+            status: "Approved"
+        });
+
+        // QUERY THAT WILL BE USED IN GETTING DOCS
+        const teamQuery = query(
+            teamCollection,
+            where("uid", "==", teamId)
+        );
+
+        // GET DOCS
+        const snapshot = await getDocs(teamQuery);
+
+        let teamRef: any;
+        let teamMembers: UserModel[] = [];
+
+        snapshot.docs.map((doc) => {
+            teamRef = doc.ref
+
+            teamMembers = (doc.data()['members'] as []).map((member) => {
+                return setUserModel({
+                    uid: member['uid'],
+                    firstName: member['first_name'],
+                    lastName: member['last_name'],
+                    email: member['email'],
+                    course: member['course'],
+                    srCode: member['sr_code'],
+                    image: member['image'],
+                    role: member['role'],
+                    status: member['status'],
+                })
+            });
+        });
+
+        teamMembers[3] = userModel;
+
+        // UPDATE TEAM DOC
+        await updateDoc(teamRef, {
+            members: [
+                {
+                    uid: teamMembers[0].uid,
+                    first_name: teamMembers[0].firstName,
+                    last_name: teamMembers[0].lastName,
+                    email: teamMembers[0].email,
+                    course: teamMembers[0].course,
+                    sr_code: teamMembers[0].srCode,
+                    image: teamMembers[0].image,
+                    role: teamMembers[0].role
+                },
+                {
+                    uid: teamMembers[1].uid,
+                    first_name: teamMembers[1].firstName,
+                    last_name: teamMembers[1].lastName,
+                    email: teamMembers[1].email,
+                    course: teamMembers[1].course,
+                    sr_code: teamMembers[1].srCode,
+                    image: teamMembers[1].image,
+                    role: teamMembers[1].role
+                },
+                {
+                    uid: teamMembers[2].uid,
+                    first_name: teamMembers[2].firstName,
+                    last_name: teamMembers[2].lastName,
+                    email: teamMembers[2].email,
+                    course: teamMembers[2].course,
+                    sr_code: teamMembers[2].srCode,
+                    image: teamMembers[2].image,
+                    role: teamMembers[2].role
+                },
+                {
+                    uid: teamMembers[3].uid,
+                    first_name: teamMembers[3].firstName,
+                    last_name: teamMembers[3].lastName,
+                    email: teamMembers[3].email,
+                    course: teamMembers[3].course,
+                    sr_code: teamMembers[3].srCode,
+                    image: teamMembers[3].image,
+                    role: teamMembers[3].role,
+                    status: teamMembers[3].status
+                }
+            ],
+        });
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+async function denyTopic(projectId: string){
+    try{
+        const projectDoc = doc(db, "projects", projectId);
+
+        // UPDATE DOC
+        await updateDoc(projectDoc, {
+            status: "Denied"
+        });
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+async function getAdvisees(userId: string){
+    try{
+        let myAdvisees: TeamModel[] = [];
+
+        // GET TEAM DOCS
+        const snapshot = await getDocs(teamCollection);
+
+        // MAP DOC TO TEAM MODEL
+        const teams = snapshot.docs.map((doc) => {
+            let members = (doc.data()['members'] as []).map((member) => {
+                return setUserModel({
+                    uid: member['uid'],
+                    firstName: member['first_name'],
+                    lastName: member['last_name'],
+                    email: member['email'],
+                    course: member['course'],
+                    srCode: member['sr_code'],
+                    image: member['image'],
+                    role: member['role'],
+                    status: member['status'],
+                })
+            });
+
+            return setTeamModel({
+                teamName: doc.data()['team_name'],
+                uid: doc.data()['uid'],
+                members: members
+            });
+        });
+
+        // GET TEAMS THAT CONTAINS THAT ID OF THE USER
+        teams.map(team => {
+            team.members.forEach(member => {
+                if(member.uid == userId){
+                    myAdvisees.push(team);
+                }
+            });
+        });
+
+        return myAdvisees;
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
 export {
     getMyTeam,
     proposeTopic,
     addProjectFile,
     getProjects,
-    getProjectFiles
+    getProjectFiles,
+    approveTopic,
+    denyTopic,
+    getAdvisees
 };

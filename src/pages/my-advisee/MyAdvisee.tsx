@@ -1,36 +1,32 @@
 import { IonContent, IonLabel, IonPage } from "@ionic/react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import ContentHeader from "../../core/components/ContentHeader";
 import { MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
-import { webWidth } from "../../core/Utils";
+import TeamModel from "../../core/models/team_model";
+import UserModel from "../../core/models/user_model";
+import { getAdvisees } from "../../core/services/user_service";
+import { getStorageData, goPage, setStorageData, webWidth } from "../../core/Utils";
 import AdviseeCard from "./components/AdviseeCard";
 import "./MyAdvisee.css";
 
-interface MyAdviseeModel{
-    members: {name: string, image: string}[];
-}
-
-const sampleData: MyAdviseeModel[] = [
-    {
-        members: [
-            {
-                image: "https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png",
-                name: "Sum Ting Wong"
-            },
-            {
-                image: "https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png",
-                name: "Yu Stin Ki Puh"
-            },
-            {
-                image: "https://www.biowritingservice.com/wp-content/themes/tuborg/images/Executive%20Bio%20Sample%20Photo.png",
-                name: "Dum Fuk"
-            }
-        ]
-    }
-];
-
 const MyAdvisee = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
+    const [advisees, setAdvisees] = useState<TeamModel[]>([]);
+
+    const userStorageData = getStorageData("user");
+    const userModel = (JSON.parse(userStorageData!)) as UserModel;
+
+    function selectAdvisee(teamModel: TeamModel){
+        setStorageData("advisee", JSON.stringify(teamModel));
+        goPage("/home/faculty/my-advisees/profile");
+    }
+
+    useEffect(() => {
+        getAdvisees(userModel.uid).then((value: any) => {
+            setAdvisees(value as TeamModel[]);
+        });
+    }, []);
 
     return <IonPage>
         {/* CONTENT HEADER */}
@@ -44,8 +40,8 @@ const MyAdvisee = () => {
             <div className={isDesktop ? "my-advisee-container" : "my-advisee-container-mobile"}>
                 {/* ADVISEE CARD */}
                 
-                {sampleData.map((advisee, index) => {
-                    return <AdviseeCard members={advisee.members} href="/home/faculty/my-advisees/profile"/>;
+                {advisees.map((advisee, index) => {
+                    return <AdviseeCard teamModel={advisee} onClick={() => {selectAdvisee(advisee)}}/>;
                 })}
             </div>
         </IonContent>

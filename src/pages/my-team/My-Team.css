@@ -64,8 +64,8 @@
 .my-team-meet-button{
     --background: var(--palette-red);
     color: white;
-    --padding-start: 50px;
-    --padding-end: 50px;
+    --padding-start: 80px;
+    --padding-end: 80px;
     --padding-top: 30px;
     --padding-bottom: 30px;
 }

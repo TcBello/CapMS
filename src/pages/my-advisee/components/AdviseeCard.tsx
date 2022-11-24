@@ -1,16 +1,30 @@
-import { IonCard } from "@ionic/react";
+import { IonAvatar, IonCard } from "@ionic/react";
+import TeamModel from "../../../core/models/team_model";
 
-const AdviseeCard = (props: {members: {name: string, image: string}[], href: string}) => {
-    return <IonCard className="advisee-item-card" button href={props.href}>
+const AdviseeCard = (props: {teamModel: TeamModel, onClick: any}) => {
+    return <IonCard className="advisee-item-card" button onClick={props.onClick}>
         <div className="advisee-image-container">
-            {props.members.map((member, index) => {
-                return <img src={member.image} />
+            {props.teamModel.members.map((member, index) => {
+                if(index < props.teamModel.members.length - 1){
+                    return <IonAvatar className="advisee-avatar">
+                        <img src={member.image} />
+                    </IonAvatar>;
+                }
+
+                return <div></div>;
             })}
+        </div>
+        <div className="advisee-content-center">
+            <h3 className="advisee-team-name">{props.teamModel.teamName}</h3>
         </div>
         <div className="content-left">
             {/* ADVISEE MEMBER NAME */}
-            {props.members.map((member, index) => {
-                return <p className="advisee-member-name">{member.name}</p>;
+            {props.teamModel.members.map((member, index) => {
+                if(index < props.teamModel.members.length - 1){
+                    return <p className="advisee-member-name">{member.firstName} {member.lastName}</p>;
+                }
+
+                return <div></div>;
             })}
         </div>
     </IonCard>

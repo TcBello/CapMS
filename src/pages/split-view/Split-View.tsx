@@ -53,6 +53,12 @@ class SplitView extends Component{
 }
 
 class SplitViewFaculty extends Component{
+
+    componentDidMount(): void {
+        removeStorageData("advisee");
+        removeStorageData("project");
+    }
+
     render(){
         return (
             <div>

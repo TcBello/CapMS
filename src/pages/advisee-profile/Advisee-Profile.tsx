@@ -5,28 +5,43 @@ import "../../core/components/Spacer.css";
 import { person, mail, school, call } from "ionicons/icons";
 import ContentHeader from "../../core/components/ContentHeader";
 import { useMediaQuery } from "react-responsive";
-import { defaultImage, getStorageData, replacePage, showToast, webWidth } from "../../core/Utils";
+import { defaultImage, getStorageData, goToGoogleMeet, replacePage, showToast, webWidth } from "../../core/Utils";
 import { MobileArrowBackAppBar, MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
 import UserModel, { setUserModel } from "../../core/models/user_model";
 import { deleteAccount, deleteTeam, getAdminProfile } from "../../core/services/admin_service";
-import "../../core/components/Spacer.css";
 // import "./team-profile.css";
 import Loading from "../../core/components/Loading";
 import TeamModel, { setTeamModel } from "../../core/models/team_model";
 import { DeleteTeamMessage } from "../../core/Success";
 
-const Advisees = () => {
+const AdviseeProfile = () => {
     const [loading, setLoading] = useState(false);
     const [team, setTeam] = useState<TeamModel>(setTeamModel({
         members: [
-            setUserModel({image: defaultImage}),
-            setUserModel({image: defaultImage}),
-            setUserModel({image: defaultImage}),
-            setUserModel({image: defaultImage})
+            setUserModel({
+                image: defaultImage,
+                firstName: "First",
+                lastName: "Member"
+            }),
+            setUserModel({
+                image: defaultImage,
+                firstName: "Second",
+                lastName: "Member"
+            }),
+            setUserModel({
+                image: defaultImage,
+                firstName: "Third",
+                lastName: "Member"
+            }),
+            setUserModel({
+                image: defaultImage,
+                firstName: "No",
+                lastName: "Adviser"
+            }),
         ]
     }));
 
-    const storageData = getStorageData("team");
+    const storageData = getStorageData("advisee");
     const teamModel = (JSON.parse(storageData!)) as TeamModel;
 
     const [toast]= useIonToast();
@@ -50,48 +65,47 @@ const Advisees = () => {
 
         return <IonPage>
             {/* APP BAR */}
-            <MobileArrowBackAppBar title="My Advisees" href="split-view-admin" />
+            <MobileArrowBackAppBar title="My Advisees" href="split-view-faculty" />
             {/* CONTENT */}
             <IonContent>
                 <div className="teamprofile-center">
                     <IonList>
 
                         {/* TEAM NAME */}
-                        <h1 className="header-name">My Advisee</h1>
+                        <h1 className="header-name">{team.teamName}</h1>
                         <div className="spacer-h-s" />
                         {/* PROFILE IMAGE */}
                         <IonAvatar className="image-center">
-                            <img src= {defaultImage} />
+                            <img src= {team.members[0].image} />
                         </IonAvatar>
                         {/* NAME */}
-                        <h2 className="subtext">A</h2>
+                        <h2 className="subtext">{team.members[0].firstName} {team.members[0].lastName}</h2>
                         {/* PROFILE IMAGE */}
                         <IonAvatar className="image-center">
-                            <img src={defaultImage}  />
+                            <img src={team.members[1].image}  />
                         </IonAvatar>
                         {/* NAME */}
-                        <h2 className="subtext">B</h2>
+                        <h2 className="subtext">{team.members[1].firstName} {team.members[1].lastName}</h2>
                         {/* PROFILE IMAGE */}
                         <IonAvatar className="image-center">
-                            <img src={defaultImage}  />
+                            <img src={team.members[2].image}  />
                         </IonAvatar>
                         {/* NAME */}
-                        <h2 className="subtext">C</h2>
+                        <h2 className="subtext">{team.members[2].firstName} {team.members[2].lastName}</h2>
                         <div className="spacer-h-s" />
                         {/* ADVISER HEADER */}
                         <h1 className="header-name">Adviser</h1>
                         <div className="spacer-h-s" />
                         {/* PROFILE IMAGE */}
                         <IonAvatar className="image-center">
-                            <img src={defaultImage}  />
+                            <img src={team.members[3].image}  />
                         </IonAvatar>
                         {/* NAME */}
-                        <h2 className="subtext">D</h2>
+                        <h2 className="subtext">{team.members[3].firstName} {team.members[3].lastName}</h2>
                         <div className="spacer-h-m" />
-                        {/* LOGIN BUTTON */}
-                        <IonButton shape="round" className="btn-delete-team" href="https://accounts.google.com/AccountChooser/signinchooser?continue=https://g.co/meet/yourmeetingname">Go to Meeting</IonButton>
-
-
+                        {/* MEET BUTTON */}
+                        <IonButton shape="round" className="btn-delete-team" onClick={() => {goToGoogleMeet(team.teamName)}}>Go to Meet</IonButton>
+                        <p><b>Note:</b> Use BatState-u's G-suite account</p>
                     </IonList>
                 </div>
             </IonContent>
@@ -105,4 +119,4 @@ const Advisees = () => {
 
 };
 
-export default Advisees;
+export default AdviseeProfile;

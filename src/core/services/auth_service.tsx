@@ -69,8 +69,8 @@ async function getUserData(dispatch: any, uid: string){
             userData = data;
         }
         
-        // USER SIDE
-        if(data['uid'] == uid && (data['role'] == "Student" || data['role'] == "Faculty")){
+        // STUDENT SIDE
+        if(data['uid'] == uid && data['role'] == "Student"){
             // DATA THAT WILL BE SENT TO REDUX
             const userModel = setUserModel({
                 uid: data['uid'],
@@ -91,7 +91,33 @@ async function getUserData(dispatch: any, uid: string){
 
             userData = data;
         }
+
+        // FACULTY SIDE
+        if(data['uid'] == uid && data['role'] == "Faculty"){
+            // DATA THAT WILL BE SENT TO REDUX
+            const userModel = setUserModel({
+                uid: data['uid'],
+                firstName: data['first_name'],
+                lastName: data['last_name'],
+                email: data['email'],
+                course: data['course'],
+                srCode: data['sr_code'],
+                image: data['image'],
+                role: data['role'],
+                projects: data['projects'],
+                status: data['status']
+            });
+
+            // SEND DATA TO REDUX
+            dispatch(login(userModel));
+
+            setStorageData("user", JSON.stringify(userModel));
+
+            userData = data;
+        }
     });
+
+    
     
     return userData;
 }
