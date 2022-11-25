@@ -24,6 +24,8 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     const [user, loading, error] = useAuthState(auth);
+    
+    const [isAuthenticateOnce, setAuthenticate] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -42,7 +44,12 @@ const Login = () => {
         return <IonPage><p>Error</p></IonPage>;
     }
     if(user){
-        authenticate(dispatch, user);
+        // authenticate(dispatch, user);
+        if(!isAuthenticateOnce){
+            setAuthenticate(true);
+            authenticate(dispatch, user);
+            console.log("logged in");
+        }
         return <Loading />
     }
 

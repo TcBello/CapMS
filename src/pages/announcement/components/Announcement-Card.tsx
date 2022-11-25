@@ -2,10 +2,11 @@ import { IonButton, IonCard, IonIcon, IonItem, IonLabel } from "@ionic/react";
 import AnnouncementModel from "../../../core/models/announcement_model";
 import { format } from "date-fns";
 import { close, create, trash } from "ionicons/icons";
+import { dateToMonthDateYear } from "../../../core/Utils";
 
 const AnnouncementCard = (props: {announcementModel: AnnouncementModel}) => {
     var date = props.announcementModel.date.toDate();
-    var formattedDate = format(date, "MMM d, yyyy");
+    var formattedDate = dateToMonthDateYear(date);
 
     return (
         <IonCard className="announcement-card">
@@ -23,7 +24,7 @@ const AnnouncementCard = (props: {announcementModel: AnnouncementModel}) => {
 
 const AnnouncementAdminCard = (props: {announcementModel: AnnouncementModel, onEdit: any, onDelete: any, isDesktop: boolean}) => {
     var date = props.announcementModel.date.toDate();
-    var formattedDate = format(date, "MMM d, yyyy");
+    var formattedDate = dateToMonthDateYear(date);
 
     if(props.isDesktop){
         return (

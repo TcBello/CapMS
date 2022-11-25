@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 const webWidth: number = 992;
 
 const defaultImage = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
@@ -44,6 +46,10 @@ function goToGoogleMeet(meetingName: string){
     openNewTab(`https://accounts.google.com/AccountChooser/signinchooser?continue=https://g.co/meet/${newMeetingName}`);
 }
 
+function dateToMonthDateYear(date: Date){
+    return format(date, "MMM d, yyyy");
+}
+
 export {
     webWidth,
     goPage,
@@ -55,5 +61,6 @@ export {
     removeStorageData,
     defaultImage,
     openNewTab,
-    goToGoogleMeet
+    goToGoogleMeet,
+    dateToMonthDateYear
 };
