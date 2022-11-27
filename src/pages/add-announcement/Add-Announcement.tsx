@@ -10,6 +10,7 @@ import { createAnnouncement } from "../../core/services/admin_service";
 import AnnouncementModel, { setAnnouncementModel } from "../../core/models/announcement_model";
 import { CreateAnnouncementMessage } from "../../core/Success";
 import Loading from "../../core/components/Loading";
+import { SomethingWrongError } from "../../core/Errors";
 
 const AddAnnouncement = () => {
     const [by, setBy] = useState("");
@@ -26,7 +27,7 @@ const AddAnnouncement = () => {
 
         setLoading(true);
 
-        await createAnnouncement(setAnnouncementModel({
+        const result = await createAnnouncement(setAnnouncementModel({
             
             by: by,
             message: message
@@ -35,12 +36,17 @@ const AddAnnouncement = () => {
 
         setLoading(false);
 
-        // SHOW TOAST
-        showToast(toast, CreateAnnouncementMessage);
+        if(result){
+            // SHOW TOAST
+            showToast(toast, CreateAnnouncementMessage);
 
-        // CLEAR INPUT FIELDS
-        setBy("");
-        setMessage("");
+            // CLEAR INPUT FIELDS
+            setBy("");
+            setMessage("");
+        }
+        else{
+            showToast(toast, SomethingWrongError);
+        }
     }
 
     if(!loading){

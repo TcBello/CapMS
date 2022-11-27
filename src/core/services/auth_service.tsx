@@ -1,13 +1,14 @@
 import { auth, db } from "../firebase-setup/firebase-setup";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, NextOrObserver, User, updatePassword } from "firebase/auth";
-import { addDoc, collection, DocumentData, getDocs } from "firebase/firestore";
+import { addDoc, collection, DocumentData, getDocs, Timestamp, updateDoc } from "firebase/firestore";
 import { loginAdmin } from "../redux/slices/admin";
 import { login } from "../redux/slices/user";
-import { replacePage, setStorageData, showToast } from "../Utils";
+import { dateToMonthDateYear, replacePage, setStorageData, showToast } from "../Utils";
 import { LoginInvalidCredentialError } from "../Errors";
 import { setUserModel } from "../models/user_model";
 
 const userCollection = collection(db, "users");
+const dashboardCollection = collection(db, "dashboard");
 
 async function registerWithEmailAndPassword(email: string, password: string){
     try{
@@ -46,8 +47,40 @@ async function loginWithEmailAndPassword(dispatch: any, email: string, password:
 async function getUserData(dispatch: any, uid: string){
     // GET SNAPSHOT
     const snapshot = await getDocs(userCollection);
+    const dashboardSnapshot = await getDocs(dashboardCollection);
 
     let userData: DocumentData = {};
+
+    const dailyVisitsDates = dashboardSnapshot.docs[0].data()['daily_visits_dates'] as string[];
+    const dailyVisits = dashboardSnapshot.docs[0].data()['daily_visits'] as number[];
+    const dateNow = dateToMonthDateYear(Timestamp.now().toDate());
+
+    // IF THE LATEST DATA OF DATE IN THE FIREBASE IS NOT EQUALS TO TODAY'S DATE,
+    // TODAY'S DATE WILL BE PUSHED IN THE DATES ARRAY IN FIREBASE
+    // AND WILL ADD 1 DAILY VISIT
+    if(dailyVisitsDates[dailyVisitsDates.length - 1] != dateNow){
+
+        // IF DAILY VISITS DATA AND DATES CONTAINS 10 DATA, REMOVE 1 OLD DATA
+        if(dailyVisitsDates.length == 10 && dailyVisits.length == 10){
+            dailyVisitsDates.splice(0, 1);
+            dailyVisits.splice(0, 1);
+        }
+
+        dailyVisitsDates.push(dateNow);
+        dailyVisits.push(1);
+        await updateDoc(dashboardSnapshot.docs[0].ref, {
+            daily_visits: dailyVisits,
+            daily_visits_dates: dailyVisitsDates
+        });
+    }
+    // IF THE LATEST DATA OF DATE IN THE FIREBASE IS EQUALS TO TODAY'S DATE,
+    // THE 1 DAILY VISIT WILL BE ADDED IN THE LATEST DATA
+    else{
+        dailyVisits[dailyVisits.length - 1] += 1;
+        await updateDoc(dashboardSnapshot.docs[0].ref, {
+            daily_visits: dailyVisits,
+        });
+    }
 
     // GET DOCUMENT DATA WHERE DATA IS EQUAL TO USER'S UID
     snapshot.docs.map(doc => {

@@ -13,6 +13,7 @@ import "../../core/components/Spacer.css";
 import "./other-profile.css";
 import Loading from "../../core/components/Loading";
 import { DeleteAccountMessage } from "../../core/Success";
+import { SomethingWrongError } from "../../core/Errors";
 
 const OtherProfile = (props: any) => {
     const isDesktop = useMediaQuery({ minWidth: webWidth });
@@ -39,13 +40,17 @@ const OtherProfile = (props: any) => {
 
         setLoading(true);
 
-        await deleteAccount(user.uid);
+        const result = await deleteAccount(user.uid);
 
-        setLoading(false);
-
-        showToast(toast, DeleteAccountMessage);
-
-        replacePage("split-view-admin");
+        if(result){
+            setLoading(false);
+            showToast(toast, DeleteAccountMessage);
+            replacePage("split-view-admin");
+        }
+        else{
+            setLoading(false);
+            showToast(toast, SomethingWrongError);
+        }
 
     }
 
@@ -57,7 +62,7 @@ const OtherProfile = (props: any) => {
     return (
         <IonPage>
             {/* APP BAR */}
-            <MobileArrowBackAppBar href="Split-view-admin" title="Student's Profile" />
+            <MobileArrowBackAppBar href="Split-view-admin" title={isFaculty ? "Faculty's Profile" : "Student's Profile"} />
             <IonContent className={isDesktop ? "profile-content" : "profile-content-mpbile"}>
                 {
                     isDesktop

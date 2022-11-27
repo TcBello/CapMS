@@ -3,7 +3,7 @@ import { User } from "firebase/auth";
 import { useState } from "react";
 import InputField from "../../core/components/InputField";
 import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
-import { MissingFieldError, PasswordFailError, PasswordMatchError } from "../../core/Errors";
+import { MissingFieldError, PasswordFailError, PasswordLengthError, PasswordMatchError } from "../../core/Errors";
 import { changePassword } from "../../core/services/auth_service";
 import { UpdatePasswordMessage } from "../../core/Success";
 import { getStorageData, showToast, webWidth } from "../../core/Utils";
@@ -34,30 +34,35 @@ const EditPassword = () => {
     
     async function applyNewPassword() {
         if (newPassword && confirmNewPassword != "") {
-            if (newPassword == confirmNewPassword) {
+            if(!(newPassword.length < 6 && confirmNewPassword.length < 6)){
+                if (newPassword == confirmNewPassword) {
                 
-                setLoading(true);
-
-                // CHANGE PASSWORD
-                const result = await changePassword(newPassword);
-
-                setLoading(false);
-
-
-                if(result){
-                    // CLEAR INPUT FIELDS
-                    setNewPassword("");
-                    setConfirmNewPassword("");
-
-                    // SHOW TOAST
-                    showToast(toast, UpdatePasswordMessage);
+                    setLoading(true);
+    
+                    // CHANGE PASSWORD
+                    const result = await changePassword(newPassword);
+    
+                    setLoading(false);
+    
+    
+                    if(result){
+                        // CLEAR INPUT FIELDS
+                        setNewPassword("");
+                        setConfirmNewPassword("");
+    
+                        // SHOW TOAST
+                        showToast(toast, UpdatePasswordMessage);
+                    }
+                    else{
+                        showToast(toast, PasswordFailError);
+                    }
                 }
-                else{
-                    showToast(toast, PasswordFailError);
+                else {
+                    showToast(toast, PasswordMatchError);
                 }
             }
-            else {
-                showToast(toast, PasswordMatchError);
+            else{
+                showToast(toast, PasswordLengthError);
             }
         }
         else {

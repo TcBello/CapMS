@@ -7,7 +7,6 @@ class BackgroundLogin extends Component{
             <div>
                 <div className="background-login-blur"/>
                 <div className="background-login"/>
-                {/* <div className="background-login-blur"/> */}
             </div>
         );
     }

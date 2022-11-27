@@ -7,11 +7,15 @@ import { defaultImage } from "../Utils";
 import { setTeamModel } from "../models/team_model";
 import AnnouncementModel, { setAnnouncementModel } from "../models/announcement_model";
 import { format } from "date-fns";
+import DashboardModel, { setDashboardModel } from "../models/dashboard_model";
+import { uid } from "uid";
 
 // TABLE COLLECTIONS
 const userCollection = collection(db, "users");
 const teamCollection = collection(db, "teams");
 const announcementCollection = collection(db, "announcements");
+const dashboardCollection = collection(db, "dashboard");
+const projectCollection = collection(db, "projects");
 
 function avatarStorage(filename: string){
     return ref(storage, `/avatars/${filename}`);
@@ -28,7 +32,7 @@ async function createAccount(userModel: UserModel, imageFile: any){
 
         if(imageFile != null){
             // UPLOAD IMAGE ON FIREBASE STORAGE
-            upload = await uploadBytes(avatarStorage(imageFile.name), imageFile);
+            upload = await uploadBytes(avatarStorage(uid(64)), imageFile);
             // GET IMAGE URL FROM FIREBASE STORAGE
             imageUrl = await getDownloadURL(upload.ref);
         }
@@ -79,13 +83,13 @@ async function getAllStudents(){
         // DEFINE A QUERY WHERE ROLE IS STUDENT
         const ref = query(
             userCollection,
-            where("role", "==", "Student")
+            where("role", "==", "Student"),
         );
         
         // GET DOCUMENTS 
         const snapshot = await getDocs(ref);
         
-        return snapshot.docs.map((doc) => {
+        const allStudents = snapshot.docs.map((doc) => {
             const data = doc.data();
 
             return setUserModel({
@@ -99,7 +103,10 @@ async function getAllStudents(){
                 role: data['role'],
                 projects: data['projects']
             });
-        })
+        });
+
+        allStudents.sort((a, b) => a.firstName.toLowerCase().localeCompare(b.firstName.toLowerCase()));
+        return allStudents;
     }
     catch(e){
         console.log(e);
@@ -117,7 +124,7 @@ async function getAllFaculties(){
         // GET DOCUMENTS 
         const snapshot = await getDocs(ref);
         
-        return snapshot.docs.map((doc) => {
+        const faculties =  snapshot.docs.map((doc) => {
             const data = doc.data();
 
             return setUserModel({
@@ -132,7 +139,10 @@ async function getAllFaculties(){
                 status: data['status'],
                 projects: data['projects']
             });
-        })
+        });
+
+        faculties.sort((a, b) => a.firstName.toLowerCase().localeCompare(b.firstName.toLowerCase()));
+        return faculties;
     }
     catch(e){
         console.log(e);
@@ -194,17 +204,21 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
 
         await updateDoc(teamDoc, {
             uid: docRef.id
-        })
+        });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function getAllTeams(){
     try{
         const docData = await getDocs(teamCollection);
-        return docData.docs.map((doc) => {
+        const teams =  docData.docs.map((doc) => {
             let members = (doc.data()['members'] as []).map((member) => {
                 return setUserModel({
                     uid: member['uid'],
@@ -225,6 +239,9 @@ async function getAllTeams(){
                 uid: doc.data()['uid']
             });
         });
+
+        teams.sort((a, b) => a.teamName.toLowerCase().localeCompare(b.teamName.toLowerCase()));
+        return teams;
     }
     catch(e){
         console.log(e);
@@ -243,10 +260,14 @@ async function createAnnouncement(announcement: AnnouncementModel){
         await updateDoc(doc, {
             uid: doc.id
         });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function getAllAnnouncements(){
@@ -324,11 +345,15 @@ async function updateAnnouncement(announcementModel: AnnouncementModel){
         await updateDoc(announcement, {
             message: announcementModel.message,
             by: announcementModel.by
-        })
+        });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function deleteAnnouncement(announcementModel: AnnouncementModel){
@@ -347,10 +372,14 @@ async function deleteAnnouncement(announcementModel: AnnouncementModel){
         });
 
         await deleteDoc(docRef);
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function updateUserAccount(userModel: UserModel){
@@ -380,10 +409,14 @@ async function updateUserAccount(userModel: UserModel){
             course: userModel.course,
             sr_code: userModel.srCode
         });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function deleteAccount(uid: string){
@@ -407,10 +440,14 @@ async function deleteAccount(uid: string){
             // DELETE DOC
             await deleteDoc(docRef);
         }
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function deleteTeam(uid: string){
@@ -430,6 +467,97 @@ async function deleteTeam(uid: string){
         });
 
         await deleteDoc(docRef);
+
+        return true;
+    }
+    catch(e){
+        console.log(e);
+    }
+
+    return false;
+}
+
+async function getDashboardData(){
+    try{
+        let dashboardModel: DashboardModel = setDashboardModel({});
+
+        // QUERIES
+        const totalStudentQuery = query(
+            userCollection,
+            where("role", "==", "Student")
+        );
+
+        const totalFacultyQuery = query(
+            userCollection,
+            where("role", "==", "Faculty")
+        );
+
+        const totalAvailableFacultyQuery = query(
+            userCollection,
+            where("role", "==", "Faculty"),
+            where("status", "==", "Available")
+        );
+
+        const totalUnavailableFacultyQuery = query(
+            userCollection,
+            where("role", "==", "Faculty"),
+            where("status", "==", "Unavailable")
+        );
+
+        const approvedProjectQuery = query(
+            projectCollection,
+            where("status", "==", "Approved")
+        );
+
+        const pendingProjectQuery = query(
+            projectCollection,
+            where("status", "==", "Pending")
+        );
+
+        const deniedProjectQuery = query(
+            projectCollection,
+            where("status", "==", "Denied")
+        );
+
+        // GET DOCS
+        const dashboardSnapshot = await getDocs(dashboardCollection);
+        const studentSnapshot = await getDocs(totalStudentQuery);
+        const facultySnapshot = await getDocs(totalFacultyQuery);
+        const availableFacultySnapshot = await getDocs(totalAvailableFacultyQuery);
+        const unavailableFacultySnapshot = await getDocs(totalUnavailableFacultyQuery);
+        const approvedProjectSnapshot = await getDocs(approvedProjectQuery);
+        const pendingProjectSnapshot = await getDocs(pendingProjectQuery);
+        const deniedProjectSnapshot = await getDocs(deniedProjectQuery);
+
+        // UPDATE DOC
+        await updateDoc(dashboardSnapshot.docs[0].ref, {
+            total_student: studentSnapshot.docs.length.toString(),
+            total_faculty: facultySnapshot.docs.length.toString(),
+            available_faculty: availableFacultySnapshot.docs.length,
+            unavailable_faculty: unavailableFacultySnapshot.docs.length,
+            approved_project: approvedProjectSnapshot.docs.length,
+            denied_project: deniedProjectSnapshot.docs.length,
+            pending_project: pendingProjectSnapshot.docs.length
+        });
+
+        dashboardSnapshot.docs.map(doc => {
+            const data = doc.data();
+
+            dashboardModel = setDashboardModel({
+                totalStudents: data['total_student'],
+                totalFaculty: data['total_faculty'],
+                availableFaculty: data['available_faculty'],
+                unavailableFaculty: data['unavailable_faculty'],
+                approvedProject: data['approved_project'],
+                deniedProject: data['denied_project'],
+                pendingProject: data['pending_project'],
+                schoolYear: data['school_year'],
+                dailyVisits: data['daily_visits'],
+                dailyVisitsDates: data['daily_visits_dates']
+            });
+        });
+
+        return dashboardModel;
     }
     catch(e){
         console.log(e);
@@ -449,5 +577,6 @@ export {
     deleteAnnouncement,
     updateUserAccount,
     deleteAccount,
-    deleteTeam
+    deleteTeam,
+    getDashboardData
 };

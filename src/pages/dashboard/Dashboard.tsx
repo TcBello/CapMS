@@ -6,14 +6,30 @@ import { webWidth } from "../../core/Utils";
 import "./Dashboard.css";
 import "../../core/components/Spacer.css";
 import Chart from "react-apexcharts";
-import { dailyVisitsData, facultyStaffStatus, projectStatus, teamStatus } from "./sampleDashboardData";
+import { dailyVisitsInitialData, facultyStaffStatusInitialData, projectStatusInitialData, setDailyVisitsData, setFacultyStaffStatusData, setProjectStatusData, teamStatus } from "./dashboardData";
 import { useEffect, useState } from "react";
+import { getDashboardData } from "../../core/services/admin_service";
+import { setDashboardModel } from "../../core/models/dashboard_model";
 
 const Dashboard = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
 
+    const [dashboard, setDashboard] = useState(setDashboardModel({
+        schoolYear: "S.Y. 0000-0000",
+        totalStudents: "0",
+        totalFaculty: "0"
+    }));
+    const [projectStatus, setProjectStatus] = useState(projectStatusInitialData);
+    const [facultyStaffStatus, setFacultyStaffStatus] = useState(facultyStaffStatusInitialData);
+    const [dailyVisits, setDailyVisits] = useState(dailyVisitsInitialData);
+
     useEffect(() => {
-        // do something
+        getDashboardData().then(value => {
+            setDashboard(value);
+            setProjectStatus(setProjectStatusData(value.approvedProject, value.deniedProject, value.pendingProject));
+            setFacultyStaffStatus(setFacultyStaffStatusData(value.availableFaculty, value.unavailableFaculty));
+            setDailyVisits(setDailyVisitsData(value.dailyVisitsDates, value.dailyVisits));
+        });
     }, []);
 
     return <IonPage>
@@ -29,14 +45,14 @@ const Dashboard = () => {
             <div className={isDesktop ? "dashboard-upper-part" : "dashboard-upper-part-mobile"}>
                 {/* SCHOOL YEAR CARD */}
                 <IonCard className={isDesktop ? "dashboard-school-year-card" : "dashboard-school-year-card-mobile"}>
-                    <h1 className="dashboard-school-year">S.Y. 2022-2023</h1>
+                    <h1 className="dashboard-school-year">{dashboard.schoolYear}</h1>
                 </IonCard>
                 {/* DAILY VISIT CHART */}
                 <IonCard className="dashboard-daily-visit-card">
                     <Chart
                         type="area"
-                        options={dailyVisitsData.options}
-                        series={dailyVisitsData.series}
+                        options={dailyVisits.options}
+                        series={dailyVisits.series}
                         width={isDesktop ? (window.innerWidth * 0.22) : 350}
                         height={200}
                     />
@@ -47,7 +63,7 @@ const Dashboard = () => {
                         <IonItem>
                            <IonIcon slot="start" icon="/assets/icon/faculty.svg" className="total-faculty-icon" />
                            <IonLabel>
-                                <h1>41</h1>
+                                <h1>{dashboard.totalFaculty}</h1>
                                 <p>Faculty Staffs</p> 
                            </IonLabel>
                         </IonItem>
@@ -57,7 +73,7 @@ const Dashboard = () => {
                         <IonItem lines="none" className={isDesktop ? "dashboard-total-user-card" : "dashboard-total-user-card-mobile"}>
                            <IonIcon slot="start" icon="/assets/icon/student.svg" className="total-faculty-icon" />
                            <IonLabel>
-                                <h1>169</h1>
+                                <h1>{dashboard.totalStudents}</h1>
                                 <p>Students</p> 
                            </IonLabel>
                         </IonItem>
@@ -72,8 +88,8 @@ const Dashboard = () => {
                         options={projectStatus.options}
                         series={projectStatus.series}
                         type="donut"
-                        width={400}
-                        height={250}
+                        width={isDesktop ? window.innerWidth * 0.325 : 400}
+                        height={300}
                     />
                 </IonCard>
                 {/* FACULTY STAFF STATUS CHART */}
@@ -82,18 +98,8 @@ const Dashboard = () => {
                         options={facultyStaffStatus.options}
                         series={facultyStaffStatus.series}
                         type="donut"
-                        width={400}
-                        height={250}
-                    />
-                </IonCard>
-                {/* TEAM STATUS CHART */}
-                <IonCard className="dashboard-pie-charts-card">
-                    <Chart
-                        options={teamStatus.options}
-                        series={teamStatus.series}
-                        type="donut"
-                        width={400}
-                        height={250}
+                        width={isDesktop ? window.innerWidth * 0.325 : 400}
+                        height={300}
                     />
                 </IonCard>
             </div>

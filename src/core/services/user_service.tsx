@@ -128,10 +128,14 @@ async function proposeTopic(adviserUserModel: UserModel, teamModel: TeamModel, p
                 projects: studentProjects
             });
         });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function addProjectFile(projectId: string, name: string, gDocLink: string){
@@ -143,10 +147,14 @@ async function addProjectFile(projectId: string, name: string, gDocLink: string)
             gDocLink: gDocLink,
             created_at: Timestamp.now()
         });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function getProjects(projectIds: string[]){
@@ -206,91 +214,122 @@ async function getProjectFiles(projectId: string){
 
 async function approveTopic(projectId: string, teamId: string, userModel: UserModel){
     try{
-        const projectDoc = doc(db, "projects", projectId);
+        let approvedTopicCount = 0;
 
-        // UPDATE DOC
-        await updateDoc(projectDoc, {
-            status: "Approved"
+        const projectSnapshot = await getDocs(projectCollection);
+
+        projectSnapshot.docs.map(doc => {
+            if(userModel.projects.includes(doc.id) && doc.data()['status'] == "Approved"){
+                approvedTopicCount += 1;
+            }
         });
 
-        // QUERY THAT WILL BE USED IN GETTING DOCS
-        const teamQuery = query(
-            teamCollection,
-            where("uid", "==", teamId)
-        );
+        if(approvedTopicCount < 5){
+            const projectDoc = doc(db, "projects", projectId);
 
-        // GET DOCS
-        const snapshot = await getDocs(teamQuery);
-
-        let teamRef: any;
-        let teamMembers: UserModel[] = [];
-
-        snapshot.docs.map((doc) => {
-            teamRef = doc.ref
-
-            teamMembers = (doc.data()['members'] as []).map((member) => {
-                return setUserModel({
-                    uid: member['uid'],
-                    firstName: member['first_name'],
-                    lastName: member['last_name'],
-                    email: member['email'],
-                    course: member['course'],
-                    srCode: member['sr_code'],
-                    image: member['image'],
-                    role: member['role'],
-                    status: member['status'],
-                })
+            // UPDATE DOC
+            await updateDoc(projectDoc, {
+                status: "Approved"
             });
-        });
 
-        teamMembers[3] = userModel;
+            // QUERY THAT WILL BE USED IN GETTING DOCS
+            const teamQuery = query(
+                teamCollection,
+                where("uid", "==", teamId)
+            );
 
-        // UPDATE TEAM DOC
-        await updateDoc(teamRef, {
-            members: [
-                {
-                    uid: teamMembers[0].uid,
-                    first_name: teamMembers[0].firstName,
-                    last_name: teamMembers[0].lastName,
-                    email: teamMembers[0].email,
-                    course: teamMembers[0].course,
-                    sr_code: teamMembers[0].srCode,
-                    image: teamMembers[0].image,
-                    role: teamMembers[0].role
-                },
-                {
-                    uid: teamMembers[1].uid,
-                    first_name: teamMembers[1].firstName,
-                    last_name: teamMembers[1].lastName,
-                    email: teamMembers[1].email,
-                    course: teamMembers[1].course,
-                    sr_code: teamMembers[1].srCode,
-                    image: teamMembers[1].image,
-                    role: teamMembers[1].role
-                },
-                {
-                    uid: teamMembers[2].uid,
-                    first_name: teamMembers[2].firstName,
-                    last_name: teamMembers[2].lastName,
-                    email: teamMembers[2].email,
-                    course: teamMembers[2].course,
-                    sr_code: teamMembers[2].srCode,
-                    image: teamMembers[2].image,
-                    role: teamMembers[2].role
-                },
-                {
-                    uid: teamMembers[3].uid,
-                    first_name: teamMembers[3].firstName,
-                    last_name: teamMembers[3].lastName,
-                    email: teamMembers[3].email,
-                    course: teamMembers[3].course,
-                    sr_code: teamMembers[3].srCode,
-                    image: teamMembers[3].image,
-                    role: teamMembers[3].role,
-                    status: teamMembers[3].status
-                }
-            ],
-        });
+            // GET DOCS
+            const snapshot = await getDocs(teamQuery);
+
+            let teamRef: any;
+            let teamMembers: UserModel[] = [];
+
+            snapshot.docs.map((doc) => {
+                teamRef = doc.ref
+
+                teamMembers = (doc.data()['members'] as []).map((member) => {
+                    return setUserModel({
+                        uid: member['uid'],
+                        firstName: member['first_name'],
+                        lastName: member['last_name'],
+                        email: member['email'],
+                        course: member['course'],
+                        srCode: member['sr_code'],
+                        image: member['image'],
+                        role: member['role'],
+                        status: member['status'],
+                    })
+                });
+            });
+
+            teamMembers[3] = userModel;
+
+            // UPDATE TEAM DOC
+            await updateDoc(teamRef, {
+                members: [
+                    {
+                        uid: teamMembers[0].uid,
+                        first_name: teamMembers[0].firstName,
+                        last_name: teamMembers[0].lastName,
+                        email: teamMembers[0].email,
+                        course: teamMembers[0].course,
+                        sr_code: teamMembers[0].srCode,
+                        image: teamMembers[0].image,
+                        role: teamMembers[0].role
+                    },
+                    {
+                        uid: teamMembers[1].uid,
+                        first_name: teamMembers[1].firstName,
+                        last_name: teamMembers[1].lastName,
+                        email: teamMembers[1].email,
+                        course: teamMembers[1].course,
+                        sr_code: teamMembers[1].srCode,
+                        image: teamMembers[1].image,
+                        role: teamMembers[1].role
+                    },
+                    {
+                        uid: teamMembers[2].uid,
+                        first_name: teamMembers[2].firstName,
+                        last_name: teamMembers[2].lastName,
+                        email: teamMembers[2].email,
+                        course: teamMembers[2].course,
+                        sr_code: teamMembers[2].srCode,
+                        image: teamMembers[2].image,
+                        role: teamMembers[2].role
+                    },
+                    {
+                        uid: teamMembers[3].uid,
+                        first_name: teamMembers[3].firstName,
+                        last_name: teamMembers[3].lastName,
+                        email: teamMembers[3].email,
+                        course: teamMembers[3].course,
+                        sr_code: teamMembers[3].srCode,
+                        image: teamMembers[3].image,
+                        role: teamMembers[3].role,
+                        status: teamMembers[3].status
+                    }
+                ],
+            });
+
+            // IF THE APPROVED COUNT IS ALREADY 4, SET THE USER IN UNAVAILABLE STATUS AFTER
+            // APPROVING THE 5TH TOPIC
+            if(approvedTopicCount == 4){
+                const userQuery = query(
+                    userCollection,
+                    where("uid", "==", userModel.uid)
+                );
+
+                const userSnapshot = await getDocs(userQuery);
+
+                await updateDoc(userSnapshot.docs[0].ref, {
+                    status: "Unavailable"
+                });
+            }
+
+            return true;
+        }
+
+        return false;
     }
     catch(e){
         console.log(e);

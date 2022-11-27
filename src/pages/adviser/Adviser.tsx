@@ -1,6 +1,6 @@
 
 import { Component, useEffect, useState} from "react";
-import { IonContent, IonFab, IonFabButton, IonIcon, IonPage } from '@ionic/react';
+import { IonContent, IonFab, IonFabButton, IonIcon, IonPage, useIonToast } from '@ionic/react';
 import './Adviser.css';
 import { MobileArrowBackAppBar, MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
 import AvailableCard from "./components/AvailableCard";
@@ -8,9 +8,10 @@ import UnavailableCard from "./components/UnavailableCard";
 import { add } from "ionicons/icons";
 import ContentHeader from "../../core/components/ContentHeader";
 import { useMediaQuery } from "react-responsive";
-import { goPage, replacePage, setStorageData, webWidth } from "../../core/Utils";
+import { goPage, replacePage, setStorageData, showToast, webWidth } from "../../core/Utils";
 import UserModel from "../../core/models/user_model";
 import { getAllFaculties, getAllStudents } from "../../core/services/admin_service";
+import { FacultySlotError } from "../../core/Errors";
 
 interface AdviserModel{
     image: string,
@@ -84,6 +85,8 @@ const sampleData: AdviserModel[] = [
 
 const Adviser = () => {
     const [faculties, setFaculties] = useState<UserModel[]>([]);
+    
+    const [toast] = useIonToast();
 
     useEffect(() => {
         getAllFaculties().then((value: any) => {
@@ -91,9 +94,13 @@ const Adviser = () => {
         });
     }, []);
 
-    function selectAdviser(userModel: UserModel){
+    function selectAvailableFaculty(userModel: UserModel){
         setStorageData("preffered-adviser", JSON.stringify(userModel));
         replacePage("/projects/propose-topic");
+    }
+
+    function selectUnavailableFaculty(){
+        showToast(toast, FacultySlotError);
     }
 
     return (
@@ -105,9 +112,9 @@ const Adviser = () => {
                     {faculties.map((adviser, index) => {
                         switch(adviser.status){
                             case "Available":
-                                return <AvailableCard userModel={adviser} onClick={() => selectAdviser(adviser)}/>;
+                                return <AvailableCard userModel={adviser} onClick={() => selectAvailableFaculty(adviser)}/>;
                             case "Unavailable":
-                                return <UnavailableCard userModel={adviser} onClick={() => selectAdviser(adviser)}/>;
+                                return <UnavailableCard userModel={adviser} onClick={selectUnavailableFaculty} />;
                             default:
                                 return <div></div>;
                         }

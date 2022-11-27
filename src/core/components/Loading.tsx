@@ -5,6 +5,7 @@ const Loading = () => {
     return <IonPage>
         <IonContent>
             <div className="loading-content-center">
+                <h1>CAP<span>MS</span></h1>
                 {/* LOADING SPINNER */}
                 <IonItem lines="none">
                     <IonSpinner name="crescent" className="loading-color" />

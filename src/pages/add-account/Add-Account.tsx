@@ -10,6 +10,7 @@ import { createAccount } from "../../core/services/admin_service";
 import { setUserModel } from "../../core/models/user_model";
 import { CreateAccountMessage } from "../../core/Success";
 import Loading from "../../core/components/Loading";
+import { PasswordLengthError, SomethingWrongError } from "../../core/Errors";
 
 const AddAccount = (props: any) => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
@@ -58,23 +59,31 @@ const AddAccount = (props: any) => {
         
         setLoading(true);
 
-        const result = await createAccount(userModel, file);
+        if(!(password.length < 6)){
+            const result = await createAccount(userModel, file);
 
         setLoading(false);
 
         if(result){
             showToast(toast, CreateAccountMessage);
 
-            // CLEAR TEXT FIELDS
-            setFname("");
-            setLname("");
-            setEmail("");
-            setPassword("");
-            setCourse("");
-            setSrCode("");
-            // CLEAR IMAGE
-            setFile(null);
-            setImage(defaultImage);
+                // CLEAR TEXT FIELDS
+                setFname("");
+                setLname("");
+                setEmail("");
+                setPassword("");
+                setCourse("");
+                setSrCode("");
+                // CLEAR IMAGE
+                setFile(null);
+                setImage(defaultImage);
+            }
+            else{
+                showToast(toast, SomethingWrongError);
+            }
+        }
+        else{
+            showToast(toast, PasswordLengthError);
         }
     }
 
