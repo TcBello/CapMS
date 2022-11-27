@@ -46,17 +46,6 @@ const AdviseeProfile = () => {
 
     const [toast]= useIonToast();
 
-    async function removeTeam(uid: string) {
-
-        setLoading(true);
-        await deleteTeam(uid);
-        setLoading(false);
-
-        showToast(toast, DeleteTeamMessage);
-
-        replacePage("split-view-admin");
-    }
-
     useEffect(() => {
         setTeam(teamModel);
     }, []);

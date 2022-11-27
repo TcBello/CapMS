@@ -3,7 +3,7 @@ import { User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import InputField from "../../core/components/InputField";
 import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
-import { MissingFieldError, PasswordFailError, PasswordMatchError } from "../../core/Errors";
+import { MissingFieldError, PasswordFailError, PasswordMatchError, SomethingWrongError } from "../../core/Errors";
 import { changePassword } from "../../core/services/auth_service";
 import { UpdatePasswordMessage, UpdateProfileMessage } from "../../core/Success";
 import { getStorageData, replacePage, setStorageData, showToast, webWidth } from "../../core/Utils";
@@ -54,21 +54,28 @@ const EditProfile = (props: any) => {
         setLoading(true);
 
         // UPDATE USER
-        await updateUserAccount(user);
-        setLoading(false);
+        const result = await updateUserAccount(user);
+        
+        if(result){
+            setLoading(false);
 
-        // SET STORAGE DATA OF USER
-        if(isFaculty){
-            setStorageData("faculty-profile", JSON.stringify(user));
+            // SET STORAGE DATA OF USER
+            if(isFaculty){
+                setStorageData("faculty-profile", JSON.stringify(user));
+            }
+            else{
+                setStorageData("student-profile", JSON.stringify(user));
+            }
+
+            // SHOW TOAST
+            showToast(toast, UpdateProfileMessage);
+
+            replacePage(href);
         }
         else{
-            setStorageData("student-profile", JSON.stringify(user));
+            setLoading(false);
+            showToast(toast, SomethingWrongError);
         }
-
-        // SHOW TOAST
-        showToast(toast, UpdateProfileMessage);
-
-        replacePage(href);
     }
 
     useEffect(() => {

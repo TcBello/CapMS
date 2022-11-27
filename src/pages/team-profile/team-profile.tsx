@@ -14,6 +14,7 @@ import "./team-profile.css";
 import Loading from "../../core/components/Loading";
 import TeamModel, { setTeamModel } from "../../core/models/team_model";
 import { DeleteTeamMessage } from "../../core/Success";
+import { SomethingWrongError } from "../../core/Errors";
 
 const TeamProfile = () => {
     const [loading, setLoading] = useState(false);
@@ -34,12 +35,17 @@ const TeamProfile = () => {
     async function removeTeam(uid: string) {
 
         setLoading(true);
-        await deleteTeam(uid);
-        setLoading(false);
+        const result = await deleteTeam(uid);
 
-        showToast(toast, DeleteTeamMessage);
-
-        replacePage("split-view-admin");
+        if(result){
+            setLoading(false);
+            showToast(toast, DeleteTeamMessage);
+            replacePage("split-view-admin");
+        }
+        else{
+            setLoading(false);
+            showToast(toast, SomethingWrongError);
+        }
     }
 
     useEffect(() => {

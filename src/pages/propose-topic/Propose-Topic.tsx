@@ -10,7 +10,7 @@ import { ProposeTopicMessage } from "../../core/Success";
 import { proposeTopic } from "../../core/services/user_service";
 import TeamModel from "../../core/models/team_model";
 import InputField from "../../core/components/InputField";
-import { MissingFieldError } from "../../core/Errors";
+import { MissingFieldError, SomethingWrongError } from "../../core/Errors";
 import Loading from "../../core/components/Loading";
 
 const ProposeTopic = () => {
@@ -47,17 +47,22 @@ const ProposeTopic = () => {
 
                 setLoading(true);
                 // PROPOSE A TOPIC
-                await proposeTopic(adviser, myTeamModel, projectName, abstractForm);
+                const result = await proposeTopic(adviser, myTeamModel, projectName, abstractForm);
                 setLoading(false);
 
-                // SHOW TOAST
-                showToast(toast, ProposeTopicMessage);
+                if(result){
+                    // SHOW TOAST
+                    showToast(toast, ProposeTopicMessage);
 
-                // RESET VALUES
-                removeStorageData("preffered-adviser");
-                setAdviser(adviserInitialData);
-                setProjectName("");
-                setAbstractForm("");
+                    // RESET VALUES
+                    removeStorageData("preffered-adviser");
+                    setAdviser(adviserInitialData);
+                    setProjectName("");
+                    setAbstractForm("");
+                }
+                else{
+                    showToast(toast, SomethingWrongError);
+                }
             }
             else{
                 showToast(toast, MissingFieldError);
@@ -94,21 +99,9 @@ const ProposeTopic = () => {
             </div>
             <div className="spacer-h-s" />
             {/* NAME OF THE PROJECT FIELD */}
-            {/* <IonItem lines="none" className="input-field">
-                <IonLabel position="floating">
-                    Name of the Project
-                </IonLabel>
-                <IonInput onIonChange={(e) => console.log(e)}></IonInput>
-            </IonItem> */}
             <InputField title="Name of the Project" useState={[projectName, setProjectName]} obscure={false} />
             <div className="spacer-h-s" />
             {/* ABSTRACT FORM FIELD */}
-            {/* <IonItem lines="none" className="input-field">
-                <IonLabel position="floating">
-                    Abstract Form (Google Doc Link)
-                </IonLabel>
-                <IonInput onIonChange={(e) => console.log(e)}></IonInput>
-            </IonItem> */}
             <InputField title="Abstract Form (Google Doc Link)" useState={[abstractForm, setAbstractForm]} obscure={false} />
             <div className="spacer-h-xl" />
             <div className="content-right">

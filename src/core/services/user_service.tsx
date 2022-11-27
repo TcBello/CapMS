@@ -128,10 +128,14 @@ async function proposeTopic(adviserUserModel: UserModel, teamModel: TeamModel, p
                 projects: studentProjects
             });
         });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function addProjectFile(projectId: string, name: string, gDocLink: string){
@@ -143,10 +147,14 @@ async function addProjectFile(projectId: string, name: string, gDocLink: string)
             gDocLink: gDocLink,
             created_at: Timestamp.now()
         });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function getProjects(projectIds: string[]){

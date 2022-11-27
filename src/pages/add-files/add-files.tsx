@@ -3,7 +3,7 @@ import { User } from "firebase/auth";
 import { useState } from "react";
 import InputField from "../../core/components/InputField";
 import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
-import { MissingFieldError, PasswordFailError, PasswordMatchError } from "../../core/Errors";
+import { MissingFieldError, PasswordFailError, PasswordMatchError, SomethingWrongError } from "../../core/Errors";
 import { changePassword } from "../../core/services/auth_service";
 import { AddFileMessage, UpdatePasswordMessage } from "../../core/Success";
 import { getStorageData, showToast, webWidth } from "../../core/Utils";
@@ -27,18 +27,29 @@ const AddFile = (props: any) => {
     const projectStorageData = getStorageData("project");
     const projectModel = (JSON.parse(projectStorageData!)) as ProjectModel;
 
+    const userStorageData = getStorageData("user");
+    const userModel = (JSON.parse(userStorageData!)) as UserModel;
+
     const isDesktop = useMediaQuery({minWidth: webWidth});
 
     async function addFile(){
+        // setLoading true
         // ADD FILE
-        await addProjectFile(projectModel.uid, fileName, docLink);
+        const result = await addProjectFile(projectModel.uid, fileName, docLink);
 
-        // SHOW TOAST
-        showToast(toast, AddFileMessage);
+        // set loading false
 
-        // RESET VALUES
-        setFileName("");
-        setDocLink("");
+        if(result){
+            // SHOW TOAST
+            showToast(toast, AddFileMessage);
+
+            // RESET VALUES
+            setFileName("");
+            setDocLink("");
+        }
+        else{
+            showToast(toast, SomethingWrongError);
+        }
     }
 
 
@@ -55,7 +66,7 @@ const AddFile = (props: any) => {
                 </div>
                 <div className="edit-password-button-container">
                     {/* CANCEL BUTTON */}
-                    <IonButton fill="clear" className="edit-password-cancel-button" href="split-view-admin">Cancel</IonButton>
+                    <IonButton fill="clear" className="edit-password-cancel-button" href={userModel.role == "Student" ? "split-view" : "split-view-faculty"}>Cancel</IonButton>
                     <div className="spacer-w-xs" />
                     {/* ADD BUTTON */}
                     <IonButton className="edit-password-add-button" shape="round" onClick={addFile}>Add</IonButton>

@@ -10,6 +10,7 @@ import { createAnnouncement, updateAnnouncement } from "../../core/services/admi
 import AnnouncementModel, { setAnnouncementModel } from "../../core/models/announcement_model";
 import { CreateAnnouncementMessage, UpdateAnnouncementMessage } from "../../core/Success";
 import Loading from "../../core/components/Loading";
+import { SomethingWrongError } from "../../core/Errors";
 
 const EditAnnouncement = () => {
     const [by, setBy] = useState("");
@@ -29,19 +30,23 @@ const EditAnnouncement = () => {
 
         setLoading(true);
 
-        await updateAnnouncement(setAnnouncementModel({
+        const result = await updateAnnouncement(setAnnouncementModel({
             by: by,
             message: message,
             date: announcementModel.date,
             uid: announcementModel.uid
         }));
 
-        // SHOW TOAST
-        showToast(toast, UpdateAnnouncementMessage);
-
-        setLoading(false);
-
-        replacePage("split-view-admin");
+        if(result){
+            // SHOW TOAST
+            showToast(toast, UpdateAnnouncementMessage);
+            setLoading(false);
+            replacePage("split-view-admin");
+        }
+        else{
+            showToast(toast, SomethingWrongError);
+            setLoading(false);
+        }
     }
 
     useEffect(() => {

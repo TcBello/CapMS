@@ -1,14 +1,15 @@
-import { IonContent, IonFab, IonFabButton, IonIcon, IonPage } from "@ionic/react";
+import { IonContent, IonFab, IonFabButton, IonIcon, IonPage, useIonToast } from "@ionic/react";
 import { Component, useEffect, useState } from "react";
 import "./Announcement.css";
 import ContentHeader from "../../core/components/ContentHeader";
 import { AnnouncementAdminCard, AnnouncementCard } from "./components/Announcement-Card";
 import { useMediaQuery } from "react-responsive";
-import { goPage, setStorageData, webWidth } from "../../core/Utils";
+import { goPage, setStorageData, showToast, webWidth } from "../../core/Utils";
 import { MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
 import { add } from "ionicons/icons";
 import AnnouncementModel from "../../core/models/announcement_model";
 import { deleteAnnouncement, getAllAnnouncements } from "../../core/services/admin_service";
+import { SomethingWrongError } from "../../core/Errors";
 
 const Announcement = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
@@ -46,14 +47,21 @@ const AnnouncementAdmin = () => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
     const [announcements, setAnnouncements] = useState<AnnouncementModel[]>([]);
 
+    const [toast] = useIonToast();
+
     async function editAnnouncement(announcementModel: AnnouncementModel){
         setStorageData("announcement", JSON.stringify(announcementModel));
         goPage("/home/admin/announcements/edit");
     }
 
     async function removeAnnouncement(announcementModel: AnnouncementModel){
-        await deleteAnnouncement(announcementModel);
-        getAnnouncementData();
+        const result = await deleteAnnouncement(announcementModel);
+        if(result){
+            getAnnouncementData();
+        }
+        else{
+            showToast(toast, SomethingWrongError);
+        }
     }
 
     function getAnnouncementData(){

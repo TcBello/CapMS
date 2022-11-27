@@ -203,11 +203,15 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
 
         await updateDoc(teamDoc, {
             uid: docRef.id
-        })
+        });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function getAllTeams(){
@@ -255,10 +259,14 @@ async function createAnnouncement(announcement: AnnouncementModel){
         await updateDoc(doc, {
             uid: doc.id
         });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function getAllAnnouncements(){
@@ -336,11 +344,15 @@ async function updateAnnouncement(announcementModel: AnnouncementModel){
         await updateDoc(announcement, {
             message: announcementModel.message,
             by: announcementModel.by
-        })
+        });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function deleteAnnouncement(announcementModel: AnnouncementModel){
@@ -359,10 +371,14 @@ async function deleteAnnouncement(announcementModel: AnnouncementModel){
         });
 
         await deleteDoc(docRef);
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function updateUserAccount(userModel: UserModel){
@@ -392,10 +408,14 @@ async function updateUserAccount(userModel: UserModel){
             course: userModel.course,
             sr_code: userModel.srCode
         });
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function deleteAccount(uid: string){
@@ -419,10 +439,14 @@ async function deleteAccount(uid: string){
             // DELETE DOC
             await deleteDoc(docRef);
         }
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function deleteTeam(uid: string){
@@ -442,10 +466,14 @@ async function deleteTeam(uid: string){
         });
 
         await deleteDoc(docRef);
+
+        return true;
     }
     catch(e){
         console.log(e);
     }
+
+    return false;
 }
 
 async function getDashboardData(){
