@@ -10,6 +10,7 @@ import { ProposeTopicMessage } from "../../core/Success";
 import { proposeTopic } from "../../core/services/user_service";
 import TeamModel from "../../core/models/team_model";
 import InputField from "../../core/components/InputField";
+import { MissingFieldError } from "../../core/Errors";
 
 const ProposeTopic = () => {
     const adviserInitialData = setUserModel({
@@ -40,16 +41,21 @@ const ProposeTopic = () => {
 
     async function submitProposal(){
         if(adviserStorageData != null){
-            // PROPOSE A TOPIC
-            await proposeTopic(adviser, myTeamModel, projectName, abstractForm);
-            // SHOW TOAST
-            showToast(toast, ProposeTopicMessage);
+            if(projectName != "" && abstractForm != ""){
+                // PROPOSE A TOPIC
+                await proposeTopic(adviser, myTeamModel, projectName, abstractForm);
+                // SHOW TOAST
+                showToast(toast, ProposeTopicMessage);
 
-            // RESET VALUES
-            removeStorageData("preffered-adviser");
-            setAdviser(adviserInitialData);
-            setProjectName("");
-            setAbstractForm("");
+                // RESET VALUES
+                removeStorageData("preffered-adviser");
+                setAdviser(adviserInitialData);
+                setProjectName("");
+                setAbstractForm("");
+            }
+            else{
+                showToast(toast, MissingFieldError);
+            }
         }
         else{
             showToast(toast, "Adviser is missing");

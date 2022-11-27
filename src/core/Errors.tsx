@@ -6,9 +6,6 @@ const PasswordFailError = "Failed to update password";
 const AddCreationInputError = "Invalid Input, please try again";
 const SomethingWrongError = "Something went wrong"; 
 
-
-
-
 export {
     LoginInvalidCredentialError,
     MissingFieldError,

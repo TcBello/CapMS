@@ -12,7 +12,6 @@ import "./add-files.css";
 import { useMediaQuery } from "react-responsive";
 import UserModel from "../../core/models/user_model";
 import Loading from "../../core/components/Loading";
-import "../../core/components/Spacer.css";
 import { addProjectFile } from "../../core/services/user_service";
 import ProjectModel from "../../core/models/project_model";
 
@@ -27,6 +26,8 @@ const AddFile = (props: any) => {
 
     const projectStorageData = getStorageData("project");
     const projectModel = (JSON.parse(projectStorageData!)) as ProjectModel;
+
+    const isDesktop = useMediaQuery({minWidth: webWidth});
 
     async function addFile(){
         // ADD FILE
@@ -47,9 +48,11 @@ const AddFile = (props: any) => {
             <MobileArrowBackAppBar title="Add File" href={`/${projectName}/files`} />
             <IonContent>
                 <div className="spacer-h-s" />
-                <InputField title="File Name" useState={[fileName, setFileName]} obscure={false} />
-                <div className="spacer-h-s" />
-                <InputField title="Google Docs Link" useState={[docLink, setDocLink]} obscure={false} />
+                <div className={isDesktop ? "add-files-container": "add-files-container-mobile"}>
+                    <InputField title="File Name" useState={[fileName, setFileName]} obscure={false} />
+                    <div className="spacer-h-s" />
+                    <InputField title="Google Docs Link" useState={[docLink, setDocLink]} obscure={false} />
+                </div>
                 <div className="edit-password-button-container">
                     {/* CANCEL BUTTON */}
                     <IonButton fill="clear" className="edit-password-cancel-button" href="split-view-admin">Cancel</IonButton>

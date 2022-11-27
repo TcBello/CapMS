@@ -34,3 +34,13 @@
     padding-right: 15px;
     margin-top: 20px;
 }
+
+.add-files-container{
+    margin-left: 15px;
+}
+
+.add-files-container-mobile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
