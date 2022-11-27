@@ -60,8 +60,16 @@ const Login = () => {
             <BackgroundLogin />
                 <div className="content-center">
                     <div className="spacer-h-xl"/>
+                    <div className="login-logo-container">
+                        <img src="assets/images/bsu.png" className="login-logos" />
+                        <img src="assets/images/cics.png" className="login-logos" />
+                    </div>
                     {/* CAPMS HEADER */}
-                    <h1 className="cap-text">Cap<span>MS</span></h1>
+                    {
+                        isDesktop
+                            ? <h1 className="cap-text"><span>Cap</span>stone <span>M</span>anagement <span>S</span>ystem</h1>
+                            : <h1 className="cap-text">Cap<span>MS</span></h1>
+                    }
                     <div className="spacer-h-xl"/>
                     {/* CARD */}
                     <IonCard className={isDesktop ? "login-card" : "login-card-mobile"}>

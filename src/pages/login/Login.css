@@ -29,7 +29,8 @@ h1 span{
 .background-login{
     height: 105%;
     width: 110%;
-    background-image: url("https://batstate-u.edu.ph/wp-content/uploads/2020/10/homepage-webslider-1.jpg");
+    /* background-image: url("https://batstate-u.edu.ph/wp-content/uploads/2020/10/homepage-webslider-1.jpg"); */
+    background-image: url("/public/assets/images/bsu_bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     filter: blur(10px);
@@ -117,4 +118,15 @@ h1 span{
 
 .cap-text{
     color: white;
+}
+
+.login-logo-container{
+    display: flex;
+    flex-direction: row;
+    z-index: 3;
+}
+
+.login-logos{
+    height: 100px;
+    width: 100px;
 }
