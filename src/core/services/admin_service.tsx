@@ -8,6 +8,7 @@ import { setTeamModel } from "../models/team_model";
 import AnnouncementModel, { setAnnouncementModel } from "../models/announcement_model";
 import { format } from "date-fns";
 import DashboardModel, { setDashboardModel } from "../models/dashboard_model";
+import { uid } from "uid";
 
 // TABLE COLLECTIONS
 const userCollection = collection(db, "users");
@@ -31,7 +32,7 @@ async function createAccount(userModel: UserModel, imageFile: any){
 
         if(imageFile != null){
             // UPLOAD IMAGE ON FIREBASE STORAGE
-            upload = await uploadBytes(avatarStorage(imageFile.name), imageFile);
+            upload = await uploadBytes(avatarStorage(uid(64)), imageFile);
             // GET IMAGE URL FROM FIREBASE STORAGE
             imageUrl = await getDownloadURL(upload.ref);
         }
