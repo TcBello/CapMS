@@ -59,6 +59,13 @@ async function getUserData(dispatch: any, uid: string){
     // TODAY'S DATE WILL BE PUSHED IN THE DATES ARRAY IN FIREBASE
     // AND WILL ADD 1 DAILY VISIT
     if(dailyVisitsDates[dailyVisitsDates.length - 1] != dateNow){
+
+        // IF DAILY VISITS DATA AND DATES CONTAINS 10 DATA, REMOVE 1 OLD DATA
+        if(dailyVisitsDates.length == 10 && dailyVisits.length == 10){
+            dailyVisitsDates.splice(0, 1);
+            dailyVisits.splice(0, 1);
+        }
+
         dailyVisitsDates.push(dateNow);
         dailyVisits.push(1);
         await updateDoc(dashboardSnapshot.docs[0].ref, {
