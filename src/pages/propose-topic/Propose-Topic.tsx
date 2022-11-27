@@ -25,10 +25,9 @@ const ProposeTopic = () => {
 
     const teamStorageData = getStorageData("my-team");
     const myTeamModel = (JSON.parse(teamStorageData!)) as TeamModel;
+    const adviserStorageData = getStorageData("preffered-adviser");
 
     useEffect(() => {
-        const adviserStorageData = getStorageData("preffered-adviser");
-
         if(adviserStorageData != null){
             setAdviser((JSON.parse(adviserStorageData!)) as UserModel);
         }
@@ -40,16 +39,21 @@ const ProposeTopic = () => {
     }
 
     async function submitProposal(){
-        // PROPOSE A TOPIC
-        await proposeTopic(adviser, myTeamModel, projectName, abstractForm);
-        // SHOW TOAST
-        showToast(toast, ProposeTopicMessage);
+        if(adviserStorageData != null){
+            // PROPOSE A TOPIC
+            await proposeTopic(adviser, myTeamModel, projectName, abstractForm);
+            // SHOW TOAST
+            showToast(toast, ProposeTopicMessage);
 
-        // RESET VALUES
-        removeStorageData("preffered-adviser");
-        setAdviser(adviserInitialData);
-        setProjectName("");
-        setAbstractForm("");
+            // RESET VALUES
+            removeStorageData("preffered-adviser");
+            setAdviser(adviserInitialData);
+            setProjectName("");
+            setAbstractForm("");
+        }
+        else{
+            showToast(toast, "Adviser is missing");
+        }
     }
 
     return <IonPage>
