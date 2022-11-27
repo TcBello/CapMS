@@ -82,13 +82,13 @@ async function getAllStudents(){
         // DEFINE A QUERY WHERE ROLE IS STUDENT
         const ref = query(
             userCollection,
-            where("role", "==", "Student")
+            where("role", "==", "Student"),
         );
         
         // GET DOCUMENTS 
         const snapshot = await getDocs(ref);
         
-        return snapshot.docs.map((doc) => {
+        const allStudents = snapshot.docs.map((doc) => {
             const data = doc.data();
 
             return setUserModel({
@@ -102,7 +102,10 @@ async function getAllStudents(){
                 role: data['role'],
                 projects: data['projects']
             });
-        })
+        });
+
+        allStudents.sort((a, b) => a.firstName.toLowerCase().localeCompare(b.firstName.toLowerCase()));
+        return allStudents;
     }
     catch(e){
         console.log(e);
@@ -120,7 +123,7 @@ async function getAllFaculties(){
         // GET DOCUMENTS 
         const snapshot = await getDocs(ref);
         
-        return snapshot.docs.map((doc) => {
+        const faculties =  snapshot.docs.map((doc) => {
             const data = doc.data();
 
             return setUserModel({
@@ -135,7 +138,10 @@ async function getAllFaculties(){
                 status: data['status'],
                 projects: data['projects']
             });
-        })
+        });
+
+        faculties.sort((a, b) => a.firstName.toLowerCase().localeCompare(b.firstName.toLowerCase()));
+        return faculties;
     }
     catch(e){
         console.log(e);
@@ -207,7 +213,7 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
 async function getAllTeams(){
     try{
         const docData = await getDocs(teamCollection);
-        return docData.docs.map((doc) => {
+        const teams =  docData.docs.map((doc) => {
             let members = (doc.data()['members'] as []).map((member) => {
                 return setUserModel({
                     uid: member['uid'],
@@ -228,6 +234,9 @@ async function getAllTeams(){
                 uid: doc.data()['uid']
             });
         });
+
+        teams.sort((a, b) => a.teamName.toLowerCase().localeCompare(b.teamName.toLowerCase()));
+        return teams;
     }
     catch(e){
         console.log(e);

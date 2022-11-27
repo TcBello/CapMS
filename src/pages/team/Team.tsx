@@ -21,8 +21,8 @@ const Team = () => {
     }
 
     useEffect(() => {
-        getAllTeams().then((value: any) => {
-            setTeams(value as TeamModel[]);
+        getAllTeams().then((value) => {
+            setTeams(value);
         });
     },[]);
 

@@ -49,7 +49,7 @@ const Student = () => {
 
     useEffect(() => {
         getAllStudents().then((value) => {
-            setStudents(value as UserModel[]);
+            setStudents(value);
         });
     }, []);
 

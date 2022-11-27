@@ -79,7 +79,6 @@ const MenuAdmin: React.FC = () => {
   useEffect(() => {
     initUser(dispatch, userModel.uid).then((value) => {
       setUser(userModel);
-      console.log(userModel);
     });
   }, []);
 
