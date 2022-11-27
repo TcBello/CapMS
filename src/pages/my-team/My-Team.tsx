@@ -62,7 +62,7 @@ const MyTeam = () => {
                     {/* MEET BUTTON */}
                     <IonButton className="my-team-meet-button" onClick={() => goToGoogleMeet(myTeam.teamName)} shape="round">Go To Meet</IonButton>
                     <div className="spacer-h-l" />
-                    <p><b>Note:</b>Use Google Workspace Account</p>
+                    <p><b>Note:</b> Use Google Workspace Account</p>
                 </div>
                 : <div>
                     <div className="spacer-h-m" />
@@ -81,7 +81,7 @@ const MyTeam = () => {
                         {/* MEET BUTTON */}
                         <IonButton className="my-team-meet-button" onClick={() => goToGoogleMeet(myTeam.teamName)} shape="round">Go To Meet</IonButton>
                         <div className="spacer-h-m" />
-                        <p><b>Note:</b>Use Google Workspace Account</p>
+                        <p><b>Note:</b> Use Google Workspace Account</p>
                     </div>
                     <div className="spacer-h-m" />
                 </div>
