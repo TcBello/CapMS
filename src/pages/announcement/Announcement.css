@@ -1,16 +1,14 @@
-.announcement-container{
-    background-color: var(--palette-light-orange);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.announcement-content{
+    --background: var(--palette-light-orange);
 }
 
-.announcement-container-mobile{
-    background-color: white;
+.announcement-content-mobile{
+    --background: white;
+}
+
+.announcement-container{
+    background-color: transparent;
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

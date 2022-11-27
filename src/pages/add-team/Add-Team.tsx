@@ -4,7 +4,7 @@ import "./Add-Team.css";
 import "../../core/components/Spacer.css";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { clearStorageData, defaultImage, getStorageData, replacePage, showToast, webWidth } from "../../core/Utils";
+import { clearStorageData, defaultImage, getStorageData, removeStorageData, replacePage, showToast, webWidth } from "../../core/Utils";
 import { useSelector } from "react-redux";
 import UserModel, { setUserModel } from "../../core/models/user_model";
 import { selectedStudents } from "../../core/redux/slices/select-student-slice";
@@ -49,8 +49,10 @@ const AddTeam = () => {
 
         setLoading(false);
 
-        // CLEAR LOCAL STORAGE DATA
-        clearStorageData();
+        // CLEAR REMOVE STORAGE DATA
+        removeStorageData("first-member");
+        removeStorageData("second-member");
+        removeStorageData("third-member");
 
         // SET INITIAL DATA
         setFirstMember(setUserModel({
@@ -78,7 +80,9 @@ const AddTeam = () => {
     }
 
     function cancel(){
-        clearStorageData();
+        removeStorageData("first-member");
+        removeStorageData("second-member");
+        removeStorageData("third-member");
         replacePage("split-view-admin");
     }
 

@@ -31,12 +31,14 @@ const Announcement = () => {
              ? <ContentHeader title="Announcements" />
              : <MobileMenuAppBar title="Announcements" />
         }
-        <div className={isDesktop ? "announcement-container" : "announcement-container-mobile"}>
-            {announcements.map((announcement, index) => {
-                // ANNOUNCEMENT CARD
-                return <AnnouncementCard announcementModel={announcement} />;
-            })}
-        </div>
+        <IonContent className={isDesktop ? "announcement-content" : "announcement-content-mobile"}>
+            <div className="announcement-container">
+                {announcements.map((announcement, index) => {
+                    // ANNOUNCEMENT CARD
+                    return <AnnouncementCard announcementModel={announcement} />;
+                })}
+            </div>
+        </IonContent>
     </IonPage>
 }
 
@@ -71,24 +73,24 @@ const AnnouncementAdmin = () => {
              ? <ContentHeader title="Announcements" />
              : <MobileMenuAppBar title="Announcements" />
         }
-        <IonContent>
-        <div className={isDesktop ? "announcement-container" : "announcement-container-mobile"}>
-            {announcements.map((announcement, index) => {
-                // ANNOUNCEMENT CARD
-                return <AnnouncementAdminCard
-                    announcementModel={announcement}
-                    onEdit={() => editAnnouncement(announcement)}
-                    onDelete={() => removeAnnouncement(announcement)}
-                    isDesktop={isDesktop}
-                />;
-            })}
-        </div>
-        {/* FAB BUTTON */}
-        <IonFab vertical="bottom" horizontal="end" slot="fixed" className="announcement-fab-button">
-            <IonFabButton href="/home/admin/announcements/add">
-                <IonIcon icon={add} className="icon"/>  
-            </IonFabButton>
-        </IonFab>
+        <IonContent className={isDesktop ? "announcement-content" : "announcement-content-mobile"}>
+            <div className="announcement-container">
+                {announcements.map((announcement, index) => {
+                    // ANNOUNCEMENT CARD
+                    return <AnnouncementAdminCard
+                        announcementModel={announcement}
+                        onEdit={() => editAnnouncement(announcement)}
+                        onDelete={() => removeAnnouncement(announcement)}
+                        isDesktop={isDesktop}
+                    />;
+                })}
+            </div>
+            {/* FAB BUTTON */}
+            <IonFab vertical="bottom" horizontal="end" slot="fixed" className="announcement-fab-button">
+                <IonFabButton href="/home/admin/announcements/add">
+                    <IonIcon icon={add} className="icon"/>  
+                </IonFabButton>
+            </IonFab>
         </IonContent>
     </IonPage>
 }

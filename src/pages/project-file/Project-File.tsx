@@ -19,6 +19,8 @@ const ProjectFile = (props: any) => {
 
     const projectStorageData = getStorageData("project");
     const projectModel = (JSON.parse(projectStorageData!)) as ProjectModel;
+    const userStorageData = getStorageData("user");
+    const userModel = (JSON.parse(userStorageData!)) as UserModel;
 
     function openFile(url: string){
         openNewTab(url);
@@ -33,7 +35,7 @@ const ProjectFile = (props: any) => {
     return (
         <IonPage>
             {/* APPBAR */}
-            <MobileArrowBackAppBar title={title} href="/split-view" />
+            <MobileArrowBackAppBar title={title} href={userModel.role == "Student" ? "/split-view" : "split-view-faculty"} />
             {/* CONTENT */}
             <IonContent>
                 {/* FILE ITEMS */}
@@ -92,7 +94,7 @@ const ProjectFileApprover = (props: any) => {
     return (
         <IonPage>
             {/* APPBAR */}
-            <MobileArrowBackAppBar title={title} href="/split-view" />
+            <MobileArrowBackAppBar title={title} href="/split-view-faculty" />
             {/* CONTENT */}
             <IonContent>
                 {/* FILE ITEMS */}
