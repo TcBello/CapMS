@@ -58,6 +58,7 @@ const Project = () => {
                         }
                     })}
                 </div>
+                <div className="spacer-h-xl" />
                 {/* PROPOSE TOPIC BUTTON */}
                 <IonButton className="project-propose-button" href="/projects/propose-topic">
                     <IonIcon slot="start" icon={add} className="icon"></IonIcon>

@@ -87,21 +87,9 @@ const ProposeTopic = () => {
             </div>
             <div className="spacer-h-s" />
             {/* NAME OF THE PROJECT FIELD */}
-            {/* <IonItem lines="none" className="input-field">
-                <IonLabel position="floating">
-                    Name of the Project
-                </IonLabel>
-                <IonInput onIonChange={(e) => console.log(e)}></IonInput>
-            </IonItem> */}
             <InputField title="Name of the Project" useState={[projectName, setProjectName]} obscure={false} />
             <div className="spacer-h-s" />
             {/* ABSTRACT FORM FIELD */}
-            {/* <IonItem lines="none" className="input-field">
-                <IonLabel position="floating">
-                    Abstract Form (Google Doc Link)
-                </IonLabel>
-                <IonInput onIonChange={(e) => console.log(e)}></IonInput>
-            </IonItem> */}
             <InputField title="Abstract Form (Google Doc Link)" useState={[abstractForm, setAbstractForm]} obscure={false} />
             <div className="spacer-h-xl" />
             <div className="content-right">
