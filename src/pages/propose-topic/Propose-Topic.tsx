@@ -11,6 +11,7 @@ import { proposeTopic } from "../../core/services/user_service";
 import TeamModel from "../../core/models/team_model";
 import InputField from "../../core/components/InputField";
 import { MissingFieldError } from "../../core/Errors";
+import Loading from "../../core/components/Loading";
 
 const ProposeTopic = () => {
     const adviserInitialData = setUserModel({
@@ -21,6 +22,7 @@ const ProposeTopic = () => {
     const [adviser, setAdviser] = useState<UserModel>(adviserInitialData);
     const [projectName, setProjectName] = useState("");
     const [abstractForm, setAbstractForm] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const [toast] = useIonToast();
 
@@ -42,8 +44,12 @@ const ProposeTopic = () => {
     async function submitProposal(){
         if(adviserStorageData != null){
             if(projectName != "" && abstractForm != ""){
+
+                setLoading(true);
                 // PROPOSE A TOPIC
                 await proposeTopic(adviser, myTeamModel, projectName, abstractForm);
+                setLoading(false);
+
                 // SHOW TOAST
                 showToast(toast, ProposeTopicMessage);
 
@@ -62,7 +68,8 @@ const ProposeTopic = () => {
         }
     }
 
-    return <IonPage>
+    if(!loading) {
+        return <IonPage>
         {/* APP BAR */}
         <MobileArrowBackAppBar title="Propose a Topic" href="/split-view" />
         {/* CONTENT */}
@@ -87,9 +94,21 @@ const ProposeTopic = () => {
             </div>
             <div className="spacer-h-s" />
             {/* NAME OF THE PROJECT FIELD */}
+            {/* <IonItem lines="none" className="input-field">
+                <IonLabel position="floating">
+                    Name of the Project
+                </IonLabel>
+                <IonInput onIonChange={(e) => console.log(e)}></IonInput>
+            </IonItem> */}
             <InputField title="Name of the Project" useState={[projectName, setProjectName]} obscure={false} />
             <div className="spacer-h-s" />
             {/* ABSTRACT FORM FIELD */}
+            {/* <IonItem lines="none" className="input-field">
+                <IonLabel position="floating">
+                    Abstract Form (Google Doc Link)
+                </IonLabel>
+                <IonInput onIonChange={(e) => console.log(e)}></IonInput>
+            </IonItem> */}
             <InputField title="Abstract Form (Google Doc Link)" useState={[abstractForm, setAbstractForm]} obscure={false} />
             <div className="spacer-h-xl" />
             <div className="content-right">
@@ -105,6 +124,10 @@ const ProposeTopic = () => {
             <div className="spacer-h-s" />
         </IonContent>
     </IonPage>;
+
+    } else{
+        return <Loading />
+    }
 }
 
 export default ProposeTopic;

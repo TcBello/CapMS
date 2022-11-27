@@ -57,7 +57,7 @@
 }
 
 .propose-topic-container .submit-button{
-    --background: var(--palette-blue);
+    --background: var(--palette-red);
 }
 
 .submit-button .submit-text{
