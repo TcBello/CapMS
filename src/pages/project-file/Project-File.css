@@ -45,3 +45,12 @@
 .project-file-item{
     width: 98%;
 }
+
+.project-file-content-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: fixed;
+    bottom: 30px;
+    right: 15px;
+}

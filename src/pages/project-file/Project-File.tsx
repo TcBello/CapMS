@@ -12,6 +12,7 @@ import UserModel from "../../core/models/user_model";
 import { ApproveTopicMessage, DeleteFileMessage, DenyTopicMessage } from "../../core/Success";
 import Loading from "../../core/components/Loading";
 import { SomethingWrongError } from "../../core/Errors";
+import TeamModel from "../../core/models/team_model";
 
 const ProjectFile = (props: any) => {
     const title: string = `${props.match.params.name}'s Files`;
@@ -23,13 +24,23 @@ const ProjectFile = (props: any) => {
     const projectModel = (JSON.parse(projectStorageData!)) as ProjectModel;
     const userStorageData = getStorageData("user");
     const userModel = (JSON.parse(userStorageData!)) as UserModel;
+    const adviseeStorageData = getStorageData("advisee");
+    const teamModel = (JSON.parse(adviseeStorageData!)) as TeamModel;
 
     const [toast] = useIonToast();
 
     function getFiles(){
-        getProjectFiles(projectModel.uid).then((value: any) => {
-            setFiles(value as ProjectFileModel[]);
-        });
+        if(projectModel != null){
+            getProjectFiles(projectModel.uid).then((value: any) => {
+                setFiles(value as ProjectFileModel[]);
+            });
+        }
+
+        if(teamModel != null){
+            getProjectFiles(teamModel.projectId).then((value: any) => {
+                setFiles(value as ProjectFileModel[]);
+            });
+        }
     }
 
     function openFile(url: string){
@@ -55,7 +66,10 @@ const ProjectFile = (props: any) => {
     return (
         <IonPage>
             {/* APPBAR */}
-            <MobileArrowBackAppBar title={title} href={userModel.role == "Student" ? "/split-view" : "split-view-faculty"} />
+            <MobileArrowBackAppBar
+                title={title}
+                href={userModel.role == "Student" ? "/split-view" : teamModel != null ? "/home/faculty/my-advisees/profile" : "split-view-faculty"}
+            />
             {/* CONTENT */}
             <IonContent>
                 {/* FILE ITEMS */}
@@ -138,7 +152,7 @@ const ProjectFileApprover = (props: any) => {
                             <IonLabel>{file.fileName}</IonLabel>
                         </IonItem>
                     })}
-                    <div className="add-faculty-content-right">
+                    <div className="project-file-content-right">
                         {/* CANCEL BUTTON */}
                         <IonButton fill="clear" className="add-faculty-cancel-button" onClick={deny}>Deny</IonButton>
                         <div className="spacer-w-xs" />

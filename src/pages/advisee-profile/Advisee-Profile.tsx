@@ -5,14 +5,16 @@ import "../../core/components/Spacer.css";
 import { person, mail, school, call } from "ionicons/icons";
 import ContentHeader from "../../core/components/ContentHeader";
 import { useMediaQuery } from "react-responsive";
-import { defaultImage, getStorageData, goToGoogleMeet, replacePage, showToast, webWidth } from "../../core/Utils";
+import { defaultImage, getStorageData, goPage, goToGoogleMeet, replacePage, showToast, webWidth } from "../../core/Utils";
 import { MobileArrowBackAppBar, MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
 import UserModel, { setUserModel } from "../../core/models/user_model";
 import { deleteAccount, deleteTeam, getAdminProfile } from "../../core/services/admin_service";
-// import "./team-profile.css";
+import "./Advisee-Profile.css";
 import Loading from "../../core/components/Loading";
 import TeamModel, { setTeamModel } from "../../core/models/team_model";
 import { DeleteTeamMessage } from "../../core/Success";
+import { getProjectName } from "../../core/services/user_service";
+import { SomethingWrongError } from "../../core/Errors";
 
 const AdviseeProfile = () => {
     const [loading, setLoading] = useState(false);
@@ -45,6 +47,17 @@ const AdviseeProfile = () => {
     const teamModel = (JSON.parse(storageData!)) as TeamModel;
 
     const [toast]= useIonToast();
+
+    async function viewFiles(){
+        const projectName = await getProjectName(teamModel.projectId);
+
+        if(projectName != null){
+            goPage(`/${projectName}/files`);
+        }
+        else{
+            showToast(toast, SomethingWrongError);
+        }
+    }
 
     useEffect(() => {
         setTeam(teamModel);
@@ -92,8 +105,11 @@ const AdviseeProfile = () => {
                         {/* NAME */}
                         <h2 className="subtext">{team.members[3].firstName} {team.members[3].lastName}</h2>
                         <div className="spacer-h-m" />
+                        {/* VIEW FILES BUTTON */}
+                        <IonButton shape="round" className="advisee-profile-button" onClick={viewFiles}>View Files</IonButton>
+                        <div className="spacer-h-s" />
                         {/* MEET BUTTON */}
-                        <IonButton shape="round" className="btn-delete-team" onClick={() => {goToGoogleMeet(team.teamName)}}>Go to Meet</IonButton>
+                        <IonButton shape="round" className="advisee-profile-button" onClick={() => {goToGoogleMeet(team.teamName)}}>Go to Meet</IonButton>
                         <p><b>Note:</b> Use BatState-u's G-suite account</p>
                     </IonList>
                 </div>
