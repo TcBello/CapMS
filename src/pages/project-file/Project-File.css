@@ -28,3 +28,20 @@
 .project-file-add-button-icon{
     color: white;
 }
+
+.delete-file-icon{
+    color: var(--palette-red);
+    width: 25px;
+    height: 25px;
+}
+
+.project-file-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-file-item{
+    width: 98%;
+}

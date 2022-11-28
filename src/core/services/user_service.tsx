@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDocs, query, Timestamp, updateDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, query, Timestamp, updateDoc, where } from "firebase/firestore";
 import { db } from "../firebase-setup/firebase-setup";
 import ProjectFileModel, { setProjectFileModel } from "../models/project_file_model";
 import ProjectModel, { setProjectModel } from "../models/project_model";
@@ -141,12 +141,16 @@ async function proposeTopic(adviserUserModel: UserModel, teamModel: TeamModel, p
 async function addProjectFile(projectId: string, name: string, gDocLink: string){
     try{
         // ADD DOC
-        await addDoc(fileCollection, {
+        const fileDoc = await addDoc(fileCollection, {
             project_id: projectId,
             name: name,
             gDocLink: gDocLink,
             created_at: Timestamp.now()
         });
+
+        await updateDoc(fileDoc, {
+            uid: fileDoc.id
+        })
 
         return true;
     }
@@ -200,6 +204,7 @@ async function getProjectFiles(projectId: string){
         const snapshot = await getDocs(docQuery);
 
         const projectFileModels = snapshot.docs.map((doc) => setProjectFileModel({
+            uid: doc.data()['uid'],
             fileName: doc.data()['name'],
             gDocLink: doc.data()['gDocLink'],
             created_at: doc.data()['created_at']
@@ -396,6 +401,21 @@ async function getAdvisees(userId: string){
     }
 }
 
+async function deleteProjectFile(fileId: string){
+    try{
+        const fileDoc = doc(db, "files", fileId);
+
+        await deleteDoc(fileDoc);
+
+        return true;
+    }
+    catch(e){
+        console.log(e);
+    }
+
+    return false
+}
+
 export {
     getMyTeam,
     proposeTopic,
@@ -404,5 +424,6 @@ export {
     getProjectFiles,
     approveTopic,
     denyTopic,
-    getAdvisees
+    getAdvisees,
+    deleteProjectFile
 };

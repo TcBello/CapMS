@@ -10,6 +10,7 @@ const ProposeTopicMessage = "Topic has been proposed";
 const AddFileMessage = "File has been added";
 const ApproveTopicMessage = "Topic has been approved";
 const DenyTopicMessage = "Topic has been denied";
+const DeleteFileMessage = "File has been deleted";
 
 export {
     CreateAccountMessage,
@@ -23,5 +24,6 @@ export {
     ProposeTopicMessage,
     AddFileMessage,
     ApproveTopicMessage,
-    DenyTopicMessage
+    DenyTopicMessage,
+    DeleteFileMessage
 };
