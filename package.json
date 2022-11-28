@@ -35,6 +35,7 @@
     "typescript": "^4.1.3",
     "uid": "^2.0.1",
     "web-vitals": "^0.2.4",
+    "webfontloader": "^1.6.28",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
     "workbox-cacheable-response": "^5.1.4",
