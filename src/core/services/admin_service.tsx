@@ -197,7 +197,8 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
                 }
             ],
             created_at: Timestamp.now(),
-            uid: ""
+            uid: "",
+            project_id: ""
         });
 
         const teamDoc = doc(db, "teams", docRef.id);
@@ -236,7 +237,8 @@ async function getAllTeams(){
             return setTeamModel({
                 teamName: doc.data()['team_name'],
                 members: members,
-                uid: doc.data()['uid']
+                uid: doc.data()['uid'],
+                projectId: doc.data()['project_id']
             });
         });
 

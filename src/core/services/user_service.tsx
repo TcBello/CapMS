@@ -271,6 +271,7 @@ async function approveTopic(projectId: string, teamId: string, userModel: UserMo
 
             // UPDATE TEAM DOC
             await updateDoc(teamRef, {
+                project_id: projectId,
                 members: [
                     {
                         uid: teamMembers[0].uid,
@@ -381,7 +382,8 @@ async function getAdvisees(userId: string){
             return setTeamModel({
                 teamName: doc.data()['team_name'],
                 uid: doc.data()['uid'],
-                members: members
+                members: members,
+                projectId: doc.data()['project_id']
             });
         });
 
@@ -416,6 +418,22 @@ async function deleteProjectFile(fileId: string){
     return false
 }
 
+async function getProjectName(id: string){
+    try{
+        const docQuery = query(
+            projectCollection,
+            where("uid", "==", id)
+        );
+
+        const snapshot = await getDocs(docQuery);
+
+        return snapshot.docs[0].data()['title'];
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
 export {
     getMyTeam,
     proposeTopic,
@@ -425,5 +443,6 @@ export {
     approveTopic,
     denyTopic,
     getAdvisees,
-    deleteProjectFile
+    deleteProjectFile,
+    getProjectName
 };

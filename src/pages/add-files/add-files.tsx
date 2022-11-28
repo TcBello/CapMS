@@ -14,6 +14,7 @@ import UserModel from "../../core/models/user_model";
 import Loading from "../../core/components/Loading";
 import { addProjectFile } from "../../core/services/user_service";
 import ProjectModel from "../../core/models/project_model";
+import TeamModel from "../../core/models/team_model";
 
 const AddFile = (props: any) => {
     const [fileName, setFileName] = useState("");
@@ -28,28 +29,40 @@ const AddFile = (props: any) => {
     const projectStorageData = getStorageData("project");
     const projectModel = (JSON.parse(projectStorageData!)) as ProjectModel;
 
+    const adviseeStorageData = getStorageData("advisee");
+    const teamModel = (JSON.parse(adviseeStorageData!)) as TeamModel;
+
     const userStorageData = getStorageData("user");
     const userModel = (JSON.parse(userStorageData!)) as UserModel;
 
     const isDesktop = useMediaQuery({minWidth: webWidth});
 
     async function addFile(){
-        setLoading(true)
-        // ADD FILE
-        const result = await addProjectFile(projectModel.uid, fileName, docLink);
+        if(fileName != "" && docLink != ""){
+            setLoading(true)
+            // ADD FILE
+            const result = await addProjectFile(
+                projectModel != null ? projectModel.uid : teamModel.projectId,
+                fileName,
+                docLink
+            );
 
-        setLoading(false);
+            setLoading(false);
 
-        if(result){
-            // SHOW TOAST
-            showToast(toast, AddFileMessage);
-
-            // RESET VALUES
-            setFileName("");
-            setDocLink("");
+            if(result){
+                // SHOW TOAST
+                showToast(toast, AddFileMessage);
+    
+                // RESET VALUES
+                setFileName("");
+                setDocLink("");
+            }
+            else{
+                showToast(toast, SomethingWrongError);
+            }
         }
         else{
-            showToast(toast, SomethingWrongError);
+            showToast(toast, MissingFieldError);
         }
     }
 

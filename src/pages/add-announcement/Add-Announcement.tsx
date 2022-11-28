@@ -10,7 +10,7 @@ import { createAnnouncement } from "../../core/services/admin_service";
 import AnnouncementModel, { setAnnouncementModel } from "../../core/models/announcement_model";
 import { CreateAnnouncementMessage } from "../../core/Success";
 import Loading from "../../core/components/Loading";
-import { SomethingWrongError } from "../../core/Errors";
+import { MissingFieldError, SomethingWrongError } from "../../core/Errors";
 
 const AddAnnouncement = () => {
     const [by, setBy] = useState("");
@@ -23,29 +23,34 @@ const AddAnnouncement = () => {
     const [toast] = useIonToast();
 
     async function addAnnouncement(){
-        // CREATE ANNOUNCEMENT
+        if(by != "" && message != ""){
+            // CREATE ANNOUNCEMENT
 
-        setLoading(true);
+            setLoading(true);
 
-        const result = await createAnnouncement(setAnnouncementModel({
-            
-            by: by,
-            message: message
+            const result = await createAnnouncement(setAnnouncementModel({
+                
+                by: by,
+                message: message
 
-        }));
+            }));
 
-        setLoading(false);
+            setLoading(false);
 
-        if(result){
-            // SHOW TOAST
-            showToast(toast, CreateAnnouncementMessage);
+            if(result){
+                // SHOW TOAST
+                showToast(toast, CreateAnnouncementMessage);
 
-            // CLEAR INPUT FIELDS
-            setBy("");
-            setMessage("");
+                // CLEAR INPUT FIELDS
+                setBy("");
+                setMessage("");
+            }
+            else{
+                showToast(toast, SomethingWrongError);
+            }
         }
         else{
-            showToast(toast, SomethingWrongError);
+            showToast(toast, MissingFieldError);
         }
     }
 

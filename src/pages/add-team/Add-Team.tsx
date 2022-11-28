@@ -12,7 +12,7 @@ import InputField from "../../core/components/InputField";
 import { createTeam } from "../../core/services/admin_service";
 import { CreateTeamMessage } from "../../core/Success";
 import Loading from "../../core/components/Loading";
-import { SomethingWrongError } from "../../core/Errors";
+import { MissingFieldError, SomethingWrongError } from "../../core/Errors";
 
 const AddTeam = () => {
     const [name, setName] = useState("");
@@ -42,47 +42,56 @@ const AddTeam = () => {
     const [toast] = useIonToast();
 
     async function addTeam() {
+        if(firstMember.lastName != "Member Name" || secondMember.lastName != "Member Name" || thirdMember.lastName != "Member Name"){
+            if(name != ""){
+                setLoading(true);
 
-        setLoading(true);
+                // CREATE TEAM
+                const result = await createTeam(name, firstMember, secondMember, thirdMember);
+                setLoading(false);
 
-        // CREATE TEAM
-        const result = await createTeam(name, firstMember, secondMember, thirdMember);
+                if(result){
 
-        if(result){
-            setLoading(false);
+                    // CLEAR REMOVE STORAGE DATA
+                    removeStorageData("first-member");
+                    removeStorageData("second-member");
+                    removeStorageData("third-member");
 
-            // CLEAR REMOVE STORAGE DATA
-            removeStorageData("first-member");
-            removeStorageData("second-member");
-            removeStorageData("third-member");
+                    // SET INITIAL DATA
+                    setFirstMember(setUserModel({
+                        firstName: "First",
+                        lastName: "Member Name",
+                        image: defaultImage
+                    }));
 
-            // SET INITIAL DATA
-            setFirstMember(setUserModel({
-                firstName: "First",
-                lastName: "Member Name",
-                image: defaultImage
-            }));
+                    setSecondMember(setUserModel({
+                        firstName: "Second",
+                        lastName: "Member Name",
+                        image: defaultImage
+                    }));
 
-            setSecondMember(setUserModel({
-                firstName: "Second",
-                lastName: "Member Name",
-                image: defaultImage
-            }));
+                    setThirdMember(setUserModel({
+                        firstName: "Third",
+                        lastName: "Member Name",
+                        image: defaultImage
+                    }));
 
-            setThirdMember(setUserModel({
-                firstName: "Third",
-                lastName: "Member Name",
-                image: defaultImage
-            }));
+                    setName("");
 
-            setName("");
-
-            // SHOW TOAST
-            showToast(toast, CreateTeamMessage);
+                    // SHOW TOAST
+                    showToast(toast, CreateTeamMessage);
+                }
+                else{
+                    setLoading(false);
+                    showToast(toast, SomethingWrongError);
+                }
+            }
+            else{
+                showToast(toast, MissingFieldError);
+            }
         }
         else{
-            setLoading(false);
-            showToast(toast, SomethingWrongError);
+            showToast(toast, "Please Select a Member");
         }
     }
 
