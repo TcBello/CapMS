@@ -18,6 +18,7 @@ import ProjectModel from "../../core/models/project_model";
 const AddFile = (props: any) => {
     const [fileName, setFileName] = useState("");
     const [docLink, setDocLink] = useState("");
+    const [isLoading, setLoading] = useState(false);
 
     const [toast] = useIonToast();
 
@@ -33,11 +34,11 @@ const AddFile = (props: any) => {
     const isDesktop = useMediaQuery({minWidth: webWidth});
 
     async function addFile(){
-        // setLoading true
+        setLoading(true)
         // ADD FILE
         const result = await addProjectFile(projectModel.uid, fileName, docLink);
 
-        // set loading false
+        setLoading(false);
 
         if(result){
             // SHOW TOAST
@@ -53,27 +54,32 @@ const AddFile = (props: any) => {
     }
 
 
-    return (
-        <IonPage>
-            {/* APP BAR */}
-            <MobileArrowBackAppBar title="Add File" href={`/${projectName}/files`} />
-            <IonContent>
-                <div className="spacer-h-s" />
-                <div className={isDesktop ? "add-files-container": "add-files-container-mobile"}>
-                    <InputField title="File Name" useState={[fileName, setFileName]} obscure={false} />
+    if(!isLoading){
+        return (
+            <IonPage>
+                {/* APP BAR */}
+                <MobileArrowBackAppBar title="Add File" href={`/${projectName}/files`} />
+                <IonContent>
                     <div className="spacer-h-s" />
-                    <InputField title="Google Docs Link" useState={[docLink, setDocLink]} obscure={false} />
-                </div>
-                <div className="edit-password-button-container">
-                    {/* CANCEL BUTTON */}
-                    <IonButton fill="clear" className="edit-password-cancel-button" href={userModel.role == "Student" ? "split-view" : "split-view-faculty"}>Cancel</IonButton>
-                    <div className="spacer-w-xs" />
-                    {/* ADD BUTTON */}
-                    <IonButton className="edit-password-add-button" shape="round" onClick={addFile}>Add</IonButton>
-                </div>
-            </IonContent>
-        </IonPage>
-    );
+                    <div className={isDesktop ? "add-files-container": "add-files-container-mobile"}>
+                        <InputField title="File Name" useState={[fileName, setFileName]} obscure={false} />
+                        <div className="spacer-h-s" />
+                        <InputField title="Google Docs Link" useState={[docLink, setDocLink]} obscure={false} />
+                    </div>
+                    <div className="edit-password-button-container">
+                        {/* CANCEL BUTTON */}
+                        <IonButton fill="clear" className="edit-password-cancel-button" href={userModel.role == "Student" ? "split-view" : "split-view-faculty"}>Cancel</IonButton>
+                        <div className="spacer-w-xs" />
+                        {/* ADD BUTTON */}
+                        <IonButton className="edit-password-add-button" shape="round" onClick={addFile}>Add</IonButton>
+                    </div>
+                </IonContent>
+            </IonPage>
+        );
+    }
+    else{
+        return <Loading />
+    }
 }
 
 

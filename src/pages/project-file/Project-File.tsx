@@ -2,15 +2,16 @@ import { IonBackButton, IonButton, IonContent, IonFab, IonFabButton, IonHeader, 
 import { Component, useEffect, useState } from "react";
 import "./Project-File.css";
 import "../../core/components/Spacer.css";
-import { add, arrowBack, document } from "ionicons/icons";
+import { add, arrowBack, closeCircle, document } from "ionicons/icons";
 import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
-import { approveTopic, denyTopic, getProjectFiles } from "../../core/services/user_service";
+import { approveTopic, deleteProjectFile, denyTopic, getProjectFiles } from "../../core/services/user_service";
 import ProjectFileModel from "../../core/models/project_file_model";
 import { getStorageData, openNewTab, replacePage, showToast } from "../../core/Utils";
 import ProjectModel from "../../core/models/project_model";
 import UserModel from "../../core/models/user_model";
-import { ApproveTopicMessage, DenyTopicMessage } from "../../core/Success";
+import { ApproveTopicMessage, DeleteFileMessage, DenyTopicMessage } from "../../core/Success";
 import Loading from "../../core/components/Loading";
+import { SomethingWrongError } from "../../core/Errors";
 
 const ProjectFile = (props: any) => {
     const title: string = `${props.match.params.name}'s Files`;
@@ -23,14 +24,32 @@ const ProjectFile = (props: any) => {
     const userStorageData = getStorageData("user");
     const userModel = (JSON.parse(userStorageData!)) as UserModel;
 
+    const [toast] = useIonToast();
+
+    function getFiles(){
+        getProjectFiles(projectModel.uid).then((value: any) => {
+            setFiles(value as ProjectFileModel[]);
+        });
+    }
+
     function openFile(url: string){
         openNewTab(url);
     }
 
+    async function deleteFile(id: string){
+        const result = await deleteProjectFile(id);
+
+        if(result){
+            showToast(toast, DeleteFileMessage);
+            getFiles();
+        }
+        else{
+            showToast(toast, SomethingWrongError);
+        }
+    }
+
     useEffect(() => {
-        getProjectFiles(projectModel.uid).then((value: any) => {
-            setFiles(value as ProjectFileModel[]);
-        });
+        getFiles();
     }, []);
 
     return (
@@ -41,10 +60,17 @@ const ProjectFile = (props: any) => {
             <IonContent>
                 {/* FILE ITEMS */}
                 {files.map((file, index) => {
-                    return <IonItem lines="none" onClick={() => {openFile(file.gDocLink)}}>
-                        <IonIcon icon={document} slot="start" />
-                        <IonLabel>{file.fileName}</IonLabel>
-                    </IonItem>
+                    return <div className="project-file-container">
+                        {/* FILE */}
+                        <IonItem className="project-file-item" lines="none" button onClick={() => {openFile(file.gDocLink)}}>
+                            <IonIcon icon={document} slot="start" />
+                            <IonLabel>{file.fileName}</IonLabel>
+                        </IonItem>
+                        {/* DELETE BUTTON */}
+                        <IonButton fill="clear" onClick={() => deleteFile(file.uid)}>
+                            <IonIcon icon={closeCircle} className="delete-file-icon" />
+                        </IonButton>
+                    </div>
                 })}
                 {/* ADD FILE BUTTON */}
                 <IonFab vertical="bottom" horizontal="end" slot="fixed">
