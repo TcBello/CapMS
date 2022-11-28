@@ -1,6 +1,7 @@
 {
   "name": "capms",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "homepage": "http://capms.tech",
   "private": true,
   "dependencies": {
     "@capacitor/app": "4.0.1",
