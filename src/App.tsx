@@ -36,11 +36,22 @@ import AddFile from './pages/add-files/add-files';
 import EditAnnouncement from './pages/edit-announcement/Edit-Announcement';
 import AdviseeProfile from './pages/advisee-profile/Advisee-Profile';
 import { ProjectFile, ProjectFileApprover } from './pages/project-file/Project-File';
+import { useEffect } from 'react';
+import WebFont from 'webfontloader';
+import "./theme/theme.css";
 
 
 setupIonicReact();
 
 const App: React.FC = () => {
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ['Roboto']
+      }
+    })
+  }, []);
+
   return (
     <IonApp>
       <IonReactRouter>
