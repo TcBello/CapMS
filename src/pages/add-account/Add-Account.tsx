@@ -166,6 +166,7 @@ const AddAccount = (props: any) => {
                 <IonButton className="add-faculty-add-button" shape="round" onClick={addAccount}>Add</IonButton>
                 <div className="spacer-w-xs" />
             </div>
+            <div className="spacer-h-s"/>
         </IonContent>
     </IonPage>
     }
