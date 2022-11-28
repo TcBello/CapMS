@@ -88,7 +88,7 @@ const Dashboard = () => {
                         options={projectStatus.options}
                         series={projectStatus.series}
                         type="donut"
-                        width={isDesktop ? window.innerWidth * 0.325 : 400}
+                        width={isDesktop ? window.innerWidth * 0.325 : 380}
                         height={300}
                     />
                 </IonCard>
@@ -98,7 +98,7 @@ const Dashboard = () => {
                         options={facultyStaffStatus.options}
                         series={facultyStaffStatus.series}
                         type="donut"
-                        width={isDesktop ? window.innerWidth * 0.325 : 400}
+                        width={isDesktop ? window.innerWidth * 0.325 : 380}
                         height={300}
                     />
                 </IonCard>

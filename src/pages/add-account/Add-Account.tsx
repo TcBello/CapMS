@@ -157,7 +157,7 @@ const AddAccount = (props: any) => {
                     <IonInput value={srCode} onIonChange={(e: any) => setSrCode(e.target.value)} />
                 </IonItem>
             </div>
-            <div className="spacer-h-m"/>
+            <div className="spacer-h-l"/>
             <div className="add-faculty-content-right">
                 {/* CANCEL BUTTON */}
                 <IonButton fill="clear" className="add-faculty-cancel-button" href="split-view-admin">Cancel</IonButton>

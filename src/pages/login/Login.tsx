@@ -44,11 +44,9 @@ const Login = () => {
         return <IonPage><p>Error</p></IonPage>;
     }
     if(user){
-        // authenticate(dispatch, user);
         if(!isAuthenticateOnce){
             setAuthenticate(true);
             authenticate(dispatch, user);
-            console.log("logged in");
         }
         return <Loading />
     }
