@@ -65,6 +65,7 @@ async function createAccount(userModel: UserModel, imageFile: any){
                 role: userModel.role,
                 status: userModel.status,
                 projects: [],
+                advisees: [],
                 created_at: Timestamp.now()
             });
         }
@@ -137,7 +138,8 @@ async function getAllFaculties(){
                 image: data['image'],
                 role: data['role'],
                 status: data['status'],
-                projects: data['projects']
+                projects: data['projects'],
+                advisees: data['advisees']
             });
         });
 
