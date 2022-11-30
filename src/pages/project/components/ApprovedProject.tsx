@@ -3,7 +3,7 @@ import { Component } from "react";
 import '../Project.css';
 import '../../../core/components/Spacer.css';
 
-class ApprovedProject extends Component<{name: string, onClick: any}, {}>{
+class ApprovedProject extends Component<{name: string, onClick: any, teamName: string}, {}>{
     constructor(props: any){
         super(props);
     }
@@ -19,6 +19,8 @@ class ApprovedProject extends Component<{name: string, onClick: any}, {}>{
                 <div className="project-status-approved-image"/>
                 {/* PROJECT NAME */}
                 <h2 className="project-item-name">{this.props.name}</h2>
+                {/* TEAM NAME */}
+                <p className="project-item-team-name">{this.props.teamName}</p>
             </IonCard>
         );
     }

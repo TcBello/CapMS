@@ -219,18 +219,24 @@ async function getProjectFiles(projectId: string){
 
 async function approveTopic(projectId: string, teamId: string, userModel: UserModel){
     try{
-        let approvedTopicCount = 0;
+        const userQuery = query(
+            userCollection,
+            where("uid", "==", userModel.uid)
+        );
+        const userSnapshot = await getDocs(userQuery);
+        let adviseesList = userSnapshot.docs[0].data()['advisees'] as string[];
+        let teamCount = adviseesList.length;
 
-        const projectSnapshot = await getDocs(projectCollection);
-
-        projectSnapshot.docs.map(doc => {
-            if(userModel.projects.includes(doc.id) && doc.data()['status'] == "Approved"){
-                approvedTopicCount += 1;
-            }
-        });
-
-        if(approvedTopicCount < 5){
+        if(teamCount < 5){
             const projectDoc = doc(db, "projects", projectId);
+            
+            if(!(adviseesList.includes(teamId))){
+                adviseesList.push(teamId);
+    
+                await updateDoc(userSnapshot.docs[0].ref, {
+                    advisees: adviseesList
+                });
+            }
 
             // UPDATE DOC
             await updateDoc(projectDoc, {
@@ -319,7 +325,7 @@ async function approveTopic(projectId: string, teamId: string, userModel: UserMo
 
             // IF THE APPROVED COUNT IS ALREADY 4, SET THE USER IN UNAVAILABLE STATUS AFTER
             // APPROVING THE 5TH TOPIC
-            if(approvedTopicCount == 4){
+            if(teamCount == 4){
                 const userQuery = query(
                     userCollection,
                     where("uid", "==", userModel.uid)

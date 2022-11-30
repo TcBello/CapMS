@@ -11,11 +11,13 @@ interface UserModel{
     image: string;
     role: string;
     status: string;
-    projects: string[]
+    projects: string[],
+    advisees: string[]
 }
 
 function setUserModel({uid = "", firstName = "", lastName = "", email = "", password = "",
-                        course = "", srCode = "", image = defaultImage, role = "", status = "", projects = [] as string[]}){
+                        course = "", srCode = "", image = defaultImage, role = "", status = "",
+                        projects = [] as string[], advisees = [] as string[]}){
 
     let userModel: UserModel = {
         uid: uid,
@@ -28,7 +30,8 @@ function setUserModel({uid = "", firstName = "", lastName = "", email = "", pass
         image: image,
         role: role,
         status: status,
-        projects: projects
+        projects: projects,
+        advisees: advisees
     };
 
     return userModel;

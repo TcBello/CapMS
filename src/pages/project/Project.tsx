@@ -61,13 +61,13 @@ const Project = () => {
                         switch (project.status) {
                             case "Approved":
                                 // APPROVED PROJECT CARD
-                                return <ApprovedProject name={project.title} onClick={() => selectProject(project, hrefLink)} />;
+                                return <ApprovedProject name={project.title} teamName={project.proposedBy} onClick={() => selectProject(project, hrefLink)} />;
                             case "Denied":
                                 // DENIED PROJECT CARD
-                                return <DeniedProject name={project.title} onClick={() => selectProject(project, hrefLink)} />;
+                                return <DeniedProject name={project.title} teamName={project.proposedBy} onClick={() => selectProject(project, hrefLink)} />;
                             case "Pending":
                                 // PENDING PROJECT CARD
-                                return <PendingProject name={project.title} onClick={() => selectProject(project, hrefLink)} />;
+                                return <PendingProject name={project.title} teamName={project.proposedBy} onClick={() => selectProject(project, hrefLink)} />;
                             default:
                                 return <div></div>;
                         }
@@ -119,13 +119,13 @@ const ProjectFaculty = () => {
                         switch (project.status) {
                             case "Approved":
                                 // APPROVED PROJECT CARD
-                                return <ApprovedProject name={project.title} onClick={() => selectProject(project, hrefLink)} />;
+                                return <ApprovedProject name={project.title} teamName={project.proposedBy} onClick={() => selectProject(project, hrefLink)} />;
                             case "Denied":
                                 // DENIED PROJECT CARD
-                                return <DeniedProject name={project.title} onClick={() => selectProject(project, hrefLink)} />;
+                                return <DeniedProject name={project.title} teamName={project.proposedBy} onClick={() => selectProject(project, hrefLink)} />;
                             case "Pending":
                                 // PENDING PROJECT CARD
-                                return <PendingProject name={project.title} onClick={() => selectProject(project, hrefPendingLink)} />;
+                                return <PendingProject name={project.title} teamName={project.proposedBy} onClick={() => selectProject(project, hrefPendingLink)} />;
                             default:
                                 return <div></div>;
                         }
