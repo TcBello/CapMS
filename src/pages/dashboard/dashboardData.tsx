@@ -88,7 +88,7 @@ const projectStatusInitialData = {
             id: "project-status-chart",
         },
         title: {
-            text: "Project Status",
+            text: "Project",
             style: {
                 fontSize: "24px",
             }
@@ -108,7 +108,7 @@ function setProjectStatusData(approved: number, denied: number, pending: number)
                 id: "project-status-chart",
             },
             title: {
-                text: "Project Status",
+                text: "Project",
                 style: {
                     fontSize: "24px",
                 }
@@ -130,7 +130,7 @@ const facultyStaffStatusInitialData = {
             id: "faculty-staff-chart",
         },
         title: {
-            text: "Faculty Staffs Status",
+            text: "Faculty Status",
             style: {
                 fontSize: "24px",
             }
@@ -150,7 +150,7 @@ function setFacultyStaffStatusData(available: number, unavailable: number){
                 id: "faculty-staff-chart",
             },
             title: {
-                text: "Faculty Staffs Status",
+                text: "Faculty Status",
                 style: {
                     fontSize: "24px",
                 }

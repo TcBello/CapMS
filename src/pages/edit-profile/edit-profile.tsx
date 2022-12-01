@@ -104,7 +104,7 @@ const EditProfile = (props: any) => {
                         <InputField title="Email" useState={[newEmail, setNewEmail]} obscure={false} />
                         <div className="spacer-h-s" />
                         {/* EDIT SR CODE FIELD */}
-                        <InputField title="Sr-Code" useState={[newSrCode, setNewSrCode]} obscure={false} />
+                        <InputField title={isFaculty ? "Employee ID" : "Sr-Code"} useState={[newSrCode, setNewSrCode]} obscure={false} />
                         <div className="spacer-h-s" /> 
                         {/* EDIT COURSE FIELD */}
                         <InputField title="Course" useState={[newCourse, setNewCourse]} obscure={false} />

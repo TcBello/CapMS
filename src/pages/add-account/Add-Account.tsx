@@ -99,7 +99,7 @@ const AddAccount = (props: any) => {
     if (!loading) {
         return <IonPage>
             {/* APP BAR */}
-            <MobileArrowBackAppBar title={isFaculty ? "Add Faculty Staff" : "Add Student"} href="split-view-admin" />
+            <MobileArrowBackAppBar title={isFaculty ? "Add Faculty" : "Add Student"} href="split-view-admin" />
             {/* CONTENT */}
             <IonContent>
                 <div className="spacer-h-m" />
@@ -161,7 +161,7 @@ const AddAccount = (props: any) => {
                     {/* SR CODE INPUT FIELD */}
                     <IonItem lines="none" className={isDesktop ? "add-faculty-input-field" : "add-faculty-input-field-mobile"}>
                         <IonLabel position="floating">
-                            SR Code
+                            {isFaculty ? "Employee ID" : "SR Code"}
                         </IonLabel>
                         <IonInput value={srCode} onIonChange={(e: any) => setSrCode(e.target.value)} />
                     </IonItem>

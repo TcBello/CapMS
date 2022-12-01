@@ -54,7 +54,7 @@ const appPages: AppPage[] = [
     icon: '/assets/icon/student.svg'
   },
   {
-    title: 'Faculty Staffs',
+    title: 'Faculty',
     url: '/home/admin/faculty-staffs',
     icon: '/assets/icon/faculty.svg'
   },

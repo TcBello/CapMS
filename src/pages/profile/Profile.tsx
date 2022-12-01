@@ -55,7 +55,7 @@ const Profile = () => {
                                     </IonItem>
                                       {/* SR CODE */}
                                       <IonItem lines="none">
-                                        <IonIcon src="/assets/icon/srcode-logo.svg" slot="start" color="black"></IonIcon>
+                                        <IonIcon src="/assets/icon/id.svg" slot="start" color="black"></IonIcon>
                                         <IonLabel>{userModel.srCode}</IonLabel>
                                     </IonItem>
                                     {/* MAJOR IN */}
