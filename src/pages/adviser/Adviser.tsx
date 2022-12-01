@@ -147,8 +147,8 @@ const AdviserAdmin = () => {
             {/* CONTENT HEADER */}
             {
                 isDesktop
-                    ? <ContentHeader title="Faculty Staffs" />
-                    : <MobileMenuAppBar title="Faculty Staffs" />
+                    ? <ContentHeader title="Faculty" />
+                    : <MobileMenuAppBar title="Faculty" />
             }
             <IonContent className={isDesktop ? "adviser-content" : "adviser-content-mobile"}>
                 <div className="adviser-container">

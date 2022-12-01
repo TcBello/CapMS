@@ -64,7 +64,7 @@ const Dashboard = () => {
                            <IonIcon slot="start" icon="/assets/icon/faculty.svg" className="total-faculty-icon" />
                            <IonLabel>
                                 <h1>{dashboard.totalFaculty}</h1>
-                                <p>Faculty Staffs</p> 
+                                <p>Faculty</p> 
                            </IonLabel>
                         </IonItem>
                     </IonCard>
