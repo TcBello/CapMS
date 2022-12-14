@@ -389,7 +389,8 @@ async function getAdvisees(userId: string){
                 teamName: doc.data()['team_name'],
                 uid: doc.data()['uid'],
                 members: members,
-                projectId: doc.data()['project_id']
+                projectId: doc.data()['project_id'],
+                projectTitle: doc.data()['project_title']
             });
         });
 

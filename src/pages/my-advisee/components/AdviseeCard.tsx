@@ -16,7 +16,9 @@ const AdviseeCard = (props: {teamModel: TeamModel, onClick: any}) => {
         </div>
         <div className="advisee-content-center">
             <h3 className="advisee-team-name">{props.teamModel.teamName}</h3>
+            <h4 className="advisee-project-name">{props.teamModel.projectTitle}</h4>
         </div>
+        <div className="spacer-h-xs" />
         <div className="content-left">
             {/* ADVISEE MEMBER NAME */}
             {props.teamModel.members.map((member, index) => {
