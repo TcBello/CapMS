@@ -139,7 +139,8 @@ async function getAllFaculties(){
                 role: data['role'],
                 status: data['status'],
                 projects: data['projects'],
-                advisees: data['advisees']
+                advisees: data['advisees'],
+                specializes: data['specializes']
             });
         });
 

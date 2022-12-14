@@ -15,6 +15,10 @@ const UnavailableCard = (props: {userModel: UserModel, onClick: any}) => {
         <h6 className="name">{props.userModel.firstName} {props.userModel.lastName}</h6>
         {/* ADVISER COURSE */}
         <p className="course">{props.userModel.course}</p>
+        {/* SPECIALIZED IN SUBJECT */}
+        {props.userModel.specializes.map((value, index) => {
+            return <p className="specialize">{value}</p>
+        })}
     </IonCard>;
 }
 
