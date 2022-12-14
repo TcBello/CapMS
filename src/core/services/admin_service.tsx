@@ -240,7 +240,8 @@ async function getAllTeams(){
                 teamName: doc.data()['team_name'],
                 members: members,
                 uid: doc.data()['uid'],
-                projectId: doc.data()['project_id']
+                projectId: doc.data()['project_id'],
+                projectTitle: doc.data()['project_title']
             });
         });
 

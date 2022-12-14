@@ -1,7 +1,7 @@
 import { IonAvatar, IonCard } from "@ionic/react";
 import UserModel from "../../../core/models/user_model";
 
-const TeamCard = (props: {name: string, members: UserModel[], onClick: any}) => {
+const TeamCard = (props: {name: string, members: UserModel[], projectTitle: string, onClick: any}) => {
     return <IonCard className="item-card" button onClick={props.onClick}>
         <div className="image-container">
             {/* MEMBER IMAGES */}
@@ -14,6 +14,7 @@ const TeamCard = (props: {name: string, members: UserModel[], onClick: any}) => 
         <div className="content-center">
             {/* TEAM NAME */}
             <p className="team-name">{props.name}</p>
+            <p className="team-project-name">{props.projectTitle}</p>
         </div>
         <div className="content-left">
             {/* MEMBER NAMES */}

@@ -5,14 +5,16 @@ interface TeamModel{
     members: UserModel[],
     uid: string,
     projectId: string,
+    projectTitle: string
 };
 
-function setTeamModel({teamName= "", members = [] as UserModel[], uid = "", projectId = ""}){
+function setTeamModel({teamName= "", members = [] as UserModel[], uid = "", projectId = "", projectTitle = ""}){
     const teamModel: TeamModel = {
         teamName: teamName,
         members: members,
         uid: uid,
-        projectId
+        projectId: projectId,
+        projectTitle: projectTitle
     };
 
     return teamModel;
