@@ -69,3 +69,8 @@
 .advisee-team-name{
     font-weight: bold;
 }
+
+.advisee-project-name{
+    font-weight: 600;
+    line-height: 0;
+}

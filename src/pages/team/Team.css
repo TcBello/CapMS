@@ -74,6 +74,13 @@
 .item-card .team-name{
     font-size: 20px;
     font-weight: bold;
+    line-height: 0;
+}
+
+.item-card .team-project-name{
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 0;
 }
 
 .item-card .member-name{

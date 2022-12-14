@@ -38,7 +38,7 @@ const Team = () => {
             <div className={isDesktop ? "team-container" : "team-container-mobile"}>
                 {/* TEAM CARD */}
                 {teams.map((team, index) => {
-                    return <TeamCard name={team.teamName} members={team.members} onClick={() => onClick(team)}/>;
+                    return <TeamCard name={team.teamName} members={team.members} projectTitle={team.projectTitle} onClick={() => onClick(team)}/>;
                 })}
             </div>
             {/* FAB BUTTON */}

@@ -207,7 +207,8 @@ async function getProjectFiles(projectId: string){
             uid: doc.data()['uid'],
             fileName: doc.data()['name'],
             gDocLink: doc.data()['gDocLink'],
-            created_at: doc.data()['created_at']
+            created_at: doc.data()['created_at'],
+            status: doc.data()['status']
         }));
 
         return projectFileModels;
@@ -389,7 +390,8 @@ async function getAdvisees(userId: string){
                 teamName: doc.data()['team_name'],
                 uid: doc.data()['uid'],
                 members: members,
-                projectId: doc.data()['project_id']
+                projectId: doc.data()['project_id'],
+                projectTitle: doc.data()['project_title']
             });
         });
 
