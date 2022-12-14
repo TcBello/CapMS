@@ -1,4 +1,4 @@
-import { IonBackButton, IonButton, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonLabel, IonPage, useIonToast } from "@ionic/react";
+import { IonBackButton, IonButton, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonPage, useIonToast } from "@ionic/react";
 import { Component, useEffect, useState } from "react";
 import "./Project-File.css";
 import "../../core/components/Spacer.css";
@@ -79,6 +79,7 @@ const ProjectFile = (props: any) => {
                         <IonItem className="project-file-item" lines="none" button onClick={() => {openFile(file.gDocLink)}}>
                             <IonIcon icon={document} slot="start" />
                             <IonLabel>{file.fileName}</IonLabel>
+                            <IonImg src="/assets/images/approved.png" slot="end" className="project-file-approve-icon" />
                         </IonItem>
                         {/* DELETE BUTTON */}
                         <IonButton fill="clear" onClick={() => deleteFile(file.uid)}>

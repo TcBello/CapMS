@@ -207,7 +207,8 @@ async function getProjectFiles(projectId: string){
             uid: doc.data()['uid'],
             fileName: doc.data()['name'],
             gDocLink: doc.data()['gDocLink'],
-            created_at: doc.data()['created_at']
+            created_at: doc.data()['created_at'],
+            status: doc.data()['status']
         }));
 
         return projectFileModels;
