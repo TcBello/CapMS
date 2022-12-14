@@ -88,7 +88,7 @@ const projectStatusInitialData = {
             id: "project-status-chart",
         },
         title: {
-            text: "Project",
+            text: "Topic Proposal",
             style: {
                 fontSize: "24px",
             }
@@ -108,7 +108,7 @@ function setProjectStatusData(approved: number, denied: number, pending: number)
                 id: "project-status-chart",
             },
             title: {
-                text: "Project",
+                text: "Topic Proposal",
                 style: {
                     fontSize: "24px",
                 }
