@@ -75,6 +75,8 @@ const AdviseeProfile = () => {
 
                         {/* TEAM NAME */}
                         <h1 className="header-name">{team.teamName}</h1>
+                        {/* PROJECT TITLE */}
+                        <h1 className="header-name">{team.projectTitle}</h1>
                         <div className="spacer-h-s" />
                         {/* PROFILE IMAGE */}
                         <IonAvatar className="image-center">
