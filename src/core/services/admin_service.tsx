@@ -234,6 +234,7 @@ async function getAllTeams(){
                     image: member['image'],
                     role: member['role'],
                     status: member['status'],
+                    responsibilities: member['responsibilities']
                 })
             });
 

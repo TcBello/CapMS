@@ -52,7 +52,7 @@ const MyTeam = () => {
                     <div className="my-team-student-container">
                         {myTeam.members.map((member, index) => {
                             if(member.role == "Student"){
-                                return <MyTeamMemberItem image={member.image} name={member.firstName + " " + member.lastName} role={member.role} />;
+                                return <MyTeamMemberItem image={member.image} name={member.firstName + " " + member.lastName} role={member.role} responsibilities={member.responsibilities} />;
                             }
         
                             return <div></div>;
@@ -73,14 +73,14 @@ const MyTeam = () => {
                         return <div>
                             <div className="spacer-h-m" />
                             <MyTeamAdviserItem image={member.image} name={member.firstName + " " + member.lastName} role={member.role} />
-                            <div className="spacer-h-xs" />
+                            <div className="spacer-h-m" />
                         </div>;
                     })}
-                    <div className="spacer-h-m" />
+                    <div className="spacer-h-l" />
                     <div className="my-team-content-center">
                         {/* MEET BUTTON */}
                         <IonButton className="my-team-meet-button" onClick={() => goToGoogleMeet(myTeam.teamName)} shape="round">Go To Meet</IonButton>
-                        <div className="spacer-h-m" />
+                        <div className="spacer-h-s" />
                         <p><b>Note:</b> Use Google Workspace Account</p>
                     </div>
                     <div className="spacer-h-m" />
