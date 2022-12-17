@@ -1,5 +1,5 @@
 .my-team-container{
-    height: 100%;
+    height: auto;
     width: 100%;
     background-color: white;
     display: flex;
@@ -10,6 +10,9 @@
 .my-team-container .my-team-student-container{
     display: flex;
     flex-direction: row;
+    width: 100%;
+    height: auto;
+    justify-content: space-evenly;
 }
 
 .my-team-member-item-container{
@@ -40,6 +43,11 @@
     color: grey;
     font-weight: 600;
     font-size: 20px;
+    line-height: 0px;
+}
+
+.my-team-member-item-container .responsibilities{
+    font-size: 16px;
     line-height: 0px;
 }
 

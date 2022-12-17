@@ -84,18 +84,30 @@ const AdviseeProfile = () => {
                         </IonAvatar>
                         {/* NAME */}
                         <h2 className="subtext">{team.members[0].firstName} {team.members[0].lastName}</h2>
+                        {/* RESPONSIBILITIES */}
+                        {team.members[0].responsibilities.map((responbility, index) => {
+                            return <p className="advisee-profile-responsibility">{responbility}</p>
+                        })}
                         {/* PROFILE IMAGE */}
                         <IonAvatar className="image-center">
                             <img src={team.members[1].image}  />
                         </IonAvatar>
                         {/* NAME */}
                         <h2 className="subtext">{team.members[1].firstName} {team.members[1].lastName}</h2>
+                        {/* RESPONSIBILITIES */}
+                        {team.members[1].responsibilities.map((responbility, index) => {
+                            return <p className="advisee-profile-responsibility">{responbility}</p>
+                        })}
                         {/* PROFILE IMAGE */}
                         <IonAvatar className="image-center">
                             <img src={team.members[2].image}  />
                         </IonAvatar>
                         {/* NAME */}
                         <h2 className="subtext">{team.members[2].firstName} {team.members[2].lastName}</h2>
+                        {/* RESPONSIBILITIES */}
+                        {team.members[2].responsibilities.map((responbility, index) => {
+                            return <p className="advisee-profile-responsibility">{responbility}</p>
+                        })}
                         <div className="spacer-h-s" />
                         {/* ADVISER HEADER */}
                         <h1 className="header-name">Adviser</h1>

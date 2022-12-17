@@ -1,6 +1,6 @@
 import { IonAvatar } from "@ionic/react";
 
-const MyTeamMemberItem = (props: {image: string, name: string, role: string}) => {
+const MyTeamMemberItem = (props: {image: string, name: string, role: string, responsibilities: string[]}) => {
     return <div className="my-team-member-item-container">
         {/* AVATAR */}
         <IonAvatar className="avatar">
@@ -11,6 +11,10 @@ const MyTeamMemberItem = (props: {image: string, name: string, role: string}) =>
         <h6 className="name">{props.name}</h6>
         {/* ROLE */}
         <p className="role">{props.role}</p>
+        {/* RESPONSIBILITIES */}
+        {props.responsibilities.map((responsibility, index) => {
+            return <p className="responsibilities">{responsibility}</p>
+        })}
     </div>;
 };
 

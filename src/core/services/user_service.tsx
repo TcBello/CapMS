@@ -31,6 +31,7 @@ async function getMyTeam(uid: string) {
                     image: member['image'],
                     role: member['role'],
                     status: member['status'],
+                    responsibilities: member['responsibilities']
                 })
             });
 
@@ -383,6 +384,7 @@ async function getAdvisees(userId: string){
                     image: member['image'],
                     role: member['role'],
                     status: member['status'],
+                    responsibilities: member['responsibilities']
                 })
             });
 
