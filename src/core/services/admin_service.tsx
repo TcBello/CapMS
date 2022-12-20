@@ -49,6 +49,7 @@ async function createAccount(userModel: UserModel, imageFile: any){
                 image: imageFile != null ? imageUrl : userModel.image,
                 role: userModel.role,
                 projects: [],
+                responsibilities: userModel.responsibilities,
                 created_at: Timestamp.now()
             });
         }
@@ -66,6 +67,7 @@ async function createAccount(userModel: UserModel, imageFile: any){
                 status: userModel.status,
                 projects: [],
                 advisees: [],
+                specializes: userModel.specializes,
                 created_at: Timestamp.now()
             });
         }
