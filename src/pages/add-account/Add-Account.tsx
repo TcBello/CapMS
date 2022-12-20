@@ -11,6 +11,7 @@ import { setUserModel } from "../../core/models/user_model";
 import { CreateAccountMessage } from "../../core/Success";
 import Loading from "../../core/components/Loading";
 import { MissingFieldError, PasswordLengthError, SomethingWrongError } from "../../core/Errors";
+import InputField from "../../core/components/InputField";
 
 const AddAccount = (props: any) => {
     const isDesktop = useMediaQuery({ minWidth: webWidth });
@@ -26,6 +27,7 @@ const AddAccount = (props: any) => {
     const [lName, setLname] = useState("");
     const [password, setPassword] = useState("");
     const [course, setCourse] = useState("");
+    const [specialized, setSpecialized] = useState("");
     const [srCode, setSrCode] = useState("");
     const [file, setFile] = useState<any>(null);
     const [image, setImage] = useState(defaultImage);
@@ -45,17 +47,31 @@ const AddAccount = (props: any) => {
     }
 
     async function addAccount() {
+        const specializedList = specialized.split(",");
         const role = isFaculty ? "Faculty" : "Student"
-        const userModel = setUserModel({
-            firstName: fName,
-            lastName: lName,
-            email: email,
-            password: password,
-            course: course,
-            srCode: srCode,
-            role: role,
-            status: isFaculty ? "Available" : ""
-        });
+        const userModel = isFaculty
+            ? setUserModel({
+                firstName: fName,
+                lastName: lName,
+                email: email,
+                password: password,
+                course: course,
+                srCode: srCode,
+                role: role,
+                specializes: specializedList,
+                status: "Available"
+            })
+            : setUserModel({
+                firstName: fName,
+                lastName: lName,
+                email: email,
+                password: password,
+                course: course,
+                srCode: srCode,
+                role: role,
+                responsibilities: specializedList,
+                status: ""
+            })
 
         if (file != null) {
             if (email != "" && fName != "" && lName != "" && password != "" && course != "" && srCode != "") {
@@ -74,6 +90,7 @@ const AddAccount = (props: any) => {
                         setEmail("");
                         setPassword("");
                         setCourse("");
+                        setSpecialized("");
                         setSrCode("");
                         // CLEAR IMAGE
                         setFile(null);
@@ -157,6 +174,10 @@ const AddAccount = (props: any) => {
                         </IonLabel>
                         <IonInput value={course} onIonChange={(e: any) => setCourse(e.target.value)} />
                     </IonItem>
+                    <div className="spacer-h-s" />
+                    {/* RESPONSIBILITIES / SPECIALIZED MAJOR INPUT FIELD */}
+                    <InputField title={isFaculty ? "Specialized Major" : "Responsibilities"} useState={[specialized, setSpecialized]} obscure={false} />
+                    <p><b>Note:</b> Use COMMA to separate inputs</p>
                     <div className="spacer-h-s" />
                     {/* SR CODE INPUT FIELD */}
                     <IonItem lines="none" className={isDesktop ? "add-faculty-input-field" : "add-faculty-input-field-mobile"}>
