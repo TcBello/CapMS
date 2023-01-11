@@ -26,6 +26,11 @@ This project aims to manage the capstone processes and make the student and facu
 - Vercel
 - Git
 
+### Developers
+- Bello, Thom Carlo
+- Macatol, Ericka Jane
+- Manalo, Neil Lawrence
+
 ### Screenshot
 <table>
     <tr>
