@@ -27,9 +27,31 @@ This project aims to manage the capstone processes and make the student and facu
 - Git
 
 ### Developers
-- Bello, Thom Carlo
-- Macatol, Ericka Jane
-- Manalo, Neil Lawrence
+<img src="https://github.com/TcBello/CapMS/blob/master/pictures/Bello.JPG" width="300" height="300">
+#### Bello, Thom Carlo
+#### Responsibilities
+- Project Assistant Leader
+- Lead Frontend and Backend Programmer
+- Manuscript Writer
+- Manager of the system development
+- UI/UX Designer
+
+#### Macatol, Ericka Jane
+#### Responsibilities
+- Project Leader
+- Manuscript Writer
+- System Tester
+- Quality Assurance
+- Graphic Artist
+- UI/UX Designer
+
+#### Manalo, Neil Lawrence
+#### Responsibilities
+- Project Assistant Leader
+- Frontend and Backend Programmer
+- Manuscript Writer
+- Manager of the system development
+- UI/UX Designer
 
 ### Screenshot
 <table>
