@@ -37,6 +37,8 @@ This project aims to manage the capstone processes and make the student and facu
 - Manager of the system development
 - UI/UX Designer
 
+<img src="https://github.com/TcBello/CapMS/blob/master/pictures/Macatol.png" width="150" height="150">
+
 #### Macatol, Ericka Jane
 #### Responsibilities
 - Project Leader
@@ -45,6 +47,8 @@ This project aims to manage the capstone processes and make the student and facu
 - Quality Assurance
 - Graphic Artist
 - UI/UX Designer
+
+<img src="https://github.com/TcBello/CapMS/blob/master/pictures/Bello.JPG" width="150" height="150">
 
 #### Manalo, Neil Lawrence
 #### Responsibilities
@@ -57,6 +61,6 @@ This project aims to manage the capstone processes and make the student and facu
 ### Screenshot
 <table>
     <tr>
-        <td><img src="https://github.com/TcBello/CapMS/blob/master/screenshots/Screenshot1.png"></td>
+        <td><img src="https://github.com/TcBello/CapMS/blob/master/pictures/Manalo.png"></td>
     </tr>
 </table>
