@@ -27,7 +27,8 @@ This project aims to manage the capstone processes and make the student and facu
 - Git
 
 ### Developers
-<img src="https://github.com/TcBello/CapMS/blob/master/pictures/Bello.JPG" width="300" height="300">
+<img src="https://github.com/TcBello/CapMS/blob/master/pictures/Bello.JPG" width="150" height="150">
+
 #### Bello, Thom Carlo
 #### Responsibilities
 - Project Assistant Leader
