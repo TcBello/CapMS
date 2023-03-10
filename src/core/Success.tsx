@@ -11,6 +11,8 @@ const AddFileMessage = "File has been added";
 const ApproveTopicMessage = "Topic has been approved";
 const DenyTopicMessage = "Topic has been denied";
 const DeleteFileMessage = "File has been deleted";
+const ApproveFileMessage = "File has been approved";
+const UnapproveFileMessage = "File has been unapproved";
 
 export {
     CreateAccountMessage,
@@ -25,5 +27,7 @@ export {
     AddFileMessage,
     ApproveTopicMessage,
     DenyTopicMessage,
-    DeleteFileMessage
+    DeleteFileMessage,
+    ApproveFileMessage,
+    UnapproveFileMessage
 };

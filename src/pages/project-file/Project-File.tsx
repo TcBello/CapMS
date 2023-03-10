@@ -2,14 +2,14 @@ import { IonBackButton, IonButton, IonContent, IonFab, IonFabButton, IonHeader, 
 import { Component, useEffect, useState } from "react";
 import "./Project-File.css";
 import "../../core/components/Spacer.css";
-import { add, arrowBack, closeCircle, document } from "ionicons/icons";
+import { add, arrowBack, checkmarkCircle, closeCircle, document, trash } from "ionicons/icons";
 import { MobileArrowBackAppBar } from "../../core/components/Mobile-Appbar";
-import { approveTopic, deleteProjectFile, denyTopic, getProjectFiles } from "../../core/services/user_service";
+import { approveProjectFile, approveTopic, deleteProjectFile, denyTopic, getProjectFiles, unapproveProjectFile } from "../../core/services/user_service";
 import ProjectFileModel from "../../core/models/project_file_model";
 import { getStorageData, openNewTab, replacePage, showToast } from "../../core/Utils";
 import ProjectModel from "../../core/models/project_model";
 import UserModel from "../../core/models/user_model";
-import { ApproveTopicMessage, DeleteFileMessage, DenyTopicMessage } from "../../core/Success";
+import { ApproveFileMessage, ApproveTopicMessage, DeleteFileMessage, DenyTopicMessage, UnapproveFileMessage } from "../../core/Success";
 import Loading from "../../core/components/Loading";
 import { SomethingWrongError } from "../../core/Errors";
 import TeamModel from "../../core/models/team_model";
@@ -59,6 +59,30 @@ const ProjectFile = (props: any) => {
         }
     }
 
+    async function approveFile(id: string){
+        const result = await approveProjectFile(id);
+
+        if(result){
+            showToast(toast, ApproveFileMessage);
+            getFiles();
+        }
+        else{
+            showToast(toast, SomethingWrongError);
+        }
+    }
+
+    async function unapproveFile(id: string){
+        const result = await unapproveProjectFile(id);
+
+        if(result){
+            showToast(toast, UnapproveFileMessage);
+            getFiles();
+        }
+        else{
+            showToast(toast, SomethingWrongError);
+        }
+    }
+
     useEffect(() => {
         getFiles();
     }, []);
@@ -79,11 +103,31 @@ const ProjectFile = (props: any) => {
                         <IonItem className="project-file-item" lines="none" button onClick={() => {openFile(file.gDocLink)}}>
                             <IonIcon icon={document} slot="start" />
                             <IonLabel>{file.fileName}</IonLabel>
-                            <IonImg src="/assets/images/approved.png" slot="end" className="project-file-approve-icon" />
+                            {
+                                file.status == "approved"
+                                    ? <IonImg src="/assets/images/approved.png" slot="end" className="project-file-approve-icon" />
+                                    : <div />
+                            }
                         </IonItem>
+                        {/* APPROVE FILE BUTTON */}
+                        {
+                            userModel.role == "Faculty"
+                                ? <IonButton fill="clear" onClick={() => {
+                                    if(file.status == "approved"){
+                                        unapproveFile(file.uid);
+                                        console.log("unapprove");
+                                    }
+                                    else{
+                                        approveFile(file.uid);
+                                    }
+                                }}>
+                                    <IonIcon icon={file.status == "approved" ? closeCircle : checkmarkCircle} className={file.status == "approved" ? "project-file-unapprove-file-icon" : "project-file-approve-file-icon"} />
+                                </IonButton>
+                                : <div></div>
+                        }
                         {/* DELETE BUTTON */}
                         <IonButton fill="clear" onClick={() => deleteFile(file.uid)}>
-                            <IonIcon icon={closeCircle} className="delete-file-icon" />
+                            <IonIcon icon={trash} className="delete-file-icon" />
                         </IonButton>
                     </div>
                 })}

@@ -58,3 +58,20 @@
     height: 40px;
     width: 40px;
 }
+
+.project-file-approve-file-icon{
+    color: var(--palette-green);
+    width: 25px;
+    height: 25px;
+}
+
+.project-file-unapprove-file-icon{
+    color: var(--palette-red);
+    width: 25px;
+    height: 25px;
+}
+
+.approve-label{
+    color: white;
+    font-weight: bold;
+}

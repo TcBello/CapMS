@@ -146,6 +146,7 @@ async function addProjectFile(projectId: string, name: string, gDocLink: string)
             project_id: projectId,
             name: name,
             gDocLink: gDocLink,
+            status: "",
             created_at: Timestamp.now()
         });
 
@@ -444,6 +445,50 @@ async function getProjectName(id: string){
     }
 }
 
+async function approveProjectFile(id: string){
+    try{
+        const fileQuery = query(
+            fileCollection,
+            where("uid", "==", id)
+        );
+    
+        const snapshot = await getDocs(fileQuery);
+
+        await updateDoc(snapshot.docs[0].ref, {
+            status: "approved"
+        });
+
+        return true;
+    }
+    catch(e){
+        console.log(e);
+    }
+
+    return false;
+}
+
+async function unapproveProjectFile(id: string){
+    try{
+        const fileQuery = query(
+            fileCollection,
+            where("uid", "==", id)
+        );
+    
+        const snapshot = await getDocs(fileQuery);
+
+        await updateDoc(snapshot.docs[0].ref, {
+            status: ""
+        });
+
+        return true;
+    }
+    catch(e){
+        console.log(e);
+    }
+
+    return false;
+}
+
 export {
     getMyTeam,
     proposeTopic,
@@ -454,5 +499,7 @@ export {
     denyTopic,
     getAdvisees,
     deleteProjectFile,
-    getProjectName
+    getProjectName,
+    approveProjectFile,
+    unapproveProjectFile
 };
