@@ -1,8 +1,13 @@
 .content-header-container{
     background-color: var(--palette-light-red);
     text-align: center;
+    height: 80px;
 }
 
-.content-header-container h1{
+.content-header-container p{
     color: white;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 1.5%;
+    margin-bottom: 1%;
 }
