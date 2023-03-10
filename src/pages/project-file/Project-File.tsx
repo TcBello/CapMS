@@ -15,7 +15,7 @@ import { SomethingWrongError } from "../../core/Errors";
 import TeamModel from "../../core/models/team_model";
 
 const ProjectFile = (props: any) => {
-    const title: string = `${props.match.params.name}'s Files`;
+    const title: string = `${props.match.params.name} Files`;
     const projectName = props.match.params.name;
 
     const [files, setFiles] = useState<ProjectFileModel[]>([]);
