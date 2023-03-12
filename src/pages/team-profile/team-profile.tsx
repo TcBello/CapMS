@@ -5,7 +5,7 @@ import "../../core/components/Spacer.css";
 import { person, mail, school, call } from "ionicons/icons";
 import ContentHeader from "../../core/components/ContentHeader";
 import { useMediaQuery } from "react-responsive";
-import { defaultImage, getStorageData, replacePage, showToast, webWidth } from "../../core/Utils";
+import { defaultImage, getStorageData, goPage, replacePage, showToast, webWidth } from "../../core/Utils";
 import { MobileArrowBackAppBar, MobileMenuAppBar } from "../../core/components/Mobile-Appbar";
 import UserModel, { setUserModel } from "../../core/models/user_model";
 import { deleteAccount, deleteTeam, getAdminProfile } from "../../core/services/admin_service";
@@ -15,6 +15,7 @@ import Loading from "../../core/components/Loading";
 import TeamModel, { setTeamModel } from "../../core/models/team_model";
 import { DeleteTeamMessage } from "../../core/Success";
 import { SomethingWrongError } from "../../core/Errors";
+import { getProjectName } from "../../core/services/user_service";
 
 const TeamProfile = () => {
     const [loading, setLoading] = useState(false);
@@ -44,6 +45,17 @@ const TeamProfile = () => {
         }
         else{
             setLoading(false);
+            showToast(toast, SomethingWrongError);
+        }
+    }
+
+    async function viewFiles(){
+        const projectName = await getProjectName(teamModel.projectId);
+
+        if(projectName != null){
+            goPage(`/${projectName}/files/admin`);
+        }
+        else{
             showToast(toast, SomethingWrongError);
         }
     }
@@ -108,6 +120,9 @@ const TeamProfile = () => {
                         {/* NAME */}
                         <h2 className="subtext">{team.members[3].firstName} {team.members[3].lastName}</h2>
                         <div className="spacer-h-m" />
+                        {/* VIEW FILES BUTTON */}
+                        <IonButton shape="round" className="advisee-profile-button" onClick={viewFiles}>View Files</IonButton>
+                        <div className="spacer-h-s" />
                         {/* LOGIN BUTTON */}
                         <IonButton shape="round" className="btn-delete-team" onClick={() => removeTeam(team.uid)}>Delete Team</IonButton>
 

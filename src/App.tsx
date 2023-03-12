@@ -35,7 +35,7 @@ import TeamProfile from './pages/team-profile/team-profile';
 import AddFile from './pages/add-files/add-files';
 import EditAnnouncement from './pages/edit-announcement/Edit-Announcement';
 import AdviseeProfile from './pages/advisee-profile/Advisee-Profile';
-import { ProjectFile, ProjectFileApprover } from './pages/project-file/Project-File';
+import { ProjectFile, ProjectFileAdmin, ProjectFileApprover } from './pages/project-file/Project-File';
 import { useEffect } from 'react';
 import WebFont from 'webfontloader';
 import "./theme/theme.css";
@@ -87,7 +87,7 @@ const App: React.FC = () => {
           <Route path="/home/admin/announcements/edit" component={EditAnnouncement} />
           <Route path="/home/faculty/my-advisees/profile" component={AdviseeProfile} />
           <Route path="/:name/files/approver" component={ProjectFileApprover}/>
-
+          <Route path="/:name/files/admin" component={ProjectFileAdmin}/>
           
         </IonRouterOutlet>
       </IonReactRouter>

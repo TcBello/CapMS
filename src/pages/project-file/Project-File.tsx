@@ -143,7 +143,7 @@ const ProjectFile = (props: any) => {
 }
 
 const ProjectFileApprover = (props: any) => {
-    const title: string = `${props.match.params.name}'s Files`;
+    const title: string = `${props.match.params.name} Files`;
     const projectName = props.match.params.name;
     const [loading, setLoading] = useState(false);
 
@@ -213,4 +213,62 @@ const ProjectFileApprover = (props: any) => {
     }
 }
 
-export { ProjectFile, ProjectFileApprover };
+const ProjectFileAdmin = (props: any) => {
+    const title: string = `${props.match.params.name} Files`;
+    const projectName = props.match.params.name;
+
+    const [files, setFiles] = useState<ProjectFileModel[]>([]);
+
+    const userStorageData = getStorageData("user");
+    const userModel = (JSON.parse(userStorageData!)) as UserModel;
+    const storageData = getStorageData("team");
+    const teamModel = (JSON.parse(storageData!)) as TeamModel;
+
+    const [toast] = useIonToast();
+
+    function getFiles(){
+        if(teamModel != null){
+            getProjectFiles(teamModel.projectId).then((value: any) => {
+                setFiles(value as ProjectFileModel[]);
+            });
+        }
+    }
+
+    function openFile(url: string){
+        openNewTab(url);
+    }
+
+    useEffect(() => {
+        getFiles();
+    }, []);
+
+    return (
+        <IonPage>
+            {/* APPBAR */}
+            <MobileArrowBackAppBar
+                title={title}
+                href="/home/admin/teams/profile"
+            />
+            {/* CONTENT */}
+            <IonContent>
+                {/* FILE ITEMS */}
+                {files.map((file, index) => {
+                    return <div className="project-file-container">
+                        {/* FILE */}
+                        <IonItem className="project-file-item" lines="none" button onClick={() => {openFile(file.gDocLink)}}>
+                            <IonIcon icon={document} slot="start" />
+                            <IonLabel>{file.fileName}</IonLabel>
+                            {
+                                file.status == "approved"
+                                    ? <IonImg src="/assets/images/approved.png" slot="end" className="project-file-approve-icon" />
+                                    : <div />
+                            }
+                        </IonItem>
+                    </div>
+                })}
+            </IonContent>
+        </IonPage>
+    );
+}
+
+export { ProjectFile, ProjectFileApprover, ProjectFileAdmin };
