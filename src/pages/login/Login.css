@@ -8,13 +8,18 @@ ion-toast.custom-toast {
     color: white;
 }
 
-h1{
+.capms-title{
     z-index: 1;
     font-weight: bold;
-    font-size: 64px;
+    font-size: 30px;
+    text-align: center;
 }
 
-h1 span{
+.capms-title span{
+    color: var(--palette-red);
+}
+
+.cap-text span{
     color: var(--palette-red);
 }
 
@@ -43,11 +48,16 @@ h1 span{
 .login-card{
     border-radius: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 50%;
-    padding-bottom: 50px;
+    width: 60%;
+    /* padding-bottom: 50px; */
+    padding: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .login-card-mobile{
@@ -56,8 +66,8 @@ h1 span{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 90%;
-    padding-bottom: 50px;
+    width: auto;
+    padding: 25px;
 }
 
 .login-header{
@@ -107,17 +117,17 @@ h1 span{
 }
 
 .login-container-mobile{
-    background-color: white;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: -1;
+    z-index: 1;
 }
 
 .cap-text{
     color: white;
+    font-size: 50px;
 }
 
 .login-logo-container{
@@ -129,4 +139,30 @@ h1 span{
 .login-logos{
     height: 100px;
     width: 100px;
+}
+
+.login-logo-with-title-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-divider{
+    height: 40vh;
+    width: 1px;
+    background-color: black;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.test{
+    z-index: 5;
+    color: white;
 }

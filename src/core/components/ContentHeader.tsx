@@ -9,7 +9,7 @@ class ContentHeader extends Component<{title: string},{}>{
     render(){
         return (
             <div className="content-header-container">
-                <h1>{this.props.title}</h1>
+                <p>{this.props.title}</p>
             </div>
         );
     }

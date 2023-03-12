@@ -15,3 +15,11 @@
     height: 100px;
     width: 100px;
 }
+
+.loading-text{
+    font-size: 64px;
+}
+
+.loading-text span{
+    color: var(--palette-red);
+}

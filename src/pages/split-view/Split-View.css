@@ -1,3 +1,4 @@
 .split-view{
     --border: 8px solid white;
+    --side-max-width: 20%;
 }

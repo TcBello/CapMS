@@ -124,7 +124,7 @@ const AdviseeProfile = () => {
                         <div className="spacer-h-s" />
                         {/* MEET BUTTON */}
                         <IonButton shape="round" className="advisee-profile-button" onClick={() => {goToGoogleMeet(team.teamName)}}>Go to Meet</IonButton>
-                        <p><b>Note:</b> Use BatState-u's G-suite account</p>
+                        <p><b>Note:</b> Use Google Workspace Account</p>
                     </IonList>
                 </div>
             </IonContent>
