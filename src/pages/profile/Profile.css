@@ -1,6 +1,6 @@
-.profile-content{
+/* .profile-content{
     --background: var(--palette-light-orange);
-}
+} */
 
 .profile-content-mobile{
     --background: white;
@@ -13,6 +13,7 @@
     position: absolute;
     top: 50%; right: 50%;
     transform: translate(50%,-50%);
+    box-shadow: 0px 0px 8px 1px grey;
 }
 
 .profile-container .colorHeader{
