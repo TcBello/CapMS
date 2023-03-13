@@ -1,5 +1,4 @@
 .student-content{
-    --background: var(--palette-light-orange);
     --padding-bottom: 80px;
   }
   
@@ -17,7 +16,7 @@
 }
 
 .student-container{
-    background-color: var(--palette-light-orange);
+    background-color: white;
     display: flex;
     flex-wrap: wrap;
     width: 100%;

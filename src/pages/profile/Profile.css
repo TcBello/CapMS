@@ -1,6 +1,6 @@
-/* .profile-content{
-    --background: var(--palette-light-orange);
-} */
+.profile-content{
+    --background: white;
+}
 
 .profile-content-mobile{
     --background: white;
