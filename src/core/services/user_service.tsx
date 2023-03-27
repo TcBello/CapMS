@@ -220,7 +220,7 @@ async function getProjectFiles(projectId: string){
     }
 }
 
-async function approveTopic(projectId: string, teamId: string, userModel: UserModel){
+async function approveTopic(projectId: string, projectName: string, teamId: string, userModel: UserModel){
     try{
         const userQuery = query(
             userCollection,
@@ -272,6 +272,7 @@ async function approveTopic(projectId: string, teamId: string, userModel: UserMo
                         image: member['image'],
                         role: member['role'],
                         status: member['status'],
+                        responsibilities: member['responsibilities']
                     })
                 });
             });
@@ -281,6 +282,7 @@ async function approveTopic(projectId: string, teamId: string, userModel: UserMo
             // UPDATE TEAM DOC
             await updateDoc(teamRef, {
                 project_id: projectId,
+                project_title: projectName,
                 members: [
                     {
                         uid: teamMembers[0].uid,
@@ -290,7 +292,8 @@ async function approveTopic(projectId: string, teamId: string, userModel: UserMo
                         course: teamMembers[0].course,
                         sr_code: teamMembers[0].srCode,
                         image: teamMembers[0].image,
-                        role: teamMembers[0].role
+                        role: teamMembers[0].role,
+                        responsibilities: teamMembers[0].responsibilities
                     },
                     {
                         uid: teamMembers[1].uid,
@@ -300,7 +303,8 @@ async function approveTopic(projectId: string, teamId: string, userModel: UserMo
                         course: teamMembers[1].course,
                         sr_code: teamMembers[1].srCode,
                         image: teamMembers[1].image,
-                        role: teamMembers[1].role
+                        role: teamMembers[1].role,
+                        responsibilities: teamMembers[1].responsibilities
                     },
                     {
                         uid: teamMembers[2].uid,
@@ -310,7 +314,8 @@ async function approveTopic(projectId: string, teamId: string, userModel: UserMo
                         course: teamMembers[2].course,
                         sr_code: teamMembers[2].srCode,
                         image: teamMembers[2].image,
-                        role: teamMembers[2].role
+                        role: teamMembers[2].role,
+                        responsibilities: teamMembers[2].responsibilities
                     },
                     {
                         uid: teamMembers[3].uid,

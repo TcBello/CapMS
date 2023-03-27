@@ -119,12 +119,14 @@ const TeamProfile = () => {
                         </IonAvatar>
                         {/* NAME */}
                         <h2 className="subtext">{team.members[3].firstName} {team.members[3].lastName}</h2>
-                        <div className="spacer-h-m" />
-                        {/* VIEW FILES BUTTON */}
-                        <IonButton shape="round" className="advisee-profile-button" onClick={viewFiles}>View Files</IonButton>
-                        <div className="spacer-h-s" />
-                        {/* LOGIN BUTTON */}
-                        <IonButton shape="round" className="btn-delete-team" onClick={() => removeTeam(team.uid)}>Delete Team</IonButton>
+                        <div className="teamprofile-center">
+                            <div className="spacer-h-m" />
+                            {/* VIEW FILES BUTTON */}
+                            <IonButton shape="round" className="advisee-profile-button" onClick={viewFiles}>View Files</IonButton>
+                            <div className="spacer-h-s" />
+                            {/* LOGIN BUTTON */}
+                            <IonButton shape="round" className="btn-delete-team" onClick={() => removeTeam(team.uid)}>Delete Team</IonButton>
+                        </div>
 
 
                     </IonList>

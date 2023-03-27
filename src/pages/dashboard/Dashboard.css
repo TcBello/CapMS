@@ -32,6 +32,7 @@
     align-items: center;
     padding-left: 15px;
     padding-right: 15px;
+    border-radius: 10px;
 }
 
 .dashboard-school-year-card-mobile{
@@ -43,6 +44,7 @@
     align-items: center;
     padding-left: 15px;
     padding-right: 15px;
+    border-radius: 10px;
 }
 
 .dashboard-daily-visit-card{
@@ -51,6 +53,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
 }
 
 .dashboard-title{
@@ -93,14 +96,17 @@
     flex-direction: column;
     justify-content: center;
     height: 300px;
+    border-radius: 10px;
 }
 
 .dashboard-total-user-card{
     width: auto;
+    border-radius: 10px;
 }
 
 .dashboard-total-user-card-mobile{
     width: 350px;
+    border-radius: 10px;
 }
 
 .testing{

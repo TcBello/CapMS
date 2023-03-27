@@ -163,7 +163,7 @@ const ProjectFileApprover = (props: any) => {
     async function approve(){
 
         setLoading(true);
-        await approveTopic(projectModel.uid, projectModel.teamId, userModel);
+        await approveTopic(projectModel.uid, projectModel.title, projectModel.teamId, userModel);
         setLoading(false);
         showToast(toast, ApproveTopicMessage);
         replacePage("split-view-faculty");
