@@ -67,7 +67,7 @@ const AdviseeProfile = () => {
 
         return <IonPage>
             {/* APP BAR */}
-            <MobileArrowBackAppBar title="My Advisees" href="split-view-faculty" />
+            <MobileArrowBackAppBar title="My Advisees" href="split-view-faculty/my-advisees" />
             {/* CONTENT */}
             <IonContent>
                 <div className="teamprofile-center">
@@ -119,12 +119,14 @@ const AdviseeProfile = () => {
                         {/* NAME */}
                         <h2 className="subtext">{team.members[3].firstName} {team.members[3].lastName}</h2>
                         <div className="spacer-h-m" />
-                        {/* VIEW FILES BUTTON */}
-                        <IonButton shape="round" className="advisee-profile-button" onClick={viewFiles}>View Files</IonButton>
-                        <div className="spacer-h-s" />
-                        {/* MEET BUTTON */}
-                        <IonButton shape="round" className="advisee-profile-button" onClick={() => {goToGoogleMeet(team.teamName)}}>Go to Meet</IonButton>
-                        <p><b>Note:</b> Use Google Workspace Account</p>
+                        <div className="advisee-profile-content-center">
+                            {/* VIEW FILES BUTTON */}
+                            <IonButton shape="round" className="advisee-profile-button" onClick={viewFiles}>View Files</IonButton>
+                            <div className="spacer-h-s" />
+                            {/* MEET BUTTON */}
+                            <IonButton shape="round" className="advisee-profile-button" onClick={() => {goToGoogleMeet(team.teamName)}}>Go to Meet</IonButton>
+                            <p><b>Note:</b> Use Google Workspace Account</p>
+                        </div>
                     </IonList>
                 </div>
             </IonContent>

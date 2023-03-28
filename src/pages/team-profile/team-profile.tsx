@@ -41,7 +41,7 @@ const TeamProfile = () => {
         if(result){
             setLoading(false);
             showToast(toast, DeleteTeamMessage);
-            replacePage("split-view-admin");
+            replacePage("/split-view-admin/teams");
         }
         else{
             setLoading(false);
@@ -68,7 +68,7 @@ const TeamProfile = () => {
 
         return <IonPage>
             {/* APP BAR */}
-            <MobileArrowBackAppBar title="Team's Profile" href="split-view-admin" />
+            <MobileArrowBackAppBar title="Team's Profile" href="/split-view-admin/teams" />
             {/* CONTENT */}
             <IonContent>
                 <div className="teamprofile-center">

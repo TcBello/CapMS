@@ -38,6 +38,8 @@ const OtherProfile = (props: any) => {
         ? "/home/admin/faculty-staffs/profile/edit"
         : "/home/admin/students/profile/edit";
 
+    const backHref = isFaculty ? "/split-view-admin/faculty-staffs" : "/split-view-admin/students";
+
     const [toast] = useIonToast();
 
     async function deleteUser() {
@@ -49,7 +51,7 @@ const OtherProfile = (props: any) => {
         if (result) {
             setLoading(false);
             showToast(toast, DeleteAccountMessage);
-            replacePage("split-view-admin");
+            replacePage("/split-view-admin/students");
         }
         else {
             setLoading(false);
@@ -70,7 +72,7 @@ const OtherProfile = (props: any) => {
         return (
             <IonPage>
                 {/* APP BAR */}
-                <MobileArrowBackAppBar href="Split-view-admin" title={isFaculty ? "Faculty's Profile" : "Student's Profile"} />
+                <MobileArrowBackAppBar href={backHref} title={isFaculty ? "Faculty's Profile" : "Student's Profile"} />
                 <IonContent className={isDesktop ? "profile-content" : "profile-content-mpbile"}>
                     {
                         isDesktop

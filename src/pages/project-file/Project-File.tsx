@@ -92,7 +92,7 @@ const ProjectFile = (props: any) => {
             {/* APPBAR */}
             <MobileArrowBackAppBar
                 title={title}
-                href={userModel.role == "Student" ? "/split-view" : teamModel != null ? "/home/faculty/my-advisees/profile" : "split-view-faculty"}
+                href={userModel.role == "Student" ? "/split-view/projects" : teamModel != null ? "/home/faculty/my-advisees/profile" : "split-view-faculty/projects"}
             />
             {/* CONTENT */}
             <IonContent>
@@ -166,7 +166,7 @@ const ProjectFileApprover = (props: any) => {
         await approveTopic(projectModel.uid, projectModel.title, projectModel.teamId, userModel);
         setLoading(false);
         showToast(toast, ApproveTopicMessage);
-        replacePage("split-view-faculty");
+        replacePage("/split-view-faculty/projects");
     }
 
     async function deny(){
@@ -174,7 +174,7 @@ const ProjectFileApprover = (props: any) => {
         await denyTopic(projectModel.uid);
         setLoading(false);
         showToast(toast, DenyTopicMessage);
-        replacePage("split-view-faculty");
+        replacePage("/split-view-faculty/projects");
     }
 
     useEffect(() => {
@@ -187,7 +187,7 @@ const ProjectFileApprover = (props: any) => {
         return (
             <IonPage>
                 {/* APPBAR */}
-                <MobileArrowBackAppBar title={title} href="/split-view-faculty" />
+                <MobileArrowBackAppBar title={title} href="/split-view-faculty/projects" />
                 {/* CONTENT */}
                 <IonContent>
                     {/* FILE ITEMS */}

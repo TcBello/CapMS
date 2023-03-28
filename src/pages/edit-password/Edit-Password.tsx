@@ -26,10 +26,10 @@ const EditPassword = () => {
     const userModel = (JSON.parse(storageData!)) as UserModel;
 
     const href = userModel.role == "Student"
-        ? "split-view"
+        ? "/home/student/profile"
         : userModel.role == "Faculty"
-            ? "split-view-faculty"
-            : "split-view-admin";
+            ? "/split-view-faculty/profile"
+            : "/split-view-admin/profile";
 
     
     async function applyNewPassword() {
@@ -86,7 +86,7 @@ const EditPassword = () => {
                 </div>
                 <div className="edit-password-button-container">
                     {/* CANCEL BUTTON */}
-                    <IonButton fill="clear" className="edit-password-cancel-button" href="split-view-admin">Cancel</IonButton>
+                    <IonButton fill="clear" className="edit-password-cancel-button" href={href}>Cancel</IonButton>
                     <div className="spacer-w-xs" />
                     {/* ADD BUTTON */}
                     <IonButton className="edit-password-add-button" shape="round" onClick={applyNewPassword}>Apply</IonButton>

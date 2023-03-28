@@ -33,6 +33,8 @@ const AddAccount = (props: any) => {
     const [image, setImage] = useState(defaultImage);
     const [loading, setLoading] = useState(false);
 
+    const href = isFaculty ? "/split-view-admin/faculty-staffs" : "/split-view-admin/students";
+
     const [toast] = useIonToast();
 
     function handleChange(e: any) {
@@ -116,7 +118,7 @@ const AddAccount = (props: any) => {
     if (!loading) {
         return <IonPage>
             {/* APP BAR */}
-            <MobileArrowBackAppBar title={isFaculty ? "Add Faculty" : "Add Student"} href="split-view-admin" />
+            <MobileArrowBackAppBar title={isFaculty ? "Add Faculty" : "Add Student"} href={href} />
             {/* CONTENT */}
             <IonContent>
                 <div className="spacer-h-m" />
@@ -190,7 +192,7 @@ const AddAccount = (props: any) => {
                 <div className="spacer-h-l" />
                 <div className="add-faculty-content-right">
                     {/* CANCEL BUTTON */}
-                    <IonButton fill="clear" className="add-faculty-cancel-button" href="split-view-admin">Cancel</IonButton>
+                    <IonButton fill="clear" className="add-faculty-cancel-button" href={href}>Cancel</IonButton>
                     <div className="spacer-w-xs" />
                     {/* ADD BUTTON */}
                     <IonButton className="add-faculty-add-button" shape="round" onClick={addAccount}>Add</IonButton>

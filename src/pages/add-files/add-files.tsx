@@ -81,7 +81,7 @@ const AddFile = (props: any) => {
                     </div>
                     <div className="edit-password-button-container">
                         {/* CANCEL BUTTON */}
-                        <IonButton fill="clear" className="edit-password-cancel-button" href={userModel.role == "Student" ? "split-view" : "split-view-faculty"}>Cancel</IonButton>
+                        <IonButton fill="clear" className="edit-password-cancel-button" href={`/${projectName}/files`}>Cancel</IonButton>
                         <div className="spacer-w-xs" />
                         {/* ADD BUTTON */}
                         <IonButton className="edit-password-add-button" shape="round" onClick={addFile}>Add</IonButton>
