@@ -104,7 +104,8 @@ async function getAllStudents(){
                 srCode: data['sr_code'],
                 image: data['image'],
                 role: data['role'],
-                projects: data['projects']
+                projects: data['projects'],
+                responsibilities: data['responsibilities']
             });
         });
 
@@ -167,7 +168,8 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
                     course: firstMember.course,
                     sr_code: firstMember.srCode,
                     image: firstMember.image,
-                    role: firstMember.role
+                    role: firstMember.role,
+                    responsibilities: firstMember.responsibilities
                 },
                 {
                     uid: secondMember.uid,
@@ -177,7 +179,8 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
                     course: secondMember.course,
                     sr_code: secondMember.srCode,
                     image: secondMember.image,
-                    role: secondMember.role
+                    role: secondMember.role,
+                    responsibilities: secondMember.responsibilities
                 },
                 {
                     uid: thirdMember.uid,
@@ -187,7 +190,8 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
                     course: thirdMember.course,
                     sr_code: thirdMember.srCode,
                     image: thirdMember.image,
-                    role: thirdMember.role
+                    role: thirdMember.role,
+                    responsibilities: thirdMember.responsibilities
                 },
                 {
                     uid: "",
@@ -203,7 +207,8 @@ async function createTeam(teamName: string, firstMember: UserModel, secondMember
             ],
             created_at: Timestamp.now(),
             uid: "",
-            project_id: ""
+            project_id: "",
+            project_title: ""
         });
 
         const teamDoc = doc(db, "teams", docRef.id);
@@ -416,7 +421,7 @@ async function updateUserAccount(userModel: UserModel){
             last_name: userModel.lastName,
             email: userModel.email,
             course: userModel.course,
-            sr_code: userModel.srCode
+            sr_code: userModel.srCode,
         });
 
         return true;

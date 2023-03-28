@@ -99,7 +99,7 @@ const AddTeam = () => {
         removeStorageData("first-member");
         removeStorageData("second-member");
         removeStorageData("third-member");
-        replacePage("split-view-admin");
+        replacePage("/split-view-admin/teams");
     }
 
     useEffect(() => {
@@ -124,7 +124,7 @@ const AddTeam = () => {
     if(!loading){
         return <IonPage>
         {/* APP BAR */}
-        <MobileArrowBackAppBar title="Add Team" href="/split-view-admin" />
+        <MobileArrowBackAppBar title="Add Team" href="/split-view-admin/teams" />
         {/* CONTENT */}
         <IonContent>
             {/* 1ST MEMBER */}

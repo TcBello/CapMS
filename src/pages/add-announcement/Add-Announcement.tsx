@@ -57,7 +57,7 @@ const AddAnnouncement = () => {
     if(!loading){
         return <IonPage>
         {/* APP BAR */}
-        <MobileArrowBackAppBar title="Add Announcement" href="split-view-admin"/>
+        <MobileArrowBackAppBar title="Add Announcement" href="/split-view-admin/announcements"/>
         <IonContent>
             <div className="add-announcement-container">
                 <div className={isDesktop ? "add-announcement-content-left" : "add-announcement-content-center"}>
@@ -74,7 +74,7 @@ const AddAnnouncement = () => {
                 </div>
                 <div className="add-announcement-button-container">
                     {/* CANCEL BUTTON */}
-                    <IonButton fill="clear" className="add-announcement-cancel-button" href="split-view-admin">Cancel</IonButton>
+                    <IonButton fill="clear" className="add-announcement-cancel-button" href="/split-view-admin/announcements">Cancel</IonButton>
                     <div className="spacer-w-xs" />
                     {/* ADD BUTTON */}
                     <IonButton className="add-announcement-add-button" shape="round" onClick={addAnnouncement}>Add</IonButton>

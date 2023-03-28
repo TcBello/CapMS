@@ -70,7 +70,7 @@ const Profile = () => {
                                         <img src={userModel.image} />
                                     </IonAvatar>
                                     {/* EDIT BUTTON */}
-                                    <IonButton className="edit-button" href="/home/admin/profile/edit-password">Edit Password</IonButton>
+                                    <IonButton className="edit-button" href={`/home/${userModel.role}/profile/edit-password`}>Edit Password</IonButton>
                                 </div>
                             </div>
                         </div>

@@ -38,7 +38,7 @@ const ProposeTopic = () => {
 
     function cancel(){
         removeStorageData("preffered-adviser");
-        replacePage("split-view");
+        replacePage("/split-view/projects");
     }
 
     async function submitProposal(){
@@ -76,7 +76,7 @@ const ProposeTopic = () => {
     if(!loading) {
         return <IonPage>
         {/* APP BAR */}
-        <MobileArrowBackAppBar title="Propose a Topic" href="/split-view" />
+        <MobileArrowBackAppBar title="Propose a Topic" href="/split-view/projects" />
         {/* CONTENT */}
         <IonContent className="propose-topic-container">
             {/* PREFERRED ADVISER */}

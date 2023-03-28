@@ -39,6 +39,8 @@ import { ProjectFile, ProjectFileAdmin, ProjectFileApprover } from './pages/proj
 import { useEffect } from 'react';
 import WebFont from 'webfontloader';
 import "./theme/theme.css";
+import Menu from './core/components/Menu';
+import { Home } from './pages/home/Home';
 
 
 setupIonicReact();
@@ -60,18 +62,12 @@ const App: React.FC = () => {
             <Redirect to="/login"/>
           </Route>
           <Route path="/login" component={Login}></Route>
-          <Route path="/split-view" exact={true} component={SplitView} />
-          <Route path="/split-view-faculty" exact={true} component={SplitViewFaculty} />
-          <Route path="/split-view-admin" exact={true} component={SplitViewAdmin} />
-          <Route path="/home/student/:name" exact={true}>
-            <Redirect to="/split-view"/>
-          </Route>
-          <Route path="/home/faculty/:name" exact={true}>
-            <Redirect to="/split-view-faculty"/>
-          </Route>
-          <Route path="/home/admin/:name" exact={true}>
-            <Redirect to="/split-view-admin"/>
-          </Route>
+          <Route path="/split-view/:name" exact={true} component={SplitView} />
+          <Route path="/split-view-faculty/:name" exact={true} component={SplitViewFaculty} />
+          <Route path="/split-view-admin/:name" exact={true} component={SplitViewAdmin} />
+          <Route path="/home/student/:name" exact={true} component={SplitView} />
+          <Route path="/home/faculty/:name" exact={true} component={SplitViewFaculty} />
+          <Route path="/home/admin/:name" exact={true} component={SplitViewAdmin} />
           <Route path="/:name/files" component={ProjectFile}/>
           <Route path="/projects/propose-topic" component={ProposeTopic}/>
           <Route path="/projects/propose-topic/select-adviser/:number" component={Adviser}/>
@@ -79,7 +75,7 @@ const App: React.FC = () => {
           <Route path="/home/admin/teams/add" component={AddTeam} />
           <Route path="/home/admin/teams/add/select-a-student/:memberNumber" component={SelectStudent} />
           <Route path="/home/admin/announcements/add" component={AddAnnouncement} />
-          <Route path="/home/admin/profile/edit-password" component={EditPassword} />
+          <Route path="/home/:role/profile/edit-password" component={EditPassword} />
           <Route path="/home/admin/:role/profile" component={OtherProfile} /> 
           <Route path="/home/admin/:role/profile/edit" component={EditProfile} />
           <Route path="/home/admin/teams/profile" component={TeamProfile} />

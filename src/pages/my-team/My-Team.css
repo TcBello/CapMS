@@ -88,3 +88,39 @@
     font-weight: bold;
     font-size: 28px;
 }
+
+@media only screen and (max-width: 1200px) {
+    .my-team-member-item-container .name{
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 0px;
+    }
+    .my-team-member-item-container .role{
+        color: grey;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 0px;
+    }
+    .my-team-member-item-container .responsibilities{
+        font-size: 15px;
+        line-height: 0px;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .my-team-member-item-container .name{
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 0px;
+    }
+    .my-team-member-item-container .role{
+        color: grey;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 0px;
+    }
+    .my-team-member-item-container .responsibilities{
+        font-size: 14px;
+        line-height: 0px;
+    }
+}
