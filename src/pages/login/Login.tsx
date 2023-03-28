@@ -8,7 +8,7 @@ import "./Login.css";
 import { goPage, replacePage, setStorageData, showToast, webWidth } from "../../core/Utils";
 import { LoginInvalidCredentialError } from "../../core/Errors";
 import { useDispatch, useSelector } from "react-redux";
-import { authenticate, loginWithEmailAndPassword, logout } from "../../core/services/auth_service";
+import { authenticate, loginWithEmailAndPassword, logout, updateSchoolYear } from "../../core/services/auth_service";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../core/firebase-setup/firebase-setup";
 import UserModel from "../../core/models/user_model";
@@ -121,6 +121,10 @@ const Login = () => {
     const [isAuthenticateOnce, setAuthenticate] = useState(false);
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        updateSchoolYear();
+    }, []);
 
     async function LoginUser(){
         await loginWithEmailAndPassword(dispatch, email, password, toast);

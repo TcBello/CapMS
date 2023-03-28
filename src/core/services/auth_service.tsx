@@ -192,11 +192,37 @@ async function changePassword(newPassword: string){
     return false;
 }
 
+async function updateSchoolYear(){
+    try{
+        var dashboardDoc = await (await getDocs(dashboardCollection)).docs[0];
+
+        const currentSchoolYear: string = dashboardDoc.data()['school_year'];
+
+        const b: string[] = currentSchoolYear.split(" ");
+        const c: string[] = b[1].split("-");
+
+        const newSchoolYear = `S.Y. ${parseInt(c[0]) + 1} - ${parseInt(c[1]) + 1}`;
+
+        const currentMonth: number = Timestamp.now().toDate().getMonth() + 1;
+        const currentDay: number = Timestamp.now().toDate().getDate();
+
+        if(currentMonth == 8 && currentDay == 15){
+            updateDoc(dashboardDoc.ref, {
+                school_year: newSchoolYear
+            });
+        }
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
 export {
     registerWithEmailAndPassword,
     loginWithEmailAndPassword,
     authenticate,
     logout,
     initUser,
-    changePassword
+    changePassword,
+    updateSchoolYear
 };
