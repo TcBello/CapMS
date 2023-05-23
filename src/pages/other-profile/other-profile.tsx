@@ -51,7 +51,7 @@ const OtherProfile = (props: any) => {
         if (result) {
             setLoading(false);
             showToast(toast, DeleteAccountMessage);
-            replacePage("/split-view-admin/students");
+            replacePage(backHref);
         }
         else {
             setLoading(false);
