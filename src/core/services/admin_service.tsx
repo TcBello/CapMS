@@ -17,6 +17,8 @@ const announcementCollection = collection(db, "announcements");
 const dashboardCollection = collection(db, "dashboard");
 const projectCollection = collection(db, "projects");
 
+const url = "https://cap-ms-firebase-admin-server.vercel.app";
+
 function avatarStorage(filename: string){
     return ref(storage, `/avatars/${filename}`);
 }
@@ -451,11 +453,28 @@ async function deleteAccount(uid: string){
         });
 
         if(docRef != null){
-            // DELETE DOC
-            await deleteDoc(docRef);
-        }
+            // DELETE ACCOUNT
+            await fetch(
+                `${url}/delete/${uid}`,
+                // `http://localhost:5000/delete/${uid}`,
+                { method: 'GET' }
+            )
+             .then(async res => {
+                var data = await res.json();
+                
+                if(res.status == 200){
+                    // DELETE DOC
+                    await deleteDoc(docRef);
+                }
 
-        return true;
+                console.log(data.message);
+             })
+             .catch(e => {
+                 console.log(e.message);
+             });
+
+             return true;
+        }
     }
     catch(e){
         console.log(e);
